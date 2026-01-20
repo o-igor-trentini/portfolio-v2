@@ -5,7 +5,21 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
+    base: '/', // Use '/' para domínio customizado, ou '/nome-do-repo/' para GitHub Pages padrão
     plugins: [react(), tsconfigPaths()],
+    build: {
+        outDir: 'dist',
+        assetsDir: 'assets',
+        sourcemap: false,
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom'],
+                    motion: ['motion'],
+                },
+            },
+        },
+    },
     server: {
         open: false,
         host: true,
