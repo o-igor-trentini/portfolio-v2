@@ -1,5 +1,3 @@
-'use client';
-
 import type { CSSProperties } from 'react';
 import { Toaster as Sonner } from 'sonner';
 import type { ToasterProps } from 'sonner';
