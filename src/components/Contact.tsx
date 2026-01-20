@@ -1,6 +1,6 @@
 import { Send, Github, Linkedin, Mail, MessageSquare } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { toast } from 'sonner';
 import { GitHubWidget } from './GitHubWidget';
 import { SpotifyWidget } from './SpotifyWidget';
@@ -20,7 +20,7 @@ export function Contact() {
         message: '',
     });
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 

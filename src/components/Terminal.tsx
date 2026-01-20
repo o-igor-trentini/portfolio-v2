@@ -1,6 +1,6 @@
 import { X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Button } from './ui/button';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
@@ -69,7 +69,7 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
         setHistory([...history, { command: cmd, output }]);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (input.trim()) {
             executeCommand(input);

@@ -1,6 +1,6 @@
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Button } from './ui/button';
 
@@ -126,7 +126,7 @@ export function ImageGallery({ images, color }: ImageGalleryProps) {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={(e: React.MouseEvent) => {
+                                    onClick={(e: MouseEvent) => {
                                         e.stopPropagation();
                                         goToPrevious();
                                     }}
@@ -137,7 +137,7 @@ export function ImageGallery({ images, color }: ImageGalleryProps) {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    onClick={(e: React.MouseEvent) => {
+                                    onClick={(e: MouseEvent) => {
                                         e.stopPropagation();
                                         goToNext();
                                     }}
