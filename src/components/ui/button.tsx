@@ -31,7 +31,7 @@ const buttonVariants = cva(
     },
 );
 
-function Button({
+const Button = ({
     className,
     variant,
     size,
@@ -40,11 +40,11 @@ function Button({
 }: ComponentProps<'button'> &
     VariantProps<typeof buttonVariants> & {
         asChild?: boolean;
-    }) {
+    }) => {
     const Comp = asChild ? Slot : 'button';
 
     return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
-}
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };

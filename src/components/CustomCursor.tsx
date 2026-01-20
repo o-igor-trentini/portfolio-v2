@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 
-export function CustomCursor() {
+export const CustomCursor = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
 
@@ -55,4 +55,4 @@ export function CustomCursor() {
             />
         </>
     );
-}
+};

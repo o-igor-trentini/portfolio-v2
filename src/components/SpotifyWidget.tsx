@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function SpotifyWidget() {
+export const SpotifyWidget = () => {
     const { language } = useLanguage();
     const t = translations[language];
 
@@ -131,4 +131,4 @@ export function SpotifyWidget() {
             </div>
         </div>
     );
-}
+};

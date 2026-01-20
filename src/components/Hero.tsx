@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function Hero() {
+export const Hero = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -587,4 +587,4 @@ export function Hero() {
             </motion.div>
         </section>
     );
-}
+};

@@ -11,7 +11,7 @@ interface HeaderProps {
     onTerminalToggle: () => void;
 }
 
-export function Header({ onTerminalToggle }: HeaderProps) {
+export const Header = ({ onTerminalToggle }: HeaderProps) => {
     const { theme, toggleTheme } = useTheme();
     const { language, setLanguage } = useLanguage();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -191,4 +191,4 @@ export function Header({ onTerminalToggle }: HeaderProps) {
             )}
         </motion.header>
     );
-}
+};

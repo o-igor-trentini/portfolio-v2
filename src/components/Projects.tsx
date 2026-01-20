@@ -13,7 +13,7 @@ interface ProjectsProps {
     onProjectClick: (project: Project) => void;
 }
 
-export function Projects({ onProjectClick }: ProjectsProps) {
+export const Projects = ({ onProjectClick }: ProjectsProps) => {
     const { language } = useLanguage();
     const t = translations[language];
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
@@ -163,4 +163,4 @@ export function Projects({ onProjectClick }: ProjectsProps) {
             </div>
         </section>
     );
-}
+};

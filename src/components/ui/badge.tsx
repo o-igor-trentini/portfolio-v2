@@ -21,16 +21,16 @@ const badgeVariants = cva(
     },
 );
 
-function Badge({
+const Badge = ({
     className,
     variant,
     asChild = false,
     ...props
-}: ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+}: ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) => {
     const Comp = asChild ? Slot : 'span';
 
     return <Comp data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />;
-}
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants };

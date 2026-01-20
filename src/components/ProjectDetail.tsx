@@ -13,7 +13,7 @@ interface ProjectDetailProps {
     onClose: () => void;
 }
 
-export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
+export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
     const { language } = useLanguage();
     const t = translations[language];
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
@@ -201,4 +201,4 @@ export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
             )}
         </AnimatePresence>
     );
-}
+};

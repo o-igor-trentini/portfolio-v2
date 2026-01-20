@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function Experience() {
+export const Experience = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -298,4 +298,4 @@ export function Experience() {
             </div>
         </section>
     );
-}
+};

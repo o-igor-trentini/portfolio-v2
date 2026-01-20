@@ -10,7 +10,7 @@ interface AboutDetailModalProps {
     onClose: () => void;
 }
 
-export function AboutDetailModal({ interestId, onClose }: AboutDetailModalProps) {
+export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps) => {
     const { language } = useLanguage();
     const interest = aboutInterests.find((i) => i.id === interestId);
 
@@ -201,4 +201,4 @@ export function AboutDetailModal({ interestId, onClose }: AboutDetailModalProps)
             )}
         </AnimatePresence>
     );
-}
+};

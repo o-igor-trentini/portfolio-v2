@@ -15,7 +15,7 @@ interface CommandOutput {
     output: string;
 }
 
-export function Terminal({ isOpen, onClose }: TerminalProps) {
+export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
     const { language } = useLanguage();
     const t = translations[language];
     const [input, setInput] = useState('');
@@ -153,4 +153,4 @@ export function Terminal({ isOpen, onClose }: TerminalProps) {
             )}
         </AnimatePresence>
     );
-}
+};

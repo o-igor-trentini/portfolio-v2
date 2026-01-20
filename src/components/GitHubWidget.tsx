@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function GitHubWidget() {
+export const GitHubWidget = () => {
     const { language } = useLanguage();
     const t = translations[language];
 
@@ -161,4 +161,4 @@ export function GitHubWidget() {
             </div>
         </div>
     );
-}
+};

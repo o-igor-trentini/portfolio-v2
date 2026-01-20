@@ -14,7 +14,7 @@ interface ImageGalleryProps {
     color: string;
 }
 
-export function ImageGallery({ images, color }: ImageGalleryProps) {
+export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
     const openLightbox = (index: number) => {
@@ -216,4 +216,4 @@ export function ImageGallery({ images, color }: ImageGalleryProps) {
             </AnimatePresence>
         </>
     );
-}
+};

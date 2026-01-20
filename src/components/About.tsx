@@ -6,7 +6,7 @@ import { aboutInterests } from '../data/aboutData';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function About() {
+export const About = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -140,4 +140,4 @@ export function About() {
             <AboutDetailModal interestId={selectedInterest} onClose={() => setSelectedInterest(null)} />
         </section>
     );
-}
+};

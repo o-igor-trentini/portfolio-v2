@@ -10,7 +10,7 @@ import { Textarea } from './ui/textarea';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function Contact() {
+export const Contact = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -203,4 +203,4 @@ export function Contact() {
             </div>
         </section>
     );
-}
+};

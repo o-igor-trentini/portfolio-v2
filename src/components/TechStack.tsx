@@ -18,7 +18,7 @@ import type { TechBadge } from '../data/techStackData';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
 
-export function TechStack() {
+export const TechStack = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
@@ -175,4 +175,4 @@ export function TechStack() {
             </div>
         </section>
     );
-}
+};
