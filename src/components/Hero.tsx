@@ -1,7 +1,7 @@
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { PriorityImage } from './common/OptimizedImage';
 import { Button } from './ui/button';
 import { translations } from '../data/translations';
 import { useLanguage } from '../hooks/useLanguage';
@@ -397,10 +397,11 @@ export const Hero = () => {
                                         }}
                                         className="absolute inset-3 overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-2xl"
                                     >
-                                        <ImageWithFallback
-                                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkZXZlbG9wZXIlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM0Mjg4Njl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                                        <PriorityImage
+                                            src="/images/perfil.webp"
                                             alt="Igor Trentini"
                                             className="w-full h-full object-cover scale-110"
+                                            noSrcSet
                                         />
                                         {/* Gradient overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-purple-500/30 via-transparent to-transparent" />

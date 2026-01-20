@@ -99,7 +99,7 @@ export const aboutInterests: AboutInterest[] = [
         },
         images: [
             {
-                url: 'https://images.unsplash.com/photo-1686315760765-1a732d557a9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGVjaWFsdHklMjBjb2ZmZWUlMjBzaG9wfGVufDF8fHx8MTc2MzQyODIxOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Visitando cafeterias especializadas',
                     en: 'Visiting specialty coffee shops',
@@ -107,7 +107,7 @@ export const aboutInterests: AboutInterest[] = [
                 },
             },
             {
-                url: 'https://images.unsplash.com/photo-1741994043827-6d847a04ea60?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2ZmZWUlMjBicmV3aW5nJTIwd29ya3Nob3B8ZW58MXx8fHwxNzYzNDI4MjE4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Workshop de métodos de extração',
                     en: 'Brewing methods workshop',
@@ -115,7 +115,7 @@ export const aboutInterests: AboutInterest[] = [
                 },
             },
             {
-                url: 'https://images.unsplash.com/photo-1597816898404-dd680dcd5a24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYXJpc3RhJTIwdHJhaW5pbmd8ZW58MXx8fHwxNzYzNDI4MjE5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Treinamento de latte art',
                     en: 'Latte art training',
@@ -184,7 +184,7 @@ export const aboutInterests: AboutInterest[] = [
         },
         images: [
             {
-                url: 'https://images.unsplash.com/photo-1759355456246-6937354a395d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYWRlbCUyMGNvdXJ0JTIwdG91cm5hbWVudHxlbnwxfHx8fDE3NjM0MjgyMTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Campeonatos de padel',
                     en: 'Padel tournaments',
@@ -192,7 +192,7 @@ export const aboutInterests: AboutInterest[] = [
                 },
             },
             {
-                url: 'https://images.unsplash.com/photo-1598014514548-27c9cd1c8466?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydW5uaW5nJTIwcmFjZSUyMG1hcmF0aG9ufGVufDF8fHx8MTc2MzM3NzA3NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Provas de corrida',
                     en: 'Running races',
@@ -200,7 +200,7 @@ export const aboutInterests: AboutInterest[] = [
                 },
             },
             {
-                url: 'https://images.unsplash.com/photo-1759688983881-0742f416a4b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBjb21wZXRpdGlvbiUyMG1lZGFsfGVufDF8fHx8MTc2MzQyODIxOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+                url: '/images/about/coffee.webp',
                 caption: {
                     pt: 'Conquistas em competições',
                     en: 'Competition achievements',

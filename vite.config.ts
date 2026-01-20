@@ -1,12 +1,30 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
     base: '/', // Use '/' para domínio customizado, ou '/nome-do-repo/' para GitHub Pages padrão
-    plugins: [react(), tsconfigPaths()],
+    plugins: [
+        react(),
+        tsconfigPaths(),
+        ViteImageOptimizer({
+            png: {
+                quality: 80,
+            },
+            jpeg: {
+                quality: 80,
+            },
+            jpg: {
+                quality: 80,
+            },
+            webp: {
+                quality: 80,
+            },
+        }),
+    ],
     build: {
         outDir: 'dist',
         assetsDir: 'assets',

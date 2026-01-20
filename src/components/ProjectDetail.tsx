@@ -1,7 +1,7 @@
 import { X, ExternalLink, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { OptimizedImage } from './common/OptimizedImage';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import type { Project } from '../data/projects';
@@ -39,10 +39,11 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                             {/* Header */}
                             <div className="relative">
                                 <div className="aspect-video bg-zinc-100 dark:bg-zinc-800 relative">
-                                    <ImageWithFallback
+                                    <OptimizedImage
                                         src={project.image}
                                         alt={project.title}
                                         className="w-full h-full object-cover"
+                                        size="large"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">

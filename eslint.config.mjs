@@ -27,6 +27,7 @@ export default [
             'build',
             'dist',
             'node_modules',
+            'scripts',
             'eslint.config.mjs',
             '.prettierrc.cjs',
             'src/tests/coverage',

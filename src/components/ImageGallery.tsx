@@ -1,7 +1,7 @@
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, type MouseEvent } from 'react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { OptimizedImage } from './common/OptimizedImage';
 import { Button } from './ui/button';
 
 interface GalleryImage {
@@ -63,10 +63,11 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                             onClick={() => openLightbox(index)}
                             className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-zinc-100 dark:bg-zinc-800"
                         >
-                            <ImageWithFallback
+                            <OptimizedImage
                                 src={image.url}
                                 alt={image.caption}
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                size="small"
                             />
 
                             {/* Overlay on hover */}
@@ -161,10 +162,12 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                             className="max-w-5xl w-full"
                         >
                             <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900 shadow-2xl">
-                                <ImageWithFallback
+                                <OptimizedImage
                                     src={images[selectedImage].url}
                                     alt={images[selectedImage].caption}
                                     className="w-full h-full object-contain"
+                                    size="large"
+                                    noBlur
                                 />
                             </div>
 
@@ -201,10 +204,12 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                                                     : 'border-transparent opacity-60 hover:opacity-100'
                                             }`}
                                         >
-                                            <ImageWithFallback
+                                            <OptimizedImage
                                                 src={image.url}
                                                 alt={image.caption}
                                                 className="w-full h-full object-cover"
+                                                size="small"
+                                                noBlur
                                             />
                                         </motion.button>
                                     ))}

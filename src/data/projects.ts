@@ -52,7 +52,7 @@ export const projects: Project[] = [
             en: 'An instant messaging app where you can chat in real-time with other people',
             es: 'Una aplicación de mensajería instantánea donde puedes chatear en tiempo real con otras personas',
         },
-        image: 'https://images.unsplash.com/photo-1756903646251-5f9d4154fe80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb21tdW5pY2F0aW9uJTIwdGVjaHxlbnwxfHx8fDE3NjMyMTg3MTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['Golang', 'WebSockets', 'React', 'Redis', 'PostgreSQL'],
         type: 'professional',
         problem: {
@@ -106,7 +106,7 @@ export const projects: Project[] = [
             en: 'A tool that shows graphs and statistics about app and website usage',
             es: 'Una herramienta que muestra gráficos y estadísticas sobre el uso de aplicaciones y sitios web',
         },
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkfGVufDF8fHx8MTc2MzEyNzc4MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['React', 'Golang', 'TimescaleDB', 'Chart.js'],
         type: 'professional',
         problem: {
@@ -160,7 +160,7 @@ export const projects: Project[] = [
             en: 'A tool that connects different apps and automates repetitive tasks without coding',
             es: 'Una herramienta que conecta diferentes aplicaciones y automatiza tarefas repetitivas sin necesidad de programar',
         },
-        image: 'https://images.unsplash.com/photo-1563884705074-7c8b15f16295?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhdXRvbWF0aW9uJTIwd29ya2Zsb3d8ZW58MXx8fHwxNzYzMjE4NzExfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['React', 'Golang', 'PostgreSQL', 'Docker'],
         type: 'study',
         problem: {
@@ -214,7 +214,7 @@ export const projects: Project[] = [
             en: 'A social network where you can post photos, like and comment on other users posts',
             es: 'Una red social donde puedes publicar fotos, dar like y comentar en las publicaciones de otros usuarios',
         },
-        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2NpYWwlMjBtZWRpYSUyMGFwcHxlbnwxfHx8fDE3Njg0NjY1NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['React', 'TypeScript', 'Node.js', 'Socket.io'],
         type: 'study',
         problem: {
@@ -268,7 +268,7 @@ export const projects: Project[] = [
             en: 'An app that shows cryptocurrency prices and sends notifications when prices change',
             es: 'Una app que muestra los precios de criptomonedas y envía notificaciones cuando el precio cambia',
         },
-        image: 'https://images.unsplash.com/photo-1666816943035-15c29931e975?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibG9ja2NoYWluJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3Njg0OTQ2ODV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['React', 'TypeScript', 'CoinGecko API', 'Recharts'],
         type: 'study',
         problem: {
@@ -322,7 +322,7 @@ export const projects: Project[] = [
             en: 'Backend for an online store with shopping cart system and order processing',
             es: 'Backend de una tienda online con sistema de carrito de compras y procesamiento de pedidos',
         },
-        image: 'https://images.unsplash.com/photo-1658297063569-162817482fb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlY29tbWVyY2UlMjBwbGF0Zm9ybXxlbnwxfHx8fDE3Njg1MTUzMDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+        image: '/images/projects/tower.webp',
         tags: ['Golang', 'PostgreSQL', 'Redis', 'Stripe API'],
         type: 'professional',
         problem: {

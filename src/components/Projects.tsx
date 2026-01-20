@@ -1,7 +1,7 @@
 import { ExternalLink, ChevronRight, Filter, Briefcase, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useMemo } from 'react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { OptimizedImage } from './common/OptimizedImage';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { projects } from '../data/projects';
@@ -95,10 +95,11 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                         >
                             <div className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 h-full flex flex-col">
                                 <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                                    <ImageWithFallback
+                                    <OptimizedImage
                                         src={project.image}
                                         alt={project.title}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        size="medium"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
