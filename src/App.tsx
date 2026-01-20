@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
-import { About } from './components/About';
-import { Contact } from './components/Contact';
+import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
 import { CustomCursor } from './components/CustomCursor';
-import { Experience } from './components/Experience';
-import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { ProjectDetail } from './components/ProjectDetail';
-import { Projects } from './components/Projects';
-import { TechStack } from './components/TechStack';
-import { Terminal } from './components/Terminal';
 import { Toaster } from './components/ui/sonner';
 import type { Project } from './data/projects';
 import { useThemeEffect } from './hooks/useTheme';
+
+// Lazy load componentes pesados
+const About = lazy(() => import('./components/About').then((m) => ({ default: m.About })));
+const Contact = lazy(() => import('./components/Contact').then((m) => ({ default: m.Contact })));
+const Experience = lazy(() => import('./components/Experience').then((m) => ({ default: m.Experience })));
+const Footer = lazy(() => import('./components/Footer').then((m) => ({ default: m.Footer })));
+const ProjectDetail = lazy(() => import('./components/ProjectDetail').then((m) => ({ default: m.ProjectDetail })));
+const Projects = lazy(() => import('./components/Projects').then((m) => ({ default: m.Projects })));
+const TechStack = lazy(() => import('./components/TechStack').then((m) => ({ default: m.TechStack })));
+const Terminal = lazy(() => import('./components/Terminal').then((m) => ({ default: m.Terminal })));
 
 export default function App() {
     useThemeEffect();
@@ -41,27 +43,53 @@ export default function App() {
         }
     }, [selectedProject, isTerminalOpen]);
 
+    const handleProjectClick = useCallback((project: Project) => {
+        setSelectedProject(project);
+    }, []);
+
+    const handleCloseProject = useCallback(() => {
+        setSelectedProject(null);
+    }, []);
+
+    const handleOpenTerminal = useCallback(() => {
+        setIsTerminalOpen(true);
+    }, []);
+
+    const handleCloseTerminal = useCallback(() => {
+        setIsTerminalOpen(false);
+    }, []);
+
     return (
         <>
             <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors cursor-none">
                 <CustomCursor />
-                <Header onTerminalToggle={() => setIsTerminalOpen(true)} />
+
+                <Header onTerminalToggle={handleOpenTerminal} />
 
                 <main>
                     <Hero />
-                    <Projects onProjectClick={setSelectedProject} />
-                    <About />
-                    <TechStack />
-                    <Experience />
-                    <Contact />
-                </main>
 
-                <Footer />
+                    <Suspense fallback={<div className="h-screen" />}>
+                        <Projects onProjectClick={handleProjectClick} />
+
+                        <About />
+
+                        <TechStack />
+
+                        <Experience />
+
+                        <Contact />
+
+                        <Footer />
+                    </Suspense>
+                </main>
             </div>
 
-            <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />
+            <Suspense fallback={null}>
+                <ProjectDetail project={selectedProject} onClose={handleCloseProject} />
 
-            <Terminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
+                <Terminal isOpen={isTerminalOpen} onClose={handleCloseTerminal} />
+            </Suspense>
 
             <Toaster position="bottom-right" />
         </>

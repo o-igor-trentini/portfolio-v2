@@ -1,6 +1,6 @@
 import { ExternalLink, ChevronRight, Filter, Briefcase, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -18,8 +18,10 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
     const t = translations[language];
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
 
-    const filteredProjects =
-        selectedFilter === 'all' ? projects : projects.filter((project) => project.type === selectedFilter);
+    const filteredProjects = useMemo(
+        () => (selectedFilter === 'all' ? projects : projects.filter((project) => project.type === selectedFilter)),
+        [selectedFilter],
+    );
 
     return (
         <section id="projects" className="py-32 relative">
@@ -88,6 +90,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             whileHover={{ y: -8 }}
+                            style={{ willChange: 'transform' }}
                             className="group"
                         >
                             <div className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 h-full flex flex-col">

@@ -1,6 +1,6 @@
 import { Coffee, Dumbbell, Tv, Film, Clapperboard } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { AboutDetailModal } from './AboutDetailModal';
 import { aboutInterests } from '../data/aboutData';
 import { translations } from '../data/translations';
@@ -12,21 +12,27 @@ export const About = () => {
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 
-    const iconMap = {
-        coffee: Coffee,
-        sports: Dumbbell,
-        anime: Tv,
-        series: Clapperboard,
-        movies: Film,
-    };
+    const iconMap = useMemo(
+        () => ({
+            coffee: Coffee,
+            sports: Dumbbell,
+            anime: Tv,
+            series: Clapperboard,
+            movies: Film,
+        }),
+        [],
+    );
 
-    const colorMap = {
-        coffee: 'from-amber-500 to-orange-500',
-        sports: 'from-green-500 to-emerald-500',
-        anime: 'from-blue-500 to-cyan-500',
-        series: 'from-purple-500 to-pink-500',
-        movies: 'from-red-500 to-rose-500',
-    };
+    const colorMap = useMemo(
+        () => ({
+            coffee: 'from-amber-500 to-orange-500',
+            sports: 'from-green-500 to-emerald-500',
+            anime: 'from-blue-500 to-cyan-500',
+            series: 'from-purple-500 to-pink-500',
+            movies: 'from-red-500 to-rose-500',
+        }),
+        [],
+    );
 
     return (
         <section id="about" className="py-32 bg-zinc-50 dark:bg-zinc-900/50">
@@ -60,6 +66,7 @@ export const About = () => {
                                 <motion.div
                                     whileHover={{ rotateY: 5, rotateX: 5, scale: 1.05 }}
                                     transition={{ type: 'spring', stiffness: 300 }}
+                                    style={{ willChange: 'transform' }}
                                     className="relative h-64 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-lg hover:shadow-2xl transition-shadow preserve-3d"
                                 >
                                     {/* Gradient Background */}

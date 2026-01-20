@@ -1,6 +1,6 @@
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Button } from './ui/button';
 import { translations } from '../data/translations';
@@ -10,24 +10,38 @@ export const Hero = () => {
     const { language } = useLanguage();
     const t = translations[language];
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const rafId = useRef<number | undefined>(undefined);
 
-    const scrollToSection = (id: string) => {
+    const scrollToSection = useCallback((id: string) => {
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
-    };
+    }, []);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth) * 100,
-                y: (e.clientY / window.innerHeight) * 100,
+            // Throttle usando RAF para desktop apenas
+            if (rafId.current) return;
+            rafId.current = requestAnimationFrame(() => {
+                setMousePosition({
+                    x: (e.clientX / window.innerWidth) * 100,
+                    y: (e.clientY / window.innerHeight) * 100,
+                });
+                rafId.current = undefined;
             });
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        // Apenas em desktop
+        if (window.innerWidth >= 768) {
+            window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        }
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            if (rafId.current) {
+                cancelAnimationFrame(rafId.current);
+            }
+        };
     }, []);
 
     return (
@@ -49,6 +63,7 @@ export const Hero = () => {
                     }}
                     className="absolute inset-0 opacity-30 md:opacity-50"
                     style={{
+                        willChange: 'background-position',
                         backgroundImage:
                             'radial-gradient(at 20% 30%, rgba(124, 58, 237, 0.12) 0px, transparent 50%), radial-gradient(at 80% 70%, rgba(236, 72, 153, 0.1) 0px, transparent 50%)',
                         backgroundSize: '300% 300%',
@@ -67,6 +82,7 @@ export const Hero = () => {
                     }}
                     className="absolute inset-0 opacity-20 md:opacity-40"
                     style={{
+                        willChange: 'background-position',
                         backgroundImage:
                             'radial-gradient(at 60% 40%, rgba(124, 58, 237, 0.08) 0px, transparent 60%), radial-gradient(at 30% 80%, rgba(236, 72, 153, 0.08) 0px, transparent 60%)',
                         backgroundSize: '250% 250%',
@@ -93,6 +109,7 @@ export const Hero = () => {
                     }}
                     className="absolute inset-0"
                     style={{
+                        willChange: 'opacity',
                         backgroundImage:
                             'radial-gradient(circle at 2px 2px, rgba(124, 58, 237, 0.15) 1px, transparent 0)',
                         backgroundSize: '30px 30px',

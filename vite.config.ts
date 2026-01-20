@@ -11,11 +11,21 @@ export default defineConfig({
         outDir: 'dist',
         assetsDir: 'assets',
         sourcemap: false,
+        minify: 'esbuild',
         rollupOptions: {
             output: {
                 manualChunks: {
                     vendor: ['react', 'react-dom'],
                     motion: ['motion'],
+                    icons: ['lucide-react'],
+                    ui: [
+                        '@radix-ui/react-avatar',
+                        '@radix-ui/react-dialog',
+                        '@radix-ui/react-dropdown-menu',
+                        '@radix-ui/react-label',
+                        '@radix-ui/react-separator',
+                        '@radix-ui/react-tooltip',
+                    ],
                 },
             },
         },

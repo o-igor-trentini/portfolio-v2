@@ -11,7 +11,7 @@ import {
     Filter,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { techStackCategories, badgeLabels } from '../data/techStackData';
 import type { TechBadge } from '../data/techStackData';
@@ -23,22 +23,28 @@ export const TechStack = () => {
     const t = translations[language];
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
 
-    const iconMap: Record<string, any> = {
-        Server,
-        Code2,
-        Cloud,
-        GitBranch,
-        Sparkles,
-        Monitor,
-        Terminal: TerminalIcon,
-        CheckCircle,
-        Boxes,
-    };
+    const iconMap: Record<string, any> = useMemo(
+        () => ({
+            Server,
+            Code2,
+            Cloud,
+            GitBranch,
+            Sparkles,
+            Monitor,
+            Terminal: TerminalIcon,
+            CheckCircle,
+            Boxes,
+        }),
+        [],
+    );
 
-    const filterByBadge = (items: any[]) => {
-        if (selectedBadge === 'all') return items;
-        return items.filter((item) => item.badges?.includes(selectedBadge));
-    };
+    const filterByBadge = useMemo(
+        () => (items: any[]) => {
+            if (selectedBadge === 'all') return items;
+            return items.filter((item) => item.badges?.includes(selectedBadge));
+        },
+        [selectedBadge],
+    );
 
     return (
         <section id="tech-stack" className="py-32">
