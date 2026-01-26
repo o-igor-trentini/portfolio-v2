@@ -3,12 +3,10 @@ import { motion } from 'motion/react';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { PriorityImage } from './common/OptimizedImage';
 import { Button } from './ui/button';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const Hero = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const rafId = useRef<number | undefined>(undefined);
 
@@ -439,7 +437,7 @@ export const Hero = () => {
                                 >
                                     <div className="flex items-center gap-2">
                                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                        <span className="text-xs md:text-sm whitespace-nowrap">{t.hero.available}</span>
+                                        <span className="text-xs md:text-sm whitespace-nowrap">{t('hero.available')}</span>
                                     </div>
                                 </motion.div>
 
@@ -453,7 +451,7 @@ export const Hero = () => {
                                     <div className="flex items-center gap-2 md:gap-3">
                                         <div className="text-xl md:text-2xl">💻</div>
                                         <div>
-                                            <p className="text-xs text-zinc-500">{t.hero.specialist}</p>
+                                            <p className="text-xs text-zinc-500">{t('hero.specialist')}</p>
                                             <p className="text-xs md:text-sm">Go • React • TS</p>
                                         </div>
                                     </div>
@@ -474,7 +472,7 @@ export const Hero = () => {
                                     transition={{ duration: 2, repeat: Infinity }}
                                     className="w-2 h-2 bg-purple-500 rounded-full"
                                 />
-                                <span className="text-purple-500">{t.hero.greeting}</span>
+                                <span className="text-purple-500">{t('hero.info.title.greeting')}</span>
                             </motion.div>
 
                             <motion.h1
@@ -492,8 +490,8 @@ export const Hero = () => {
                                 transition={{ delay: 0.5 }}
                                 className="mb-6"
                             >
-                                <h2 className="text-purple-500 mb-2">{t.hero.title}</h2>
-                                <p className="text-zinc-600 dark:text-zinc-400">{t.hero.subtitle}</p>
+                                <h2 className="text-purple-500 mb-2">{t('hero.info.title.role')}</h2>
+                                <p className="text-zinc-600 dark:text-zinc-400">{t('hero.info.title.subtitle')}</p>
                             </motion.div>
 
                             <motion.p
@@ -502,7 +500,7 @@ export const Hero = () => {
                                 transition={{ delay: 0.6 }}
                                 className="text-zinc-600 dark:text-zinc-400 mb-8 max-w-lg mx-auto lg:mx-0"
                             >
-                                {t.hero.description}
+                                {t('hero.info.description')}
                             </motion.p>
 
                             {/* CTA Buttons */}
@@ -517,7 +515,7 @@ export const Hero = () => {
                                     onClick={() => scrollToSection('projects')}
                                     className="bg-purple-500 hover:bg-purple-600 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all"
                                 >
-                                    {t.hero.cta1}
+                                    {t('hero.info.projectButton')}
                                     <ArrowRight className="ml-2 w-4 h-4" />
                                 </Button>
                                 <Button
@@ -527,7 +525,7 @@ export const Hero = () => {
                                     className="border-purple-500/20 hover:border-purple-500/50 hover:bg-purple-500/5"
                                 >
                                     <Mail className="mr-2 w-4 h-4" />
-                                    {t.hero.cta2}
+                                    {t('hero.info.socialButton')}
                                 </Button>
                             </motion.div>
 
@@ -559,7 +557,7 @@ export const Hero = () => {
                                     <Linkedin className="w-5 h-5" />
                                 </motion.a>
                                 <div className="hidden sm:block h-6 w-px bg-zinc-200 dark:bg-zinc-800" />
-                                <span className="hidden sm:inline text-sm text-zinc-500">{t.hero.connect}</span>
+                                <span className="hidden sm:inline text-sm text-zinc-500">{t('hero.connect')}</span>
                             </motion.div>
 
                             {/* Tech stack badges */}
@@ -594,7 +592,7 @@ export const Hero = () => {
                 transition={{ delay: 1.5, y: { duration: 2, repeat: Infinity } }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-zinc-400"
             >
-                <span className="text-xs">{t.hero.scrollToExplore}</span>
+                <span className="text-xs">{t('hero.scrollToExplore')}</span>
                 <div className="w-6 h-10 rounded-full border-2 border-zinc-300 dark:border-zinc-700 flex items-start justify-center p-2">
                     <motion.div
                         animate={{ y: [0, 12, 0] }}

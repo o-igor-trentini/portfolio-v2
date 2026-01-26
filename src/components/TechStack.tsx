@@ -15,12 +15,10 @@ import { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { techStackCategories, badgeLabels } from '../data/techStackData';
 import type { TechBadge } from '../data/techStackData';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const TechStack = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t, language } = useI18n();
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
 
     const iconMap: Record<string, any> = useMemo(
@@ -55,8 +53,8 @@ export const TechStack = () => {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="mb-4">{t.techStack.title}</h2>
-                    <p className="text-zinc-600 dark:text-zinc-400 mb-8">{t.techStack.subtitle}</p>
+                    <h2 className="mb-4">{t('techStack.title')}</h2>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-8">{t('techStack.subtitle')}</p>
 
                     {/* Badge Filters */}
                     <div className="flex flex-wrap items-center justify-center gap-3">

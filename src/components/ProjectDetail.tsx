@@ -5,8 +5,7 @@ import { OptimizedImage } from './common/OptimizedImage';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import type { Project } from '../data/projects';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 interface ProjectDetailProps {
     project: Project | null;
@@ -14,8 +13,7 @@ interface ProjectDetailProps {
 }
 
 export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t, language } = useI18n();
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
 
     return (
@@ -76,7 +74,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                 <div className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-200 dark:border-zinc-800">
                                     <Button variant="ghost" onClick={onClose} className="gap-2">
                                         <ArrowLeft className="w-4 h-4" />
-                                        {t.projects.backToProjects}
+                                        {t('projects.detail.backToProjects')}
                                     </Button>
                                     <div className="flex items-center gap-2">
                                         <Button
@@ -85,7 +83,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                             size="sm"
                                             className={viewMode === 'simple' ? 'bg-purple-500 hover:bg-purple-600' : ''}
                                         >
-                                            {t.projects.simpleView}
+                                            {t('projects.detail.simpleView')}
                                         </Button>
                                         <Button
                                             variant={viewMode === 'technical' ? 'default' : 'outline'}
@@ -95,7 +93,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                                 viewMode === 'technical' ? 'bg-purple-500 hover:bg-purple-600' : ''
                                             }
                                         >
-                                            {t.projects.technicalView}
+                                            {t('projects.detail.technicalView')}
                                         </Button>
                                     </div>
                                 </div>
@@ -124,7 +122,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                         >
                                             {/* Problem */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t.projects.problem}</h3>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.problem')}</h3>
                                                 <p className="text-zinc-600 dark:text-zinc-400">
                                                     {project.problem[language]}
                                                 </p>
@@ -132,7 +130,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Solution */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t.projects.solution}</h3>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.solution')}</h3>
                                                 <p className="text-zinc-600 dark:text-zinc-400">
                                                     {project.solution[language]}
                                                 </p>
@@ -140,7 +138,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Tech Stack */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t.projects.stack}</h3>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.stack')}</h3>
                                                 <div className="flex flex-wrap gap-2">
                                                     {project.stack.map((tech) => (
                                                         <Badge
@@ -156,7 +154,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Architecture */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t.projects.architecture}</h3>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.architecture')}</h3>
                                                 <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-6">
                                                     <code className="text-sm text-zinc-600 dark:text-zinc-400 whitespace-pre-wrap">
                                                         {project.architecture[language]}
@@ -166,7 +164,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Highlights */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t.projects.highlights}</h3>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.highlights')}</h3>
                                                 <ul className="space-y-2">
                                                     {project.highlights[language].map((highlight, index) => (
                                                         <li
@@ -191,7 +189,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                             className="bg-purple-500 hover:bg-purple-600 text-white"
                                         >
                                             <ExternalLink className="mr-2 w-4 h-4" />
-                                            {t.projects.viewOnGithub}
+                                            {t('projects.detail.viewOnGithub')}
                                         </Button>
                                     </div>
                                 )}

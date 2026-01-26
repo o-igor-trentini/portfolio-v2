@@ -2,12 +2,10 @@ import { Briefcase, Calendar, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const Experience = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t, language } = useI18n();
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
     const experiences = [
@@ -154,8 +152,8 @@ export const Experience = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="mb-4">{t.experience.title}</h2>
-                    <p className="text-zinc-600 dark:text-zinc-400">{t.experience.subtitle}</p>
+                    <h2 className="mb-4">{t('experience.title')}</h2>
+                    <p className="text-zinc-600 dark:text-zinc-400">{t('experience.subtitle')}</p>
                 </motion.div>
 
                 <div className="max-w-4xl mx-auto relative">
@@ -205,7 +203,7 @@ export const Experience = () => {
                                                     }}
                                                     className="w-2 h-2 bg-white rounded-full"
                                                 />
-                                                {t.experience.present}
+                                                {t('experience.present')}
                                             </div>
                                         </div>
                                     )}
@@ -254,7 +252,7 @@ export const Experience = () => {
                                             onClick={() => setExpandedId(expandedId === exp.id ? null : exp.id)}
                                             className="gap-2"
                                         >
-                                            {t.experience.viewDetails}
+                                            {t('experience.viewDetails')}
                                             <motion.div
                                                 animate={{ rotate: expandedId === exp.id ? 180 : 0 }}
                                                 transition={{ duration: 0.3 }}

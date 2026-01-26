@@ -2,8 +2,7 @@ import { X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { Button } from './ui/button';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 interface TerminalProps {
     isOpen: boolean;
@@ -16,12 +15,11 @@ interface CommandOutput {
 }
 
 export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
     const [input, setInput] = useState('');
     const [history, setHistory] = useState<CommandOutput[]>([
-        { command: '', output: t.terminal.welcome },
-        { command: '', output: t.terminal.help },
+        { command: '', output: t('terminal.welcome') },
+        { command: '', output: t('terminal.help') },
     ]);
     const inputRef = useRef<HTMLInputElement>(null);
     const historyEndRef = useRef<HTMLDivElement>(null);
@@ -42,17 +40,17 @@ export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
 
         switch (trimmedCmd) {
             case 'help':
-                output = t.terminal.help;
+                output = t('terminal.help');
                 break;
             case 'about':
-                output = t.terminal.about;
+                output = t('terminal.about');
                 break;
             case 'about --anime':
             case 'anime':
-                output = t.terminal.aboutAnime;
+                output = t('terminal.aboutAnime');
                 break;
             case 'skills':
-                output = t.terminal.aboutSkills;
+                output = t('terminal.aboutSkills');
                 break;
             case 'clear':
                 setHistory([]);
@@ -63,7 +61,7 @@ export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
             case '':
                 return;
             default:
-                output = t.terminal.unknown;
+                output = t('terminal.unknown');
         }
 
         setHistory([...history, { command: cmd, output }]);

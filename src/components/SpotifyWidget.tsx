@@ -1,12 +1,10 @@
 import { Music, Play, User, Clock, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 import { useSpotify } from '../hooks/useSpotify';
 
 export const SpotifyWidget = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
     const { currentTrack, topArtist, recentTracks, isLoading } = useSpotify();
 
     // Fallback mock data when Spotify is not configured or there's an error
@@ -42,7 +40,7 @@ export const SpotifyWidget = () => {
                 <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
                     <Music className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-green-500">{t.spotify.title}</h3>
+                <h3 className="text-green-500">{t('spotify.title')}</h3>
                 {!currentTrack && !isLoading && <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>}
             </div>
 
@@ -120,7 +118,7 @@ export const SpotifyWidget = () => {
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2 mb-2">
                                 <User className="w-4 h-4 text-green-500" />
-                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.spotify.topArtist}</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('spotify.topArtist')}</p>
                             </div>
                             <div className="flex items-center gap-2">
                                 <p className="font-medium flex-1 truncate">{displayTopArtist.name}</p>
@@ -144,7 +142,7 @@ export const SpotifyWidget = () => {
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2 mb-2">
                                 <Clock className="w-4 h-4 text-green-500" />
-                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.spotify.weeklyMinutes}</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('spotify.weeklyMinutes')}</p>
                             </div>
                             <p className="font-medium">
                                 {currentTrack && 'duration' in displayCurrentTrack && displayCurrentTrack.duration
@@ -178,7 +176,7 @@ export const SpotifyWidget = () => {
 
                     {/* Recent Tracks */}
                     <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t.spotify.recentTracks}</p>
+                        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('spotify.recentTracks')}</p>
                         <div className="space-y-2">
                             {displayRecentTracks.map((track, index) => {
                                 const hasAlbumArt = 'albumArt' in track && typeof track.albumArt === 'string';

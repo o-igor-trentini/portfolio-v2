@@ -3,12 +3,10 @@ import { motion } from 'motion/react';
 import { useState, useMemo } from 'react';
 import { AboutDetailModal } from './AboutDetailModal';
 import { aboutInterests } from '../data/aboutData';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const About = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t, language } = useI18n();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 
@@ -43,8 +41,8 @@ export const About = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="mb-4">{t.about.title}</h2>
-                    <p className="text-zinc-600 dark:text-zinc-400">{t.about.subtitle}</p>
+                    <h2 className="mb-4">{t('about.title')}</h2>
+                    <p className="text-zinc-600 dark:text-zinc-400">{t('about.subtitle')}</p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">

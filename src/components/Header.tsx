@@ -3,8 +3,7 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 import { useTheme } from '../hooks/useTheme';
 
 interface HeaderProps {
@@ -13,9 +12,8 @@ interface HeaderProps {
 
 export const Header = ({ onTerminalToggle }: HeaderProps) => {
     const { theme, toggleTheme } = useTheme();
-    const { language, setLanguage } = useLanguage();
+    const { t, language, setLanguage } = useI18n();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const t = translations[language];
 
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
@@ -50,31 +48,31 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-8">
                     <button onClick={() => scrollToSection('home')} className="hover:text-purple-500 transition-colors">
-                        {t.nav.home}
+                        {t('nav.home')}
                     </button>
                     <button
                         onClick={() => scrollToSection('projects')}
                         className="hover:text-purple-500 transition-colors"
                     >
-                        {t.nav.projects}
+                        {t('nav.projects')}
                     </button>
                     <button
                         onClick={() => scrollToSection('about')}
                         className="hover:text-purple-500 transition-colors"
                     >
-                        {t.nav.about}
+                        {t('nav.about')}
                     </button>
                     <button
                         onClick={() => scrollToSection('experience')}
                         className="hover:text-purple-500 transition-colors"
                     >
-                        {t.nav.experience}
+                        {t('nav.experience')}
                     </button>
                     <button
                         onClick={() => scrollToSection('contact')}
                         className="hover:text-purple-500 transition-colors"
                     >
-                        {t.nav.contact}
+                        {t('nav.contact')}
                     </button>
                 </div>
 
@@ -133,31 +131,31 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                             onClick={() => scrollToSection('home')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
-                            {t.nav.home}
+                            {t('nav.home')}
                         </button>
                         <button
                             onClick={() => scrollToSection('projects')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
-                            {t.nav.projects}
+                            {t('nav.projects')}
                         </button>
                         <button
                             onClick={() => scrollToSection('about')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
-                            {t.nav.about}
+                            {t('nav.about')}
                         </button>
                         <button
                             onClick={() => scrollToSection('experience')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
-                            {t.nav.experience}
+                            {t('nav.experience')}
                         </button>
                         <button
                             onClick={() => scrollToSection('contact')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
-                            {t.nav.contact}
+                            {t('nav.contact')}
                         </button>
                         <div className="flex items-center gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                             <Button variant="ghost" size="icon" onClick={toggleTheme}>

@@ -7,12 +7,10 @@ import { SpotifyWidget } from './SpotifyWidget';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const Contact = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -27,7 +25,7 @@ export const Contact = () => {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
-        toast.success(t.contact.success);
+        toast.success(t('contact.messages.success'));
         setIsSubmitting(false);
         setFormData({ name: '', email: '', message: '' });
     };
@@ -62,8 +60,8 @@ export const Contact = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="mb-4">{t.contact.title}</h2>
-                    <p className="text-zinc-600 dark:text-zinc-400">{t.contact.subtitle}</p>
+                    <h2 className="mb-4">{t('contact.title')}</h2>
+                    <p className="text-zinc-600 dark:text-zinc-400">{t('contact.subtitle')}</p>
                 </motion.div>
 
                 <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
@@ -78,13 +76,13 @@ export const Contact = () => {
                                 <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
                                     <MessageSquare className="w-5 h-5 text-purple-500" />
                                 </div>
-                                <h3>{t.contact.send}</h3>
+                                <h3>{t('contact.form.send')}</h3>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label className="block text-sm mb-2 text-zinc-700 dark:text-zinc-300">
-                                        {t.contact.name}
+                                        {t('contact.form.name')}
                                     </label>
                                     <Input
                                         type="text"
@@ -98,7 +96,7 @@ export const Contact = () => {
 
                                 <div>
                                     <label className="block text-sm mb-2 text-zinc-700 dark:text-zinc-300">
-                                        {t.contact.email}
+                                        {t('contact.form.email')}
                                     </label>
                                     <Input
                                         type="email"
@@ -112,7 +110,7 @@ export const Contact = () => {
 
                                 <div>
                                     <label className="block text-sm mb-2 text-zinc-700 dark:text-zinc-300">
-                                        {t.contact.message}
+                                        {t('contact.form.message')}
                                     </label>
                                     <Textarea
                                         value={formData.message}
@@ -120,7 +118,7 @@ export const Contact = () => {
                                         required
                                         rows={6}
                                         className="w-full resize-none"
-                                        placeholder={t.contact.subtitle}
+                                        placeholder={t('contact.subtitle')}
                                     />
                                 </div>
 
@@ -139,7 +137,7 @@ export const Contact = () => {
                                         </motion.div>
                                     ) : (
                                         <>
-                                            {t.contact.send}
+                                            {t('contact.form.send')}
                                             <Send className="ml-2 w-4 h-4" />
                                         </>
                                     )}
