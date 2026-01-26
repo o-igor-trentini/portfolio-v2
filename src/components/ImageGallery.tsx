@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 
 interface GalleryImage {
     url: string;
-    caption: string;
+    caption?: string;
 }
 
 interface ImageGalleryProps {
@@ -65,17 +65,19 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                         >
                             <OptimizedImage
                                 src={image.url}
-                                alt={image.caption}
+                                alt={image.caption || 'Gallery image'}
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                 size="small"
                             />
 
                             {/* Overlay on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <div className="absolute bottom-0 left-0 right-0 p-3">
-                                    <p className="text-white text-sm line-clamp-2">{image.caption}</p>
+                            {image.caption && (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                                        <p className="text-white text-sm line-clamp-2">{image.caption}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
                             {/* Magnifying glass icon */}
                             <motion.div
@@ -164,7 +166,7 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                             <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900 shadow-2xl">
                                 <OptimizedImage
                                     src={images[selectedImage].url}
-                                    alt={images[selectedImage].caption}
+                                    alt={images[selectedImage].caption || 'Gallery image'}
                                     className="w-full h-full object-contain"
                                     size="large"
                                     noBlur
@@ -172,14 +174,16 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                             </div>
 
                             {/* Caption */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="mt-4 text-center"
-                            >
-                                <p className="text-white text-lg">{images[selectedImage].caption}</p>
-                            </motion.div>
+                            {images[selectedImage].caption && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="mt-4 text-center"
+                                >
+                                    <p className="text-white text-lg">{images[selectedImage].caption}</p>
+                                </motion.div>
+                            )}
 
                             {/* Thumbnail strip */}
                             {images.length > 1 && (
@@ -206,7 +210,7 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                                         >
                                             <OptimizedImage
                                                 src={image.url}
-                                                alt={image.caption}
+                                                alt={image.caption || 'Gallery thumbnail'}
                                                 className="w-full h-full object-cover"
                                                 size="small"
                                                 noBlur

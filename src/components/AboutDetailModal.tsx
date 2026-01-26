@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ImageGallery } from './ImageGallery';
 import { Button } from './ui/button';
 import { aboutInterests } from '../data/aboutData';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 interface AboutDetailModalProps {
     interestId: string | null;
@@ -11,7 +11,7 @@ interface AboutDetailModalProps {
 }
 
 export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps) => {
-    const { language } = useLanguage();
+    const { t } = useI18n();
     const interest = aboutInterests.find((i) => i.id === interestId);
 
     if (!interest) return null;
@@ -34,7 +34,15 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
 
     const Icon = iconMap[interest.id as keyof typeof iconMap];
     const color = colorMap[interest.id as keyof typeof colorMap];
-    const details = interest.details[language];
+
+    // Get all translated content from i18n
+    const title = t(`about.interests.${interest.id}.title`);
+    const description = t(`about.interests.${interest.id}.description`);
+    const intro = t(`about.interests.${interest.id}.intro`);
+    const favoritesTitle = t(`about.interests.${interest.id}.favoritesTitle`);
+    const favorites = t(`about.interests.${interest.id}.favorites`, { returnObjects: true }) as string[];
+    const why = t(`about.interests.${interest.id}.why`);
+    const funFact = t(`about.interests.${interest.id}.funFact`);
 
     return (
         <AnimatePresence>
@@ -82,7 +90,7 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                             transition={{ delay: 0.2 }}
                                             className="mb-1 text-white"
                                         >
-                                            {interest.title[language]}
+                                            {title}
                                         </motion.h2>
                                         <motion.p
                                             initial={{ opacity: 0, x: -20 }}
@@ -90,7 +98,7 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                             transition={{ delay: 0.3 }}
                                             className="text-white/90"
                                         >
-                                            {interest.description[language]}
+                                            {description}
                                         </motion.p>
                                     </div>
                                 </div>
@@ -104,7 +112,7 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.4 }}
                                 >
-                                    <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{details.intro}</p>
+                                    <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{intro}</p>
                                 </motion.div>
 
                                 {/* Favorites */}
@@ -120,10 +128,10 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                         >
                                             <Sparkles className="w-4 h-4 text-white" />
                                         </div>
-                                        <h3>{details.favorites.title}</h3>
+                                        <h3>{favoritesTitle}</h3>
                                     </div>
                                     <ul className="space-y-3">
-                                        {details.favorites.items.map((item, index) => (
+                                        {favorites.map((item, index) => (
                                             <motion.li
                                                 key={index}
                                                 initial={{ opacity: 0, x: -10 }}
@@ -147,7 +155,7 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                     transition={{ delay: 0.7 }}
                                     className="border-l-4 border-purple-500 pl-4"
                                 >
-                                    <p className="text-zinc-600 dark:text-zinc-400 italic">{details.why}</p>
+                                    <p className="text-zinc-600 dark:text-zinc-400 italic">{why}</p>
                                 </motion.div>
 
                                 {/* Fun Fact */}
@@ -166,22 +174,14 @@ export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps)
                                             <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                                                 Fun Facts
                                             </p>
-                                            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                                                {details.funFact}
-                                            </p>
+                                            <p className="text-sm text-zinc-600 dark:text-zinc-400">{funFact}</p>
                                         </div>
                                     </div>
                                 </motion.div>
 
                                 {/* Image Gallery */}
                                 {interest.images && interest.images.length > 0 && (
-                                    <ImageGallery
-                                        images={interest.images.map((img) => ({
-                                            url: img.url,
-                                            caption: img.caption[language],
-                                        }))}
-                                        color={color}
-                                    />
+                                    <ImageGallery images={interest.images} color={color} />
                                 )}
                             </div>
 

@@ -6,7 +6,7 @@ import { aboutInterests } from '../data/aboutData';
 import { useI18n } from '../hooks/useLanguage';
 
 export const About = () => {
-    const { t, language } = useI18n();
+    const { t } = useI18n();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 
@@ -85,7 +85,7 @@ export const About = () => {
                                             <Icon className="w-8 h-8 text-white" />
                                         </motion.div>
 
-                                        <h3 className="mb-2">{interest.title[language]}</h3>
+                                        <h3 className="mb-2">{t(`about.interests.${interest.id}.title`)}</h3>
 
                                         <motion.p
                                             initial={{ opacity: 0 }}
@@ -94,7 +94,7 @@ export const About = () => {
                                             }}
                                             className="text-zinc-600 dark:text-zinc-400"
                                         >
-                                            {interest.description[language]}
+                                            {t(`about.interests.${interest.id}.description`)}
                                         </motion.p>
 
                                         {/* Click to view more indicator */}

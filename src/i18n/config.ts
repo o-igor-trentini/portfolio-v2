@@ -2,18 +2,13 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translations from './index';
 
-// Get the language from localStorage or use default
-const getStoredLanguage = (): string => {
+// Simple localStorage detection
+const getSavedLanguage = (): string => {
     try {
-        const stored = localStorage.getItem('language-storage');
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            return parsed.state?.language || 'pt';
-        }
+        return localStorage.getItem('i18nextLng') || 'pt';
     } catch {
-        // If there's any error, fall back to default
+        return 'pt';
     }
-    return 'pt';
 };
 
 i18n.use(initReactI18next).init({
@@ -22,7 +17,7 @@ i18n.use(initReactI18next).init({
         en: { translation: translations.en },
         es: { translation: translations.es },
     },
-    lng: getStoredLanguage(),
+    lng: getSavedLanguage(),
     fallbackLng: 'pt',
     interpolation: {
         escapeValue: false, // React already escapes values
@@ -30,6 +25,11 @@ i18n.use(initReactI18next).init({
     react: {
         useSuspense: false,
     },
+});
+
+// Auto-save language changes to localStorage
+i18n.on('languageChanged', (lng) => {
+    localStorage.setItem('i18nextLng', lng);
 });
 
 export default i18n;
