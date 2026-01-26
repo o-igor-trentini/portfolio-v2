@@ -261,16 +261,12 @@ const pt = {
     contact: {
         title: 'Vamos Conversar',
         subtitle: 'Estou sempre aberto a novas oportunidades',
-        form: {
-            name: 'Nome',
-            email: 'Email',
-            message: 'Mensagem',
-            send: 'Enviar Mensagem',
-            sending: 'Enviando...',
-        },
-        messages: {
-            success: 'Mensagem enviada com sucesso!',
-            error: 'Erro ao enviar mensagem. Tente novamente.',
+        socials: {
+            title: 'Redes Sociais',
+            subtitle: 'Conecte-se comigo nas redes sociais',
+            github: 'GitHub',
+            linkedin: 'LinkedIn',
+            instagram: 'Instagram',
         },
     },
     spotify: {

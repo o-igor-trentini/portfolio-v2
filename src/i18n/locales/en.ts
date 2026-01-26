@@ -249,16 +249,12 @@ const en = {
     contact: {
         title: "Let's Talk",
         subtitle: "I'm always open to new opportunities",
-        form: {
-            name: 'Name',
-            email: 'Email',
-            message: 'Message',
-            send: 'Send Message',
-            sending: 'Sending...',
-        },
-        messages: {
-            success: 'Message sent successfully!',
-            error: 'Error sending message. Please try again.',
+        socials: {
+            title: 'Social Networks',
+            subtitle: 'Connect with me on social media',
+            github: 'GitHub',
+            linkedin: 'LinkedIn',
+            instagram: 'Instagram',
         },
     },
     spotify: {

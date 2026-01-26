@@ -260,16 +260,12 @@ const es = {
     contact: {
         title: 'Hablemos',
         subtitle: 'Siempre estoy abierto a nuevas oportunidades',
-        form: {
-            name: 'Nombre',
-            email: 'Email',
-            message: 'Mensaje',
-            send: 'Enviar Mensaje',
-            sending: 'Enviando...',
-        },
-        messages: {
-            success: '¡Mensaje enviado con éxito!',
-            error: 'Error al enviar mensaje. Inténtalo de nuevo.',
+        socials: {
+            title: 'Redes Sociales',
+            subtitle: 'Conéctate conmigo en las redes sociales',
+            github: 'GitHub',
+            linkedin: 'LinkedIn',
+            instagram: 'Instagram',
         },
     },
     spotify: {
