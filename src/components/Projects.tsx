@@ -95,7 +95,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                                 <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                                     <OptimizedImage
                                         src={project.image}
-                                        alt={project.title}
+                                        alt={project.id}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         size="medium"
                                     />

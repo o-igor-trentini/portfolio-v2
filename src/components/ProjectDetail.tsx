@@ -39,7 +39,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                 <div className="aspect-video bg-zinc-100 dark:bg-zinc-800 relative">
                                     <OptimizedImage
                                         src={project.image}
-                                        alt={project.title}
+                                        alt={project.id}
                                         className="w-full h-full object-cover"
                                         size="large"
                                     />
@@ -172,7 +172,11 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                                     {t('projects.detail.highlights')}
                                                 </h3>
                                                 <ul className="space-y-2">
-                                                    {(t(`projects.items.${project.id}.highlights`, { returnObjects: true }) as string[]).map((highlight, index) => (
+                                                    {(
+                                                        t(`projects.items.${project.id}.highlights`, {
+                                                            returnObjects: true,
+                                                        }) as string[]
+                                                    ).map((highlight, index) => (
                                                         <li
                                                             key={index}
                                                             className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400"
