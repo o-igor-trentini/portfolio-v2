@@ -13,7 +13,7 @@ interface ProjectsProps {
 }
 
 export const Projects = ({ onProjectClick }: ProjectsProps) => {
-    const { t, language } = useI18n();
+    const { t } = useI18n();
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
 
     const filteredProjects = useMemo(
@@ -118,9 +118,9 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                                 </div>
 
                                 <div className="p-6 flex-1 flex flex-col">
-                                    <h3 className="mb-3">{project.title}</h3>
+                                    <h3 className="mb-3">{t(`projects.items.${project.id}.title`)}</h3>
                                     <p className="text-zinc-600 dark:text-zinc-400 mb-4 flex-1">
-                                        {project.description[language]}
+                                        {t(`projects.items.${project.id}.description`)}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2 mb-4">

@@ -13,7 +13,7 @@ interface ProjectDetailProps {
 }
 
 export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
-    const { t, language } = useI18n();
+    const { t } = useI18n();
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
 
     return (
@@ -45,7 +45,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                                     <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                                        <h2 className="mb-2 text-white">{project.title}</h2>
+                                        <h2 className="mb-2 text-white">{t(`projects.items.${project.id}.title`)}</h2>
                                         <div className="flex flex-wrap gap-2">
                                             {project.tags.map((tag) => (
                                                 <Badge
@@ -108,7 +108,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                         >
                                             <div className="prose dark:prose-invert max-w-none">
                                                 <p className="text-zinc-600 dark:text-zinc-400">
-                                                    {project.descriptionSimple[language]}
+                                                    {t(`projects.items.${project.id}.descriptionSimple`)}
                                                 </p>
                                             </div>
                                         </motion.div>
@@ -124,7 +124,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                             <div>
                                                 <h3 className="mb-3 text-purple-500">{t('projects.detail.problem')}</h3>
                                                 <p className="text-zinc-600 dark:text-zinc-400">
-                                                    {project.problem[language]}
+                                                    {t(`projects.items.${project.id}.problem`)}
                                                 </p>
                                             </div>
 
@@ -134,7 +134,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                                     {t('projects.detail.solution')}
                                                 </h3>
                                                 <p className="text-zinc-600 dark:text-zinc-400">
-                                                    {project.solution[language]}
+                                                    {t(`projects.items.${project.id}.solution`)}
                                                 </p>
                                             </div>
 
@@ -161,7 +161,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                                 </h3>
                                                 <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-6">
                                                     <code className="text-sm text-zinc-600 dark:text-zinc-400 whitespace-pre-wrap">
-                                                        {project.architecture[language]}
+                                                        {t(`projects.items.${project.id}.architecture`)}
                                                     </code>
                                                 </div>
                                             </div>
@@ -172,7 +172,7 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
                                                     {t('projects.detail.highlights')}
                                                 </h3>
                                                 <ul className="space-y-2">
-                                                    {project.highlights[language].map((highlight, index) => (
+                                                    {(t(`projects.items.${project.id}.highlights`, { returnObjects: true }) as string[]).map((highlight, index) => (
                                                         <li
                                                             key={index}
                                                             className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400"
