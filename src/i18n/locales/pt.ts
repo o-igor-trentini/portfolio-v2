@@ -87,72 +87,74 @@ const pt = {
                     'Alertas em tempo real via WebSocket',
                 ],
             },
-            'microservices-ecommerce': {
-                title: 'E-commerce Microservices',
-                description: 'Plataforma de e-commerce completa usando arquitetura de microserviços e event-driven',
-                descriptionSimple:
-                    'Uma loja online completa onde você pode comprar produtos, fazer pagamentos e acompanhar entregas',
-                problem:
-                    'Necessidade de sistema de e-commerce altamente escalável que suporte picos de tráfego e mantenha consistência entre serviços',
-                solution:
-                    'Arquitetura de microserviços com CQRS/Event Sourcing, usando RabbitMQ para comunicação assíncrona e Redis para cache distribuído',
-                architecture:
-                    'API Gateway → Catálogo | Pedidos | Pagamento | Inventário → Event Bus (RabbitMQ) → PostgreSQL/MongoDB',
-                highlights: [
-                    'Alta disponibilidade (99.9% uptime)',
-                    'Escalabilidade horizontal automática',
-                    'Processamento de pagamentos PCI-compliant',
-                    'Sistema de inventário com eventual consistency',
-                ],
-            },
-            'blockchain-voting': {
-                title: 'Sistema de Votação Blockchain',
+            'task-automation': {
+                title: 'Task Automation Platform',
                 description:
-                    'Sistema de votação descentralizado usando blockchain para garantir transparência e imutabilidade',
+                    'Plataforma de automação de tarefas com interface visual drag-and-drop e integrações com APIs externas',
                 descriptionSimple:
-                    'Um sistema de votação digital onde cada voto é registrado de forma segura e não pode ser alterado',
-                problem: 'Sistemas de votação tradicionais carecem de transparência e são vulneráveis a fraudes',
-                solution:
-                    'Implementação de smart contracts em Ethereum para registro imutável de votos, com frontend React e backend Go para gerenciamento',
-                architecture: 'Frontend React → API Go → Ethereum Smart Contracts → IPFS (armazenamento)',
-                highlights: [
-                    'Votos criptograficamente seguros',
-                    'Auditoria pública e transparente',
-                    'Impossível alterar votos após registro',
-                    'Zero-knowledge proofs para privacidade',
-                ],
-            },
-            'ml-recommendation': {
-                title: 'Sistema de Recomendação ML',
-                description: 'Motor de recomendação usando Machine Learning com atualização em tempo real',
-                descriptionSimple:
-                    'Um sistema que aprende o que você gosta e sugere produtos ou conteúdos personalizados para você',
-                problem: 'E-commerces precisam de recomendações personalizadas em tempo real para aumentar conversão',
-                solution:
-                    'Implementação de algoritmos de collaborative filtering e deep learning usando TensorFlow, com pipeline MLOps completo',
-                architecture: 'Data Lake → Feature Store → ML Pipeline (TensorFlow) → Model Serving → API',
-                highlights: [
-                    'Predições em <100ms',
-                    'A/B testing automatizado',
-                    'Retreinamento contínuo com novos dados',
-                    'Aumento de 40% em conversão',
-                ],
-            },
-            'iot-monitoring': {
-                title: 'IoT Monitoring Platform',
-                description: 'Plataforma de monitoramento IoT para gerenciar milhares de dispositivos simultaneamente',
-                descriptionSimple:
-                    'Um sistema que monitora e controla dispositivos conectados, como sensores e câmeras, em tempo real',
+                    'Uma ferramenta que conecta diferentes aplicativos e automatiza tarefas repetitivas sem precisar programar',
                 problem:
-                    'Necessidade de coletar, processar e visualizar dados de milhares de dispositivos IoT em tempo real',
+                    'Usuários não-técnicos precisam automatizar workflows complexos entre diferentes serviços sem conhecimento de código',
                 solution:
-                    'Arquitetura serverless com AWS IoT Core, Lambda para processamento, e DynamoDB para armazenamento de séries temporais',
-                architecture: 'Dispositivos IoT → MQTT Broker → Lambda Functions → DynamoDB/TimeStream → Dashboard',
+                    'Editor visual drag-and-drop com React Flow, engine de execução em Go com workers paralelos, e sistema de plugins para integrações',
+                architecture:
+                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
                 highlights: [
-                    'Suporta 10.000+ dispositivos',
-                    'Latência média de 200ms',
-                    'Alertas automáticos baseados em regras',
-                    'Visualização geolocalizada em tempo real',
+                    '50+ integrações prontas para uso',
+                    'Execuções paralelas com retry automático',
+                    'Logs detalhados e debugging visual',
+                    'Webhooks e triggers customizados',
+                ],
+            },
+            'social-connect': {
+                title: 'Social Connect',
+                description: 'Clone de rede social com feed em tempo real, sistema de posts, likes e comentários',
+                descriptionSimple:
+                    'Uma rede social onde você pode postar fotos, curtir e comentar nas publicações de outros usuários',
+                problem: 'Aprender sobre otimização de feeds, scroll infinito e interações em tempo real',
+                solution:
+                    'Implementação de virtual scrolling para performance, WebSocket para atualizações em tempo real, e sistema de cache com Redis',
+                architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
+                highlights: [
+                    'Feed com scroll infinito otimizado',
+                    'Atualizações em tempo real de likes/comentários',
+                    'Upload de imagens com preview',
+                    'Sistema de seguir/deixar de seguir usuários',
+                ],
+            },
+            'crypto-tracker': {
+                title: 'Crypto Tracker',
+                description:
+                    'Aplicativo de acompanhamento de criptomoedas com gráficos em tempo real e alertas de preço',
+                descriptionSimple:
+                    'Um app que mostra os preços de criptomoedas e envia notificações quando o preço muda',
+                problem: 'Praticar integração com APIs externas e visualização de dados em tempo real',
+                solution:
+                    'Integração com CoinGecko API, gráficos interativos com Recharts, e sistema de notificações push',
+                architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
+                highlights: [
+                    'Gráficos de preços com múltiplos timeframes',
+                    'Lista de favoritos persistente',
+                    'Alertas customizados de preço',
+                    'Dark mode automático',
+                ],
+            },
+            'ecommerce-api': {
+                title: 'E-Commerce API',
+                description: 'API RESTful completa para e-commerce com carrinho, checkout e gestão de pedidos',
+                descriptionSimple:
+                    'Backend de uma loja online com sistema de carrinho de compras e processamento de pedidos',
+                problem:
+                    'E-commerces precisam de sistemas robustos de processamento de pagamentos e gestão de inventário',
+                solution:
+                    'API RESTful em Go com integração Stripe, sistema de cache em Redis, e transações ACID no PostgreSQL',
+                architecture:
+                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
+                highlights: [
+                    'Processamento de pagamentos com Stripe',
+                    'Sistema de inventário com controle de estoque',
+                    'Carrinho de compras com sessão persistente',
+                    'Histórico completo de pedidos',
                 ],
             },
         },
