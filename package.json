@@ -23,10 +23,12 @@
         "@radix-ui/react-tooltip": "^1.1.8",
         "class-variance-authority": "^0.7.1",
         "clsx": "*",
+        "i18next": "^25.8.0",
         "lucide-react": "^0.487.0",
         "motion": "*",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
+        "react-i18next": "^16.5.3",
         "sonner": "^2.0.3",
         "tailwind-merge": "*",
         "zustand": "*"
