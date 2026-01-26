@@ -14,7 +14,8 @@ const es = {
                 role: 'Full Stack Developer',
                 subtitle: 'Golang, React, TypeScript',
             },
-            description: 'Desarrollador apasionado por crear soluciones elegantes y escalables. Especializado en backend con Go y frontend moderno con React.',
+            description:
+                'Desarrollador apasionado por crear soluciones elegantes y escalables. Especializado en backend con Go y frontend moderno con React.',
             projectButton: 'Ver Proyectos',
             socialButton: 'Contactar',
         },
@@ -51,11 +52,16 @@ const es = {
         items: {
             'realtime-chat': {
                 title: 'Chat en Tiempo Real',
-                description: 'Sistema de chat en tiempo real con WebSockets, autenticación JWT y arquitectura de microservicios',
-                descriptionSimple: 'Una aplicación de mensajería instantánea donde puedes chatear en tiempo real con otras personas',
-                problem: 'Las empresas necesitan sistemas de comunicación interna escalables y seguros que soporten miles de usuarios simultáneos',
-                solution: 'Implementación de WebSockets con Go para comunicación bidireccional, Redis para pub/sub y PostgreSQL para persistencia. La arquitectura de microservicios permite escalar horizontalmente',
-                architecture: 'API Gateway → Servicio de Auth → Servicio de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
+                description:
+                    'Sistema de chat en tiempo real con WebSockets, autenticación JWT y arquitectura de microservicios',
+                descriptionSimple:
+                    'Una aplicación de mensajería instantánea donde puedes chatear en tiempo real con otras personas',
+                problem:
+                    'Las empresas necesitan sistemas de comunicación interna escalables y seguros que soporten miles de usuarios simultáneos',
+                solution:
+                    'Implementación de WebSockets con Go para comunicación bidireccional, Redis para pub/sub y PostgreSQL para persistencia. La arquitectura de microservicios permite escalar horizontalmente',
+                architecture:
+                    'API Gateway → Servicio de Auth → Servicio de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
                 highlights: [
                     'Soporta 10,000+ conexiones simultáneas',
                     'Latencia promedio de 50ms',
@@ -65,10 +71,13 @@ const es = {
             },
             'api-analytics': {
                 title: 'Dashboard de Analytics',
-                description: 'Dashboard de analytics en tiempo real con procesamiento de eventos y visualizaciones interactivas',
-                descriptionSimple: 'Una herramienta que muestra gráficos y estadísticas sobre el uso de aplicaciones y sitios web',
+                description:
+                    'Dashboard de analytics en tiempo real con procesamiento de eventos y visualizaciones interactivas',
+                descriptionSimple:
+                    'Una herramienta que muestra gráficos y estadísticas sobre el uso de aplicaciones y sitios web',
                 problem: 'Necesidad de procesar y visualizar millones de eventos de analytics con baja latencia',
-                solution: 'Sistema de ingestión de datos en batch con Go, TimescaleDB para series temporales y agregaciones pre-computadas. Frontend React con visualizaciones optimizadas',
+                solution:
+                    'Sistema de ingestión de datos en batch con Go, TimescaleDB para series temporales y agregaciones pre-computadas. Frontend React con visualizaciones optimizadas',
                 architecture: 'Event Collector → Message Queue → Processing Service → TimescaleDB → API → Dashboard',
                 highlights: [
                     'Procesa 1M+ eventos por segundo',
@@ -79,11 +88,16 @@ const es = {
             },
             'task-automation': {
                 title: 'Plataforma de Automatización de Tareas',
-                description: 'Plataforma de automatización de tareas con interfaz visual drag-and-drop e integraciones con APIs externas',
-                descriptionSimple: 'Una herramienta que conecta diferentes aplicaciones y automatiza tareas repetitivas sin necesidad de programar',
-                problem: 'Usuarios no técnicos necesitan automatizar workflows complejos entre diferentes servicios sin conocimiento de código',
-                solution: 'Editor visual drag-and-drop con React Flow, motor de ejecución en Go con workers paralelos y sistema de plugins para integraciones',
-                architecture: 'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
+                description:
+                    'Plataforma de automatización de tareas con interfaz visual drag-and-drop e integraciones con APIs externas',
+                descriptionSimple:
+                    'Una herramienta que conecta diferentes aplicaciones y automatiza tareas repetitivas sin necesidad de programar',
+                problem:
+                    'Usuarios no técnicos necesitan automatizar workflows complejos entre diferentes servicios sin conocimiento de código',
+                solution:
+                    'Editor visual drag-and-drop con React Flow, motor de ejecución en Go con workers paralelos y sistema de plugins para integraciones',
+                architecture:
+                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
                 highlights: [
                     '50+ integraciones listas para usar',
                     'Ejecuciones paralelas con retry automático',
@@ -94,9 +108,11 @@ const es = {
             'social-connect': {
                 title: 'Social Connect',
                 description: 'Clon de red social con feed en tiempo real, sistema de posts, likes y comentarios',
-                descriptionSimple: 'Una red social donde puedes publicar fotos, dar like y comentar en las publicaciones de otros usuarios',
+                descriptionSimple:
+                    'Una red social donde puedes publicar fotos, dar like y comentar en las publicaciones de otros usuarios',
                 problem: 'Aprender sobre optimización de feeds, scroll infinito e interacciones en tiempo real',
-                solution: 'Implementación de virtual scrolling para rendimiento, WebSocket para actualizaciones en tiempo real y sistema de caché con Redis',
+                solution:
+                    'Implementación de virtual scrolling para rendimiento, WebSocket para actualizaciones en tiempo real y sistema de caché con Redis',
                 architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
                 highlights: [
                     'Feed con scroll infinito optimizado',
@@ -107,10 +123,13 @@ const es = {
             },
             'crypto-tracker': {
                 title: 'Crypto Tracker',
-                description: 'Aplicación de seguimiento de criptomonedas con gráficos en tiempo real y alertas de precio',
-                descriptionSimple: 'Una app que muestra los precios de criptomonedas y envía notificaciones cuando el precio cambia',
+                description:
+                    'Aplicación de seguimiento de criptomonedas con gráficos en tiempo real y alertas de precio',
+                descriptionSimple:
+                    'Una app que muestra los precios de criptomonedas y envía notificaciones cuando el precio cambia',
                 problem: 'Practicar integración con APIs externas y visualización de datos en tiempo real',
-                solution: 'Integración con CoinGecko API, gráficos interactivos con Recharts y sistema de notificaciones push',
+                solution:
+                    'Integración con CoinGecko API, gráficos interactivos con Recharts y sistema de notificaciones push',
                 architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
                 highlights: [
                     'Gráficos de precios con múltiples timeframes',
@@ -122,10 +141,14 @@ const es = {
             'ecommerce-api': {
                 title: 'API de E-Commerce',
                 description: 'API RESTful completa para e-commerce con carrito, checkout y gestión de pedidos',
-                descriptionSimple: 'Backend de una tienda online con sistema de carrito de compras y procesamiento de pedidos',
-                problem: 'Los e-commerces necesitan sistemas robustos de procesamiento de pagos y gestión de inventario',
-                solution: 'API RESTful en Go con integración Stripe, sistema de caché en Redis y transacciones ACID en PostgreSQL',
-                architecture: 'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
+                descriptionSimple:
+                    'Backend de una tienda online con sistema de carrito de compras y procesamiento de pedidos',
+                problem:
+                    'Los e-commerces necesitan sistemas robustos de procesamiento de pagos y gestión de inventario',
+                solution:
+                    'API RESTful en Go con integración Stripe, sistema de caché en Redis y transacciones ACID en PostgreSQL',
+                architecture:
+                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
                 highlights: [
                     'Procesamiento de pagos con Stripe',
                     'Sistema de inventario con control de stock',

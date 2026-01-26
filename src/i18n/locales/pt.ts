@@ -14,7 +14,8 @@ const pt = {
                 role: 'Full Stack Developer',
                 subtitle: 'Golang, React, TypeScript',
             },
-            description: 'Desenvolvedor apaixonado por criar soluções elegantes e escaláveis. Especializado em backend com Go e frontend moderno com React.',
+            description:
+                'Desenvolvedor apaixonado por criar soluções elegantes e escaláveis. Especializado em backend com Go e frontend moderno com React.',
             projectButton: 'Ver Projetos',
             socialButton: 'Entrar em Contato',
         },
@@ -51,11 +52,16 @@ const pt = {
         items: {
             'realtime-chat': {
                 title: 'Chat em Tempo Real',
-                description: 'Sistema de chat em tempo real com WebSockets, autenticação JWT, e arquitetura de microserviços',
-                descriptionSimple: 'Um aplicativo de mensagens instantâneas onde você pode conversar em tempo real com outras pessoas',
-                problem: 'Empresas precisam de sistemas de comunicação interna escaláveis e seguros que suportem milhares de usuários simultâneos',
-                solution: 'Implementação de WebSockets com Go para comunicação bidirecional, Redis para pub/sub, e PostgreSQL para persistência. Arquitetura de microserviços permite escalar horizontalmente',
-                architecture: 'API Gateway → Serviço de Auth → Serviço de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
+                description:
+                    'Sistema de chat em tempo real com WebSockets, autenticação JWT, e arquitetura de microserviços',
+                descriptionSimple:
+                    'Um aplicativo de mensagens instantâneas onde você pode conversar em tempo real com outras pessoas',
+                problem:
+                    'Empresas precisam de sistemas de comunicação interna escaláveis e seguros que suportem milhares de usuários simultâneos',
+                solution:
+                    'Implementação de WebSockets com Go para comunicação bidirecional, Redis para pub/sub, e PostgreSQL para persistência. Arquitetura de microserviços permite escalar horizontalmente',
+                architecture:
+                    'API Gateway → Serviço de Auth → Serviço de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
                 highlights: [
                     'Suporta 10.000+ conexões simultâneas',
                     'Latência média de 50ms',
@@ -65,10 +71,14 @@ const pt = {
             },
             'api-analytics': {
                 title: 'Analytics Dashboard',
-                description: 'Dashboard de analytics em tempo real com processamento de eventos e visualizações interativas',
-                descriptionSimple: 'Um painel que mostra gráficos e estatísticas em tempo real sobre o uso do seu aplicativo',
-                problem: 'Necessidade de processar milhões de eventos por dia e apresentar insights em tempo real para tomada de decisões',
-                solution: 'Pipeline de dados usando Kafka para ingestão, ClickHouse para armazenamento analítico, e React com WebSockets para visualização em tempo real',
+                description:
+                    'Dashboard de analytics em tempo real com processamento de eventos e visualizações interativas',
+                descriptionSimple:
+                    'Um painel que mostra gráficos e estatísticas em tempo real sobre o uso do seu aplicativo',
+                problem:
+                    'Necessidade de processar milhões de eventos por dia e apresentar insights em tempo real para tomada de decisões',
+                solution:
+                    'Pipeline de dados usando Kafka para ingestão, ClickHouse para armazenamento analítico, e React com WebSockets para visualização em tempo real',
                 architecture: 'Kafka → Stream Processing → ClickHouse → API GraphQL → React Dashboard',
                 highlights: [
                     'Processa 1M+ eventos/dia',
@@ -80,10 +90,14 @@ const pt = {
             'microservices-ecommerce': {
                 title: 'E-commerce Microservices',
                 description: 'Plataforma de e-commerce completa usando arquitetura de microserviços e event-driven',
-                descriptionSimple: 'Uma loja online completa onde você pode comprar produtos, fazer pagamentos e acompanhar entregas',
-                problem: 'Necessidade de sistema de e-commerce altamente escalável que suporte picos de tráfego e mantenha consistência entre serviços',
-                solution: 'Arquitetura de microserviços com CQRS/Event Sourcing, usando RabbitMQ para comunicação assíncrona e Redis para cache distribuído',
-                architecture: 'API Gateway → Catálogo | Pedidos | Pagamento | Inventário → Event Bus (RabbitMQ) → PostgreSQL/MongoDB',
+                descriptionSimple:
+                    'Uma loja online completa onde você pode comprar produtos, fazer pagamentos e acompanhar entregas',
+                problem:
+                    'Necessidade de sistema de e-commerce altamente escalável que suporte picos de tráfego e mantenha consistência entre serviços',
+                solution:
+                    'Arquitetura de microserviços com CQRS/Event Sourcing, usando RabbitMQ para comunicação assíncrona e Redis para cache distribuído',
+                architecture:
+                    'API Gateway → Catálogo | Pedidos | Pagamento | Inventário → Event Bus (RabbitMQ) → PostgreSQL/MongoDB',
                 highlights: [
                     'Alta disponibilidade (99.9% uptime)',
                     'Escalabilidade horizontal automática',
@@ -93,10 +107,13 @@ const pt = {
             },
             'blockchain-voting': {
                 title: 'Sistema de Votação Blockchain',
-                description: 'Sistema de votação descentralizado usando blockchain para garantir transparência e imutabilidade',
-                descriptionSimple: 'Um sistema de votação digital onde cada voto é registrado de forma segura e não pode ser alterado',
+                description:
+                    'Sistema de votação descentralizado usando blockchain para garantir transparência e imutabilidade',
+                descriptionSimple:
+                    'Um sistema de votação digital onde cada voto é registrado de forma segura e não pode ser alterado',
                 problem: 'Sistemas de votação tradicionais carecem de transparência e são vulneráveis a fraudes',
-                solution: 'Implementação de smart contracts em Ethereum para registro imutável de votos, com frontend React e backend Go para gerenciamento',
+                solution:
+                    'Implementação de smart contracts em Ethereum para registro imutável de votos, com frontend React e backend Go para gerenciamento',
                 architecture: 'Frontend React → API Go → Ethereum Smart Contracts → IPFS (armazenamento)',
                 highlights: [
                     'Votos criptograficamente seguros',
@@ -108,9 +125,11 @@ const pt = {
             'ml-recommendation': {
                 title: 'Sistema de Recomendação ML',
                 description: 'Motor de recomendação usando Machine Learning com atualização em tempo real',
-                descriptionSimple: 'Um sistema que aprende o que você gosta e sugere produtos ou conteúdos personalizados para você',
+                descriptionSimple:
+                    'Um sistema que aprende o que você gosta e sugere produtos ou conteúdos personalizados para você',
                 problem: 'E-commerces precisam de recomendações personalizadas em tempo real para aumentar conversão',
-                solution: 'Implementação de algoritmos de collaborative filtering e deep learning usando TensorFlow, com pipeline MLOps completo',
+                solution:
+                    'Implementação de algoritmos de collaborative filtering e deep learning usando TensorFlow, com pipeline MLOps completo',
                 architecture: 'Data Lake → Feature Store → ML Pipeline (TensorFlow) → Model Serving → API',
                 highlights: [
                     'Predições em <100ms',
@@ -122,9 +141,12 @@ const pt = {
             'iot-monitoring': {
                 title: 'IoT Monitoring Platform',
                 description: 'Plataforma de monitoramento IoT para gerenciar milhares de dispositivos simultaneamente',
-                descriptionSimple: 'Um sistema que monitora e controla dispositivos conectados, como sensores e câmeras, em tempo real',
-                problem: 'Necessidade de coletar, processar e visualizar dados de milhares de dispositivos IoT em tempo real',
-                solution: 'Arquitetura serverless com AWS IoT Core, Lambda para processamento, e DynamoDB para armazenamento de séries temporais',
+                descriptionSimple:
+                    'Um sistema que monitora e controla dispositivos conectados, como sensores e câmeras, em tempo real',
+                problem:
+                    'Necessidade de coletar, processar e visualizar dados de milhares de dispositivos IoT em tempo real',
+                solution:
+                    'Arquitetura serverless com AWS IoT Core, Lambda para processamento, e DynamoDB para armazenamento de séries temporais',
                 architecture: 'Dispositivos IoT → MQTT Broker → Lambda Functions → DynamoDB/TimeStream → Dashboard',
                 highlights: [
                     'Suporta 10.000+ dispositivos',

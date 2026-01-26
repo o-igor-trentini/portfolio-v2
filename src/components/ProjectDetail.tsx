@@ -130,7 +130,9 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Solution */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.solution')}</h3>
+                                                <h3 className="mb-3 text-purple-500">
+                                                    {t('projects.detail.solution')}
+                                                </h3>
                                                 <p className="text-zinc-600 dark:text-zinc-400">
                                                     {project.solution[language]}
                                                 </p>
@@ -154,7 +156,9 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Architecture */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.architecture')}</h3>
+                                                <h3 className="mb-3 text-purple-500">
+                                                    {t('projects.detail.architecture')}
+                                                </h3>
                                                 <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-6">
                                                     <code className="text-sm text-zinc-600 dark:text-zinc-400 whitespace-pre-wrap">
                                                         {project.architecture[language]}
@@ -164,7 +168,9 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
 
                                             {/* Highlights */}
                                             <div>
-                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.highlights')}</h3>
+                                                <h3 className="mb-3 text-purple-500">
+                                                    {t('projects.detail.highlights')}
+                                                </h3>
                                                 <ul className="space-y-2">
                                                     {project.highlights[language].map((highlight, index) => (
                                                         <li

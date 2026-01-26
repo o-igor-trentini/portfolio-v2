@@ -14,7 +14,8 @@ const en = {
                 role: 'Full Stack Developer',
                 subtitle: 'Golang, React, TypeScript',
             },
-            description: 'Developer passionate about creating elegant and scalable solutions. Specialized in backend with Go and modern frontend with React.',
+            description:
+                'Developer passionate about creating elegant and scalable solutions. Specialized in backend with Go and modern frontend with React.',
             projectButton: 'View Projects',
             socialButton: 'Get in Touch',
         },
@@ -51,10 +52,13 @@ const en = {
         items: {
             'realtime-chat': {
                 title: 'Real-time Chat',
-                description: 'Real-time chat system with WebSockets, JWT authentication, and microservices architecture',
+                description:
+                    'Real-time chat system with WebSockets, JWT authentication, and microservices architecture',
                 descriptionSimple: 'An instant messaging app where you can chat in real-time with other people',
-                problem: 'Companies need scalable and secure internal communication systems that support thousands of simultaneous users',
-                solution: 'Implementation of WebSockets with Go for bidirectional communication, Redis for pub/sub, and PostgreSQL for persistence. Microservices architecture allows horizontal scaling',
+                problem:
+                    'Companies need scalable and secure internal communication systems that support thousands of simultaneous users',
+                solution:
+                    'Implementation of WebSockets with Go for bidirectional communication, Redis for pub/sub, and PostgreSQL for persistence. Microservices architecture allows horizontal scaling',
                 architecture: 'API Gateway → Auth Service → Chat Service (WebSocket) → Redis Pub/Sub → PostgreSQL',
                 highlights: [
                     'Supports 10,000+ simultaneous connections',
@@ -68,7 +72,8 @@ const en = {
                 description: 'Real-time analytics dashboard with event processing and interactive visualizations',
                 descriptionSimple: 'A tool that shows graphs and statistics about app and website usage',
                 problem: 'Need to process and visualize millions of analytics events with low latency',
-                solution: 'Batch data ingestion system with Go, TimescaleDB for time series, and pre-computed aggregations. React frontend with optimized visualizations',
+                solution:
+                    'Batch data ingestion system with Go, TimescaleDB for time series, and pre-computed aggregations. React frontend with optimized visualizations',
                 architecture: 'Event Collector → Message Queue → Processing Service → TimescaleDB → API → Dashboard',
                 highlights: [
                     'Processes 1M+ events per second',
@@ -79,11 +84,15 @@ const en = {
             },
             'task-automation': {
                 title: 'Task Automation Platform',
-                description: 'Task automation platform with visual drag-and-drop interface and external API integrations',
+                description:
+                    'Task automation platform with visual drag-and-drop interface and external API integrations',
                 descriptionSimple: 'A tool that connects different apps and automates repetitive tasks without coding',
-                problem: 'Non-technical users need to automate complex workflows between different services without coding knowledge',
-                solution: 'Visual drag-and-drop editor with React Flow, execution engine in Go with parallel workers, and plugin system for integrations',
-                architecture: 'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
+                problem:
+                    'Non-technical users need to automate complex workflows between different services without coding knowledge',
+                solution:
+                    'Visual drag-and-drop editor with React Flow, execution engine in Go with parallel workers, and plugin system for integrations',
+                architecture:
+                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
                 highlights: [
                     '50+ ready-to-use integrations',
                     'Parallel executions with automatic retry',
@@ -96,7 +105,8 @@ const en = {
                 description: 'Social network clone with real-time feed, posts, likes and comments system',
                 descriptionSimple: 'A social network where you can post photos, like and comment on other users posts',
                 problem: 'Learn about feed optimization, infinite scroll and real-time interactions',
-                solution: 'Implementation of virtual scrolling for performance, WebSocket for real-time updates, and caching system with Redis',
+                solution:
+                    'Implementation of virtual scrolling for performance, WebSocket for real-time updates, and caching system with Redis',
                 architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
                 highlights: [
                     'Optimized infinite scroll feed',
@@ -110,7 +120,8 @@ const en = {
                 description: 'Cryptocurrency tracking app with real-time charts and price alerts',
                 descriptionSimple: 'An app that shows cryptocurrency prices and sends notifications when prices change',
                 problem: 'Practice external API integration and real-time data visualization',
-                solution: 'Integration with CoinGecko API, interactive charts with Recharts, and push notification system',
+                solution:
+                    'Integration with CoinGecko API, interactive charts with Recharts, and push notification system',
                 architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
                 highlights: [
                     'Price charts with multiple timeframes',
@@ -124,8 +135,10 @@ const en = {
                 description: 'Complete RESTful API for e-commerce with cart, checkout and order management',
                 descriptionSimple: 'Backend for an online store with shopping cart system and order processing',
                 problem: 'E-commerces need robust payment processing and inventory management systems',
-                solution: 'RESTful API in Go with Stripe integration, Redis caching system, and ACID transactions in PostgreSQL',
-                architecture: 'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
+                solution:
+                    'RESTful API in Go with Stripe integration, Redis caching system, and ACID transactions in PostgreSQL',
+                architecture:
+                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
                 highlights: [
                     'Payment processing with Stripe',
                     'Inventory system with stock control',

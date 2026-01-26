@@ -1,7 +1,7 @@
-import type pt from './locales/pt';
-import ptTranslations from './locales/pt';
 import enTranslations from './locales/en';
 import esTranslations from './locales/es';
+import type pt from './locales/pt';
+import ptTranslations from './locales/pt';
 
 // Extract the structure type from the Portuguese translation (our source of truth)
 // We use the structure but not the literal types to allow different text values
