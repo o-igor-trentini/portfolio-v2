@@ -6,3 +6,7 @@
 node_modules
 dist
 build
+
+# Variável de ambiente
+.env
+.env*.local
