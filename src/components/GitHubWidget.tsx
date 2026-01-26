@@ -1,11 +1,9 @@
 import { Github, GitBranch, Star, Code } from 'lucide-react';
 import { motion } from 'motion/react';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 export const GitHubWidget = () => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
 
     // Mock contribution data (7x7 grid for heatmap)
     const contributions = Array.from({ length: 7 }, () =>
@@ -31,12 +29,12 @@ export const GitHubWidget = () => {
                 <div className="w-10 h-10 rounded-lg bg-zinc-900 dark:bg-white flex items-center justify-center">
                     <Github className="w-5 h-5 text-white dark:text-zinc-900" />
                 </div>
-                <h3>{t.github.title}</h3>
+                <h3>{t('github.title')}</h3>
             </div>
 
             {/* Contribution Heatmap */}
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t.github.contributions}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('github.contributions')}</p>
                 <div className="flex gap-1">
                     {contributions.map((week, weekIndex) => (
                         <div key={weekIndex} className="flex flex-col gap-1">
@@ -69,7 +67,7 @@ export const GitHubWidget = () => {
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                     <Code className="w-4 h-4 text-purple-500" />
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.github.topLanguages}</p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('github.topLanguages')}</p>
                 </div>
 
                 {/* Donut Chart */}
@@ -130,7 +128,7 @@ export const GitHubWidget = () => {
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                 <div className="flex items-center gap-2 mb-3">
                     <GitBranch className="w-4 h-4 text-purple-500" />
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{t.github.topRepos}</p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('github.topRepos')}</p>
                 </div>
                 <div className="space-y-2">
                     {topRepos.map((repo, index) => (

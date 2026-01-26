@@ -1,0 +1,241 @@
+const es = {
+    nav: {
+        home: 'Inicio',
+        projects: 'Proyectos',
+        about: 'Sobre',
+        experience: 'Carrera',
+        contact: 'Contacto',
+    },
+    hero: {
+        info: {
+            title: {
+                greeting: 'Hola, soy',
+                name: 'Igor Trentini',
+                role: 'Full Stack Developer',
+                subtitle: 'Golang, React, TypeScript',
+            },
+            description:
+                'Desarrollador apasionado por crear soluciones elegantes y escalables. Especializado en backend con Go y frontend moderno con React.',
+            projectButton: 'Ver Proyectos',
+            socialButton: 'Contactar',
+        },
+        connect: 'Conecta conmigo',
+        scrollToExplore: 'Desplázate para explorar',
+        available: 'Disponible para proyectos',
+        specialist: 'Especialista en',
+    },
+    projects: {
+        title: 'Proyectos',
+        subtitle: 'Explorando ideas a través del código',
+        tags: {
+            filterLabel: 'Filtrar',
+            all: 'Todos',
+            professional: 'Profesionales',
+            study: 'Estudios',
+        },
+        card: {
+            viewMore: 'Ver Detalles',
+        },
+        detail: {
+            technicalView: 'Vista Técnica',
+            simpleView: 'Vista Simple',
+            problem: 'Problema',
+            solution: 'Solución',
+            stack: 'Stack Tecnológico',
+            architecture: 'Arquitectura',
+            highlights: 'Destacados',
+            viewOnGithub: 'Ver en GitHub',
+            backToProjects: 'Volver a Proyectos',
+        },
+        projectCount: 'proyecto',
+        projectsCount: 'proyectos',
+        items: {
+            'realtime-chat': {
+                title: 'Chat en Tiempo Real',
+                description:
+                    'Sistema de chat en tiempo real con WebSockets, autenticación JWT y arquitectura de microservicios',
+                descriptionSimple:
+                    'Una aplicación de mensajería instantánea donde puedes chatear en tiempo real con otras personas',
+                problem:
+                    'Las empresas necesitan sistemas de comunicación interna escalables y seguros que soporten miles de usuarios simultáneos',
+                solution:
+                    'Implementación de WebSockets con Go para comunicación bidireccional, Redis para pub/sub y PostgreSQL para persistencia. La arquitectura de microservicios permite escalar horizontalmente',
+                architecture:
+                    'API Gateway → Servicio de Auth → Servicio de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
+                highlights: [
+                    'Soporta 10,000+ conexiones simultáneas',
+                    'Latencia promedio de 50ms',
+                    'Sistema de presencia online en tiempo real',
+                    'Historial de mensajes con búsqueda full-text',
+                ],
+            },
+            'api-analytics': {
+                title: 'Dashboard de Analytics',
+                description:
+                    'Dashboard de analytics en tiempo real con procesamiento de eventos y visualizaciones interactivas',
+                descriptionSimple:
+                    'Una herramienta que muestra gráficos y estadísticas sobre el uso de aplicaciones y sitios web',
+                problem: 'Necesidad de procesar y visualizar millones de eventos de analytics con baja latencia',
+                solution:
+                    'Sistema de ingestión de datos en batch con Go, TimescaleDB para series temporales y agregaciones pre-computadas. Frontend React con visualizaciones optimizadas',
+                architecture: 'Event Collector → Message Queue → Processing Service → TimescaleDB → API → Dashboard',
+                highlights: [
+                    'Procesa 1M+ eventos por segundo',
+                    'Consultas con respuesta en <100ms',
+                    'Gráficos interactivos con drill-down',
+                    'Exportación de informes personalizados',
+                ],
+            },
+            'task-automation': {
+                title: 'Plataforma de Automatización de Tareas',
+                description:
+                    'Plataforma de automatización de tareas con interfaz visual drag-and-drop e integraciones con APIs externas',
+                descriptionSimple:
+                    'Una herramienta que conecta diferentes aplicaciones y automatiza tareas repetitivas sin necesidad de programar',
+                problem:
+                    'Usuarios no técnicos necesitan automatizar workflows complejos entre diferentes servicios sin conocimiento de código',
+                solution:
+                    'Editor visual drag-and-drop con React Flow, motor de ejecución en Go con workers paralelos y sistema de plugins para integraciones',
+                architecture:
+                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
+                highlights: [
+                    '50+ integraciones listas para usar',
+                    'Ejecuciones paralelas con retry automático',
+                    'Logs detallados y debugging visual',
+                    'Webhooks y triggers personalizados',
+                ],
+            },
+            'social-connect': {
+                title: 'Social Connect',
+                description: 'Clon de red social con feed en tiempo real, sistema de posts, likes y comentarios',
+                descriptionSimple:
+                    'Una red social donde puedes publicar fotos, dar like y comentar en las publicaciones de otros usuarios',
+                problem: 'Aprender sobre optimización de feeds, scroll infinito e interacciones en tiempo real',
+                solution:
+                    'Implementación de virtual scrolling para rendimiento, WebSocket para actualizaciones en tiempo real y sistema de caché con Redis',
+                architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
+                highlights: [
+                    'Feed con scroll infinito optimizado',
+                    'Actualizaciones en tiempo real de likes/comentarios',
+                    'Upload de imágenes con preview',
+                    'Sistema de seguir/dejar de seguir usuarios',
+                ],
+            },
+            'crypto-tracker': {
+                title: 'Crypto Tracker',
+                description:
+                    'Aplicación de seguimiento de criptomonedas con gráficos en tiempo real y alertas de precio',
+                descriptionSimple:
+                    'Una app que muestra los precios de criptomonedas y envía notificaciones cuando el precio cambia',
+                problem: 'Practicar integración con APIs externas y visualización de datos en tiempo real',
+                solution:
+                    'Integración con CoinGecko API, gráficos interactivos con Recharts y sistema de notificaciones push',
+                architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
+                highlights: [
+                    'Gráficos de precios con múltiples timeframes',
+                    'Lista de favoritos persistente',
+                    'Alertas personalizados de precio',
+                    'Dark mode automático',
+                ],
+            },
+            'ecommerce-api': {
+                title: 'API de E-Commerce',
+                description: 'API RESTful completa para e-commerce con carrito, checkout y gestión de pedidos',
+                descriptionSimple:
+                    'Backend de una tienda online con sistema de carrito de compras y procesamiento de pedidos',
+                problem:
+                    'Los e-commerces necesitan sistemas robustos de procesamiento de pagos y gestión de inventario',
+                solution:
+                    'API RESTful en Go con integración Stripe, sistema de caché en Redis y transacciones ACID en PostgreSQL',
+                architecture:
+                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
+                highlights: [
+                    'Procesamiento de pagos con Stripe',
+                    'Sistema de inventario con control de stock',
+                    'Carrito de compras con sesión persistente',
+                    'Historial completo de pedidos',
+                ],
+            },
+        },
+    },
+    about: {
+        title: 'Sobre Mí',
+        subtitle: 'Más allá del código',
+        interests: {
+            coffee: {
+                title: 'Café',
+                description: 'Amante del café especial y métodos de extracción',
+            },
+            sports: {
+                title: 'Deportes',
+                description: 'Fútbol, running y entrenamientos funcionales',
+            },
+            anime: {
+                title: 'Anime',
+                description: 'Attack on Titan, Death Note, Steins;Gate',
+            },
+            series: {
+                title: 'Series',
+                description: 'Breaking Bad, Dark, The Last of Us',
+            },
+            movies: {
+                title: 'Películas',
+                description: 'Sci-fi, thrillers psicológicos y Nolan',
+            },
+        },
+    },
+    techStack: {
+        title: 'Tech Stack',
+        subtitle: 'Herramientas que domino',
+        categories: {
+            backend: 'Backend',
+            frontend: 'Frontend',
+            devops: 'DevOps',
+            others: 'Otros',
+        },
+    },
+    experience: {
+        title: 'Experiencia',
+        subtitle: 'Mi trayectoria profesional',
+        present: 'Presente',
+        viewDetails: 'Ver Detalles',
+    },
+    contact: {
+        title: 'Hablemos',
+        subtitle: 'Siempre estoy abierto a nuevas oportunidades',
+        form: {
+            name: 'Nombre',
+            email: 'Email',
+            message: 'Mensaje',
+            send: 'Enviar Mensaje',
+            sending: 'Enviando...',
+        },
+        messages: {
+            success: '¡Mensaje enviado con éxito!',
+            error: 'Error al enviar mensaje. Inténtalo de nuevo.',
+        },
+    },
+    spotify: {
+        title: 'Escuchando Ahora',
+        topArtist: 'Artista Favorito',
+        weeklyMinutes: 'Minutos Esta Semana',
+        recentTracks: 'Tocadas Recientemente',
+    },
+    github: {
+        title: 'GitHub Stats',
+        contributions: 'Contribuciones',
+        topLanguages: 'Lenguajes Principales',
+        topRepos: 'Repositorios Destacados',
+    },
+    terminal: {
+        welcome: 'Terminal Igor Trentini v1.0.0',
+        help: 'Comandos disponibles: about, skills, anime, clear, exit',
+        aboutAnime: 'Animes favoritos: Attack on Titan, Death Note, Steins;Gate, Fullmetal Alchemist',
+        aboutSkills: 'Skills: Golang, React, TypeScript, PostgreSQL, Redis, Docker',
+        about: 'Full Stack Developer especializado en Golang y React',
+        clear: 'Terminal limpiada',
+        unknown: 'Comando no encontrado. Escribe "help" para ver comandos disponibles.',
+    },
+} as const;
+
+export default es;

@@ -6,16 +6,14 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { projects } from '../data/projects';
 import type { Project } from '../data/projects';
-import { translations } from '../data/translations';
-import { useLanguage } from '../hooks/useLanguage';
+import { useI18n } from '../hooks/useLanguage';
 
 interface ProjectsProps {
     onProjectClick: (project: Project) => void;
 }
 
 export const Projects = ({ onProjectClick }: ProjectsProps) => {
-    const { language } = useLanguage();
-    const t = translations[language];
+    const { t } = useI18n();
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
 
     const filteredProjects = useMemo(
@@ -32,14 +30,14 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="mb-4">{t.projects.title}</h2>
-                    <p className="text-zinc-600 dark:text-zinc-400 mb-8">{t.projects.subtitle}</p>
+                    <h2 className="mb-4">{t('projects.title')}</h2>
+                    <p className="text-zinc-600 dark:text-zinc-400 mb-8">{t('projects.subtitle')}</p>
 
                     {/* Filtros de Projeto */}
                     <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
                         <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                             <Filter className="w-4 h-4" />
-                            {t.projects.filterLabel}:
+                            {t('projects.tags.filterLabel')}:
                         </div>
                         <Button
                             variant={selectedFilter === 'all' ? 'default' : 'outline'}
@@ -47,7 +45,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                             onClick={() => setSelectedFilter('all')}
                             className={selectedFilter === 'all' ? 'bg-purple-500 hover:bg-purple-600' : ''}
                         >
-                            {t.projects.all}
+                            {t('projects.tags.all')}
                         </Button>
                         <Button
                             variant={selectedFilter === 'professional' ? 'default' : 'outline'}
@@ -56,7 +54,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                             className={selectedFilter === 'professional' ? 'bg-purple-500 hover:bg-purple-600' : ''}
                         >
                             <Briefcase className="w-4 h-4 mr-2" />
-                            {t.projects.professional}
+                            {t('projects.tags.professional')}
                         </Button>
                         <Button
                             variant={selectedFilter === 'study' ? 'default' : 'outline'}
@@ -65,7 +63,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                             className={selectedFilter === 'study' ? 'bg-purple-500 hover:bg-purple-600' : ''}
                         >
                             <GraduationCap className="w-4 h-4 mr-2" />
-                            {t.projects.study}
+                            {t('projects.tags.study')}
                         </Button>
                     </div>
 
@@ -77,7 +75,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                         className="text-sm text-zinc-500 dark:text-zinc-400"
                     >
                         {filteredProjects.length}{' '}
-                        {filteredProjects.length === 1 ? t.projects.projectCount : t.projects.projectsCount}
+                        {filteredProjects.length === 1 ? t('projects.projectCount') : t('projects.projectsCount')}
                     </motion.p>
                 </motion.div>
 
@@ -97,7 +95,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                                 <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                                     <OptimizedImage
                                         src={project.image}
-                                        alt={project.title}
+                                        alt={project.id}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         size="medium"
                                     />
@@ -108,21 +106,21 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                                         {project.type === 'professional' ? (
                                             <div className="flex items-center gap-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-lg backdrop-blur-sm">
                                                 <Briefcase className="w-3 h-3" />
-                                                {t.projects.professional}
+                                                {t('projects.tags.professional')}
                                             </div>
                                         ) : (
                                             <div className="flex items-center gap-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-lg backdrop-blur-sm">
                                                 <GraduationCap className="w-3 h-3" />
-                                                {t.projects.study}
+                                                {t('projects.tags.study')}
                                             </div>
                                         )}
                                     </div>
                                 </div>
 
                                 <div className="p-6 flex-1 flex flex-col">
-                                    <h3 className="mb-3">{project.title}</h3>
+                                    <h3 className="mb-3">{t(`projects.items.${project.id}.title`)}</h3>
                                     <p className="text-zinc-600 dark:text-zinc-400 mb-4 flex-1">
-                                        {project.description[language]}
+                                        {t(`projects.items.${project.id}.description`)}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2 mb-4">
@@ -146,7 +144,7 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
                                             variant="ghost"
                                             className="flex-1 group/btn"
                                         >
-                                            {t.projects.viewDetails}
+                                            {t('projects.card.viewMore')}
                                             <ChevronRight className="ml-2 w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                                         </Button>
                                         {project.github && (
