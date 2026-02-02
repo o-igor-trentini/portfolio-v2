@@ -1,9 +1,10 @@
 import { Music, Play, User, Clock, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useI18n } from '../hooks/useLanguage';
-import { useSpotify } from '../hooks/useSpotify';
+import type { FC, ReactElement } from 'react';
+import { useI18n } from '../../../../hooks/useLanguage';
+import { useSpotify } from '../../../../hooks/useSpotify';
 
-export const SpotifyWidget = () => {
+export const SpotifyWidget: FC = (): ReactElement => {
     const { t } = useI18n();
     const { currentTrack, topArtist, recentTracks, isLoading } = useSpotify();
 

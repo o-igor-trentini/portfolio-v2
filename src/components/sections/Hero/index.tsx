@@ -1,11 +1,11 @@
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { PriorityImage } from './common/OptimizedImage';
-import { Button } from './ui/button';
-import { useI18n } from '../hooks/useLanguage';
+import { useEffect, useState, useRef, useCallback, type ReactElement } from 'react';
+import { useI18n } from '../../../hooks/useLanguage';
+import { PriorityImage } from '../../common/OptimizedImage';
+import { Button } from '../../ui/button';
 
-export const Hero = () => {
+export const Hero = (): ReactElement => {
     const { t } = useI18n();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const rafId = useRef<number | undefined>(undefined);

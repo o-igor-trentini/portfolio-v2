@@ -1,18 +1,18 @@
-import { X, ExternalLink, ArrowLeft } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
-import { OptimizedImage } from './common/OptimizedImage';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import type { Project } from '../data/projects';
-import { useI18n } from '../hooks/useLanguage';
+import { ArrowLeft, ExternalLink, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useState, type FC, type ReactElement } from 'react';
+import type { Project } from '../../../../data/projects';
+import { useI18n } from '../../../../hooks/useLanguage';
+import { OptimizedImage } from '../../../common/OptimizedImage';
+import { Badge } from '../../../ui/badge';
+import { Button } from '../../../ui/button';
 
 interface ProjectDetailProps {
     project: Project | null;
     onClose: () => void;
 }
 
-export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
+const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactElement => {
     const { t } = useI18n();
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
 
@@ -211,3 +211,5 @@ export const ProjectDetail = ({ project, onClose }: ProjectDetailProps) => {
         </AnimatePresence>
     );
 };
+
+export default ProjectDetail;

@@ -11,30 +11,27 @@ import {
     Filter,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState, useMemo } from 'react';
-import { Button } from './ui/button';
-import { techStackCategories, badgeLabels } from '../data/techStackData';
-import type { TechBadge } from '../data/techStackData';
-import { useI18n } from '../hooks/useLanguage';
+import { useState, useMemo, type FC, type ReactElement } from 'react';
+import { techStackCategories, badgeLabels } from '../../../data/techStackData';
+import type { TechBadge } from '../../../data/techStackData';
+import { useI18n } from '../../../hooks/useLanguage';
+import { Button } from '../../ui/button';
 
-export const TechStack = () => {
+const iconMap: Record<string, any> = {
+    Server,
+    Code2,
+    Cloud,
+    GitBranch,
+    Sparkles,
+    Monitor,
+    Terminal: TerminalIcon,
+    CheckCircle,
+    Boxes,
+};
+
+const TechStack: FC = (): ReactElement => {
     const { t, language } = useI18n();
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
-
-    const iconMap: Record<string, any> = useMemo(
-        () => ({
-            Server,
-            Code2,
-            Cloud,
-            GitBranch,
-            Sparkles,
-            Monitor,
-            Terminal: TerminalIcon,
-            CheckCircle,
-            Boxes,
-        }),
-        [],
-    );
 
     const filterByBadge = useMemo(
         () => (items: any[]) => {
@@ -180,3 +177,5 @@ export const TechStack = () => {
         </section>
     );
 };
+
+export default TechStack;

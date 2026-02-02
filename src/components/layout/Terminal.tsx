@@ -1,8 +1,8 @@
-import { X, Terminal as TerminalIcon } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useRef, useEffect, type FormEvent } from 'react';
-import { Button } from './ui/button';
-import { useI18n } from '../hooks/useLanguage';
+import { Terminal as TerminalIcon, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
+import { Button } from '../ui/button';
+import { useI18n } from '../../hooks/useLanguage';
 
 interface TerminalProps {
     isOpen: boolean;
@@ -14,7 +14,7 @@ interface CommandOutput {
     output: string;
 }
 
-export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
+const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
     const { t } = useI18n();
     const [input, setInput] = useState('');
     const [history, setHistory] = useState<CommandOutput[]>([
@@ -152,3 +152,5 @@ export const Terminal = ({ isOpen, onClose }: TerminalProps) => {
         </AnimatePresence>
     );
 };
+
+export default Terminal;

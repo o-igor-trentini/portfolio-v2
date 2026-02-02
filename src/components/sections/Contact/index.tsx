@@ -1,10 +1,11 @@
 import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { GitHubWidget } from './GitHubWidget';
-import { SpotifyWidget } from './SpotifyWidget';
-import { useI18n } from '../hooks/useLanguage';
+import type { FC, ReactElement } from 'react';
+import { useI18n } from '../../../hooks/useLanguage';
+import { GitHubWidget } from './components/GitHubWidget';
+import { SpotifyWidget } from './components/SpotifyWidget';
 
-export const Contact = () => {
+const Contact: FC = (): ReactElement => {
     const { t } = useI18n();
 
     const socialLinks = [
@@ -131,3 +132,5 @@ export const Contact = () => {
         </section>
     );
 };
+
+export default Contact;

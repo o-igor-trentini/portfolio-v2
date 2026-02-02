@@ -1,18 +1,18 @@
-import { ExternalLink, ChevronRight, Filter, Briefcase, GraduationCap } from 'lucide-react';
+import { Briefcase, ChevronRight, ExternalLink, Filter, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState, useMemo } from 'react';
-import { OptimizedImage } from './common/OptimizedImage';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { projects } from '../data/projects';
-import type { Project } from '../data/projects';
-import { useI18n } from '../hooks/useLanguage';
+import { useMemo, useState, type FC, type ReactElement } from 'react';
+import type { Project } from '../../../data/projects';
+import { projects } from '../../../data/projects';
+import { useI18n } from '../../../hooks/useLanguage';
+import { OptimizedImage } from '../../common/OptimizedImage';
+import { Badge } from '../../ui/badge';
+import { Button } from '../../ui/button';
 
 interface ProjectsProps {
     onProjectClick: (project: Project) => void;
 }
 
-export const Projects = ({ onProjectClick }: ProjectsProps) => {
+const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
     const { t } = useI18n();
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
 
@@ -166,3 +166,5 @@ export const Projects = ({ onProjectClick }: ProjectsProps) => {
         </section>
     );
 };
+
+export default Projects;

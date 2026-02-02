@@ -1,8 +1,8 @@
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, type MouseEvent } from 'react';
-import { OptimizedImage } from './common/OptimizedImage';
-import { Button } from './ui/button';
+import { OptimizedImage } from '../common/OptimizedImage';
+import { Button } from '../ui/button';
 
 interface GalleryImage {
     url: string;

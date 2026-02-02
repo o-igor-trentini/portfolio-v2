@@ -1,11 +1,11 @@
 import { Github, GitBranch, Star, Code, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type FC, type ReactElement } from 'react';
 
-import { useGitHub } from '../hooks/useGitHub';
-import { useI18n } from '../hooks/useLanguage';
+import { useGitHub } from '../../../../hooks/useGitHub';
+import { useI18n } from '../../../../hooks/useLanguage';
 
-export const GitHubWidget = () => {
+export const GitHubWidget: FC = (): ReactElement => {
     const { t } = useI18n();
     const { stats, isLoading } = useGitHub();
     const containerRef = useRef<HTMLDivElement>(null);

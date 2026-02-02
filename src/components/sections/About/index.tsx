@@ -1,36 +1,29 @@
-import { Coffee, Dumbbell, Tv, Film, Clapperboard } from 'lucide-react';
+import { Clapperboard, Coffee, Dumbbell, Film, Tv } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState, useMemo } from 'react';
-import { AboutDetailModal } from './AboutDetailModal';
-import { aboutInterests } from '../data/aboutData';
-import { useI18n } from '../hooks/useLanguage';
+import { useState, type FC, type ReactElement } from 'react';
+import { AboutDetailModal } from './components/AboutDetailModal';
+import { aboutInterests } from '../../../data/aboutData';
+import { useI18n } from '../../../hooks/useLanguage';
 
-export const About = () => {
+const iconMap = {
+    coffee: Coffee,
+    sports: Dumbbell,
+    anime: Tv,
+    series: Clapperboard,
+    movies: Film,
+};
+const colorMap = {
+    coffee: 'from-amber-500 to-orange-500',
+    sports: 'from-green-500 to-emerald-500',
+    anime: 'from-blue-500 to-cyan-500',
+    series: 'from-purple-500 to-pink-500',
+    movies: 'from-red-500 to-rose-500',
+};
+
+const About: FC = (): ReactElement => {
     const { t } = useI18n();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
-
-    const iconMap = useMemo(
-        () => ({
-            coffee: Coffee,
-            sports: Dumbbell,
-            anime: Tv,
-            series: Clapperboard,
-            movies: Film,
-        }),
-        [],
-    );
-
-    const colorMap = useMemo(
-        () => ({
-            coffee: 'from-amber-500 to-orange-500',
-            sports: 'from-green-500 to-emerald-500',
-            anime: 'from-blue-500 to-cyan-500',
-            series: 'from-purple-500 to-pink-500',
-            movies: 'from-red-500 to-rose-500',
-        }),
-        [],
-    );
 
     return (
         <section id="about" className="py-32 bg-zinc-50 dark:bg-zinc-900/50">
@@ -146,3 +139,5 @@ export const About = () => {
         </section>
     );
 };
+
+export default About;

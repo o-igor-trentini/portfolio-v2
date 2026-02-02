@@ -1,36 +1,37 @@
-import { X, Coffee, Dumbbell, Tv, Film, Clapperboard, Sparkles } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ImageGallery } from './ImageGallery';
-import { Button } from './ui/button';
-import { aboutInterests } from '../data/aboutData';
-import { useI18n } from '../hooks/useLanguage';
+import { Clapperboard, Coffee, Dumbbell, Film, Sparkles, Tv, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import type { FC, ReactElement } from 'react';
+import { aboutInterests } from '../../../../data/aboutData';
+import { useI18n } from '../../../../hooks/useLanguage';
+import { ImageGallery } from '../../../layout/ImageGallery';
+import { Button } from '../../../ui/button';
+
+const iconMap = {
+    coffee: Coffee,
+    sports: Dumbbell,
+    anime: Tv,
+    series: Clapperboard,
+    movies: Film,
+};
+
+const colorMap = {
+    coffee: 'from-amber-500 to-orange-500',
+    sports: 'from-green-500 to-emerald-500',
+    anime: 'from-blue-500 to-cyan-500',
+    series: 'from-purple-500 to-pink-500',
+    movies: 'from-red-500 to-rose-500',
+};
 
 interface AboutDetailModalProps {
     interestId: string | null;
     onClose: () => void;
 }
 
-export const AboutDetailModal = ({ interestId, onClose }: AboutDetailModalProps) => {
+export const AboutDetailModal: FC<AboutDetailModalProps> = ({ interestId, onClose }): ReactElement => {
     const { t } = useI18n();
     const interest = aboutInterests.find((i) => i.id === interestId);
 
-    if (!interest) return null;
-
-    const iconMap = {
-        coffee: Coffee,
-        sports: Dumbbell,
-        anime: Tv,
-        series: Clapperboard,
-        movies: Film,
-    };
-
-    const colorMap = {
-        coffee: 'from-amber-500 to-orange-500',
-        sports: 'from-green-500 to-emerald-500',
-        anime: 'from-blue-500 to-cyan-500',
-        series: 'from-purple-500 to-pink-500',
-        movies: 'from-red-500 to-rose-500',
-    };
+    if (!interest) return <></>;
 
     const Icon = iconMap[interest.id as keyof typeof iconMap];
     const color = colorMap[interest.id as keyof typeof colorMap];

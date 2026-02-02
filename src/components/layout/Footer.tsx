@@ -1,7 +1,8 @@
 import { Heart, Code } from 'lucide-react';
 import { motion } from 'motion/react';
+import type { ReactElement } from 'react';
 
-export const Footer = () => {
+const Footer = (): ReactElement => {
     return (
         <footer className="border-t border-zinc-200 dark:border-zinc-800 py-8">
             <div className="container mx-auto px-4">
@@ -42,3 +43,5 @@ export const Footer = () => {
         </footer>
     );
 };
+
+export default Footer;

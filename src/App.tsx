@@ -1,20 +1,20 @@
 import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
-import { CustomCursor } from './components/CustomCursor';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
+import { CustomCursor } from './components/layout/CustomCursor';
+import { Header } from './components/layout/Header';
+import { Hero } from './components/sections/Hero';
 import { Toaster } from './components/ui/sonner';
 import type { Project } from './data/projects';
 import { useThemeEffect } from './hooks/useTheme';
 
 // Lazy load componentes pesados
-const About = lazy(() => import('./components/About').then((m) => ({ default: m.About })));
-const Contact = lazy(() => import('./components/Contact').then((m) => ({ default: m.Contact })));
-const Experience = lazy(() => import('./components/Experience').then((m) => ({ default: m.Experience })));
-const Footer = lazy(() => import('./components/Footer').then((m) => ({ default: m.Footer })));
-const ProjectDetail = lazy(() => import('./components/ProjectDetail').then((m) => ({ default: m.ProjectDetail })));
-const Projects = lazy(() => import('./components/Projects').then((m) => ({ default: m.Projects })));
-const TechStack = lazy(() => import('./components/TechStack').then((m) => ({ default: m.TechStack })));
-const Terminal = lazy(() => import('./components/Terminal').then((m) => ({ default: m.Terminal })));
+const Terminal = lazy(() => import('./components/layout/Terminal'));
+const Footer = lazy(() => import('./components/layout/Footer'));
+const Projects = lazy(() => import('./components/sections/Projects'));
+const ProjectDetail = lazy(() => import('./components/sections/Projects/components/ProjectDetail'));
+const About = lazy(() => import('./components/sections/About'));
+const TechStack = lazy(() => import('./components/sections/TechStack'));
+const Experience = lazy(() => import('./components/sections/Experience'));
+const Contact = lazy(() => import('./components/sections/Contact'));
 
 export default function App() {
     useThemeEffect();
