@@ -1,8 +1,8 @@
 import { Terminal as TerminalIcon, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
-import { Button } from '../ui/button';
 import { useI18n } from '../../hooks/useLanguage';
+import { Button } from '../ui/button';
 
 interface TerminalProps {
     isOpen: boolean;

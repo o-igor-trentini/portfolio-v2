@@ -1,11 +1,11 @@
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
-import type { Project } from '../projects';
 import { useI18n } from '../../../../hooks/useLanguage';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import { Badge } from '../../../ui/badge';
 import { Button } from '../../../ui/button';
+import type { Project } from '../projects';
 
 interface ProjectDetailProps {
     project: Project | null;
