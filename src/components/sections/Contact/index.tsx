@@ -27,7 +27,7 @@ const Contact: FC = (): ReactElement => {
         {
             name: t('contact.socials.instagram'),
             icon: Instagram,
-            url: 'https://www.instagram.com/ct.igor',
+            url: SocialLinks.Instagram,
             color: 'from-red-500 to-pink-500',
             hoverColor: 'hover:from-red-400 hover:to-pink-400',
         },
