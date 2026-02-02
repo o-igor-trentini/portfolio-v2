@@ -102,7 +102,7 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <TerminalIcon className="w-4 h-4 text-green-400" />
-                                    <span className="text-sm text-zinc-300">igor@portfolio:~$</span>
+                                    <span className="text-sm text-zinc-300">{t('terminal.prompt')}</span>
                                 </div>
                             </div>
                             <Button
@@ -121,7 +121,7 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                 <div key={index} className="mb-4">
                                     {entry.command && (
                                         <div className="flex items-center gap-2 text-green-400 mb-1">
-                                            <span className="text-purple-400">igor@portfolio:~$</span>
+                                            <span className="text-purple-400">{t('terminal.prompt')}</span>
                                             <span>{entry.command}</span>
                                         </div>
                                     )}
@@ -134,7 +134,7 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                         {/* Terminal Input */}
                         <form onSubmit={handleSubmit} className="border-t border-zinc-800 p-4 bg-zinc-800/50">
                             <div className="flex items-center gap-2">
-                                <span className="text-purple-400 font-mono text-sm">igor@portfolio:~$</span>
+                                <span className="text-purple-400 font-mono text-sm">{t('terminal.prompt')}</span>
                                 <input
                                     ref={inputRef}
                                     type="text"
