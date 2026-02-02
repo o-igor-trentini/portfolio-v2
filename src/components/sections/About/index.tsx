@@ -2,7 +2,7 @@ import { Clapperboard, Coffee, Dumbbell, Film, Tv } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
 import { AboutDetailModal } from './components/AboutDetailModal';
-import { aboutInterests } from '../../../data/aboutData';
+import { aboutInterests } from './content';
 import { useI18n } from '../../../hooks/useLanguage';
 
 const iconMap = {

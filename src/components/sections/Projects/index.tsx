@@ -1,8 +1,8 @@
 import { Briefcase, ChevronRight, ExternalLink, Filter, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useMemo, useState, type FC, type ReactElement } from 'react';
-import type { Project } from '../../../data/projects';
-import { projects } from '../../../data/projects';
+import type { Project } from './projects';
+import { projects } from './projects';
 import { useI18n } from '../../../hooks/useLanguage';
 import { OptimizedImage } from '../../common/OptimizedImage';
 import { Badge } from '../../ui/badge';

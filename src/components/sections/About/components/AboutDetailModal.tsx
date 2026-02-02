@@ -1,7 +1,7 @@
 import { Clapperboard, Coffee, Dumbbell, Film, Sparkles, Tv, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
-import { aboutInterests } from '../../../../data/aboutData';
+import { aboutInterests } from '../content';
 import { useI18n } from '../../../../hooks/useLanguage';
 import { ImageGallery } from '../../../layout/ImageGallery';
 import { Button } from '../../../ui/button';

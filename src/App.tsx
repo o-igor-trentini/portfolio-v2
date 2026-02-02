@@ -2,8 +2,8 @@ import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
+import type { Project } from './components/sections/Projects/projects';
 import { Toaster } from './components/ui/sonner';
-import type { Project } from './data/projects';
 import { useThemeEffect } from './hooks/useTheme';
 
 // Lazy load componentes pesados

@@ -12,8 +12,8 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useMemo, type FC, type ReactElement } from 'react';
-import { techStackCategories, badgeLabels } from '../../../data/techStackData';
-import type { TechBadge } from '../../../data/techStackData';
+import { techStackCategories, badgeLabels } from './content';
+import type { TechBadge } from './content';
 import { useI18n } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
