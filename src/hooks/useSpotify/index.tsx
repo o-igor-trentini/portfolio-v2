@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { SpotifyData, NowPlayingResponse, TopArtistsResponse, RecentlyPlayedResponse } from '../types/spotify';
+import type { SpotifyData, NowPlayingResponse, TopArtistsResponse, RecentlyPlayedResponse } from './types';
 
 const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
