@@ -292,6 +292,8 @@ const en = {
         topArtist: 'Top Artist',
         weeklyMinutes: 'Minutes This Week',
         recentTracks: 'Recently Played',
+        providerAvailable: 'Use',
+        providerOffline: 'Service unavailable',
     },
     github: {
         title: 'GitHub Stats',

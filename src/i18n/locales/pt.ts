@@ -304,6 +304,8 @@ const pt = {
         topArtist: 'Artista Favorito',
         weeklyMinutes: 'Minutos Esta Semana',
         recentTracks: 'Tocadas Recentemente',
+        providerAvailable: 'Usar',
+        providerOffline: 'Serviço indisponível',
     },
     github: {
         title: 'GitHub Stats',

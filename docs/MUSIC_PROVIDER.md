@@ -32,6 +32,14 @@ O sistema tenta o provider preferido primeiro e, se falhar, automaticamente usa 
 
 Quando múltiplos providers estão disponíveis, botões de alternância aparecem no widget permitindo trocar entre eles em tempo real sem recarregar a página.
 
+**Indicadores Visuais:**
+
+- ✅ **Provider disponível**: Botão ativo com cores do provider (verde para Spotify, vermelho para Last.fm)
+- ❌ **Provider indisponível**: Botão desabilitado com opacidade reduzida
+- 💬 **Tooltips informativos**:
+    - Disponível: "Usar Spotify" / "Usar Last.fm"
+    - Indisponível: "Serviço indisponível"
+
 ## Configuração
 
 ### 1. Escolher o Provider
@@ -134,7 +142,10 @@ O componente `SpotifyWidget` inclui:
 - Hook `useMusic` com fallback automático entre providers
 - Cores adaptativas (verde para Spotify, vermelho para Last.fm)
 - Nome do provider exibido no título
-- **Botões de alternância** quando múltiplos providers estão disponíveis
+- **Botões de alternância** com indicadores visuais de status:
+    - Providers disponíveis: clicáveis com cores do provider
+    - Providers indisponíveis: desabilitados com opacidade reduzida
+    - Tooltips informativos ao passar o mouse
 - **Mensagem de erro** com ícone quando todos os providers falham
 - **Botão "Tentar novamente"** para recarregar após falha
 - Suportar dados de ambas as APIs sem mudanças na interface

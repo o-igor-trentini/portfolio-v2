@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
 import { useI18n } from '../../../../hooks/useLanguage';
 import { useMusic } from '../../../../hooks/useMusic';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/tooltip';
 
 export const SpotifyWidget: FC = (): ReactElement => {
     const { t } = useI18n();
@@ -82,27 +83,42 @@ export const SpotifyWidget: FC = (): ReactElement => {
                     <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>
                 )}
 
-                {/* Provider Switcher */}
-                {availableProviders.length > 1 && (
-                    <div className="ml-auto flex gap-1">
-                        {availableProviders.map((p) => (
-                            <button
-                                key={p}
-                                onClick={() => handleSwitchProvider(p)}
-                                className={`px-2 py-1 text-xs rounded transition-colors ${
-                                    provider === p
-                                        ? p === 'spotify'
-                                            ? 'bg-green-500 text-white'
-                                            : 'bg-red-500 text-white'
-                                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700'
-                                }`}
-                                title={`Switch to ${p === 'spotify' ? 'Spotify' : 'Last.fm'}`}
-                            >
-                                {p === 'spotify' ? 'Spotify' : 'Last.fm'}
-                            </button>
-                        ))}
-                    </div>
-                )}
+                {/* Provider Switcher - Shows all providers with status */}
+                <div className="ml-auto flex gap-1">
+                    {(['spotify', 'lastfm'] as const).map((p) => {
+                        const isAvailable = availableProviders.includes(p);
+                        const isActive = provider === p;
+                        const providerLabel = p === 'spotify' ? 'Spotify' : 'Last.fm';
+                        const tooltipText = isAvailable
+                            ? `${t('spotify.providerAvailable')}: ${providerLabel}`
+                            : t('spotify.providerOffline');
+
+                        return (
+                            <Tooltip key={p}>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => isAvailable && handleSwitchProvider(p)}
+                                        disabled={!isAvailable}
+                                        className={`px-2 py-1 text-xs rounded transition-colors ${
+                                            !isAvailable
+                                                ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-400 dark:text-zinc-600 cursor-not-allowed opacity-50'
+                                                : isActive
+                                                  ? p === 'spotify'
+                                                      ? 'bg-green-500 text-white'
+                                                      : 'bg-red-500 text-white'
+                                                  : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700'
+                                        }`}
+                                    >
+                                        {providerLabel}
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{tooltipText}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        );
+                    })}
+                </div>
             </div>
 
             {isLoading ? (

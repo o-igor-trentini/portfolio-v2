@@ -303,6 +303,8 @@ const es = {
         topArtist: 'Artista Favorito',
         weeklyMinutes: 'Minutos Esta Semana',
         recentTracks: 'Tocadas Recientemente',
+        providerAvailable: 'Usar',
+        providerOffline: 'Servicio no disponible',
     },
     github: {
         title: 'GitHub Stats',
