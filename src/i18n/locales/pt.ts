@@ -257,6 +257,21 @@ const pt = {
         subtitle: 'Minha jornada profissional',
         present: 'Presente',
         viewDetails: 'Ver Detalhes',
+        items: {
+            logae: {
+                position: 'Full Stack Developer',
+                period: '2023 - Presente',
+                location: 'Remoto',
+                description:
+                    'Desenvolvimento de sistemas escaláveis com Golang e React. Implementação de microserviços, APIs RESTful e interfaces modernas.',
+                achievements: [
+                    'Reduziu latência de APIs em 40% através de otimizações',
+                    'Implementou sistema de cache com Redis',
+                    'Desenvolveu dashboard analytics com 100k+ eventos/dia',
+                    'Migrou monolito para arquitetura de microserviços',
+                ],
+            },
+        },
     },
     contact: {
         title: 'Vamos Conversar',

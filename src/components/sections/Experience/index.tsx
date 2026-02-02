@@ -1,146 +1,12 @@
 import { Briefcase, Calendar, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
+import { experiences } from '../../../data/experienceData';
 import { useI18n } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
-const experiences = [
-    {
-        id: 'logae',
-        company: 'Logae',
-        position: {
-            pt: 'Full Stack Developer',
-            en: 'Full Stack Developer',
-            es: 'Full Stack Developer',
-        },
-        period: {
-            pt: '2023 - Presente',
-            en: '2023 - Present',
-            es: '2023 - Presente',
-        },
-        current: true,
-        location: {
-            pt: 'Remoto',
-            en: 'Remote',
-            es: 'Remoto',
-        },
-        description: {
-            pt: 'Desenvolvimento de sistemas escaláveis com Golang e React. Implementação de microserviços, APIs RESTful e interfaces modernas.',
-            en: 'Development of scalable systems with Golang and React. Implementation of microservices, RESTful APIs and modern interfaces.',
-            es: 'Desarrollo de sistemas escalables con Golang y React. Implementación de microservicios, APIs RESTful e interfaces modernas.',
-        },
-        achievements: {
-            pt: [
-                'Reduziu latência de APIs em 40% através de otimizações',
-                'Implementou sistema de cache com Redis',
-                'Desenvolveu dashboard analytics com 100k+ eventos/dia',
-                'Migrou monolito para arquitetura de microserviços',
-            ],
-            en: [
-                'Reduced API latency by 40% through optimizations',
-                'Implemented caching system with Redis',
-                'Developed analytics dashboard with 100k+ events/day',
-                'Migrated monolith to microservices architecture',
-            ],
-            es: [
-                'Redujo latencia de APIs en 40% mediante optimizaciones',
-                'Implementó sistema de cache con Redis',
-                'Desarrolló dashboard analytics con 100k+ eventos/día',
-                'Migró monolito a arquitectura de microservicios',
-            ],
-        },
-        tech: ['Golang', 'React', 'TypeScript', 'PostgreSQL', 'Redis', 'Docker'],
-    },
-    {
-        id: 'previous-2',
-        company: 'Tech Solutions',
-        position: {
-            pt: 'Desenvolvedor Backend',
-            en: 'Backend Developer',
-            es: 'Desarrollador Backend',
-        },
-        period: {
-            pt: '2021 - 2023',
-            en: '2021 - 2023',
-            es: '2021 - 2023',
-        },
-        current: false,
-        location: {
-            pt: 'São Paulo, Brasil',
-            en: 'São Paulo, Brazil',
-            es: 'São Paulo, Brasil',
-        },
-        description: {
-            pt: 'Focado em desenvolvimento backend com Golang, criação de APIs e integração com serviços externos.',
-            en: 'Focused on backend development with Golang, API creation and integration with external services.',
-            es: 'Enfocado en desarrollo backend con Golang, creación de APIs e integración con servicios externos.',
-        },
-        achievements: {
-            pt: [
-                'Desenvolveu API gateway para 15+ microserviços',
-                'Implementou autenticação JWT e OAuth2',
-                'Criou sistema de mensageria com RabbitMQ',
-            ],
-            en: [
-                'Developed API gateway for 15+ microservices',
-                'Implemented JWT and OAuth2 authentication',
-                'Created messaging system with RabbitMQ',
-            ],
-            es: [
-                'Desarrolló API gateway para 15+ microservicios',
-                'Implementó autenticación JWT y OAuth2',
-                'Creó sistema de mensajería con RabbitMQ',
-            ],
-        },
-        tech: ['Golang', 'Node.js', 'MongoDB', 'RabbitMQ', 'Kubernetes'],
-    },
-    {
-        id: 'previous-1',
-        company: 'StartupXYZ',
-        position: {
-            pt: 'Desenvolvedor Full Stack Junior',
-            en: 'Junior Full Stack Developer',
-            es: 'Desarrollador Full Stack Junior',
-        },
-        period: {
-            pt: '2020 - 2021',
-            en: '2020 - 2021',
-            es: '2020 - 2021',
-        },
-        current: false,
-        location: {
-            pt: 'São Paulo, Brasil',
-            en: 'São Paulo, Brazil',
-            es: 'São Paulo, Brasil',
-        },
-        description: {
-            pt: 'Início da carreira desenvolvendo aplicações web com React e Node.js.',
-            en: 'Career start developing web applications with React and Node.js.',
-            es: 'Inicio de carrera desarrollando aplicaciones web con React y Node.js.',
-        },
-        achievements: {
-            pt: [
-                'Desenvolveu 5+ features críticas do produto',
-                'Implementou testes automatizados (Jest/Cypress)',
-                'Colaborou em código reviews e pair programming',
-            ],
-            en: [
-                'Developed 5+ critical product features',
-                'Implemented automated tests (Jest/Cypress)',
-                'Collaborated on code reviews and pair programming',
-            ],
-            es: [
-                'Desarrolló 5+ features críticas del producto',
-                'Implementó tests automatizados (Jest/Cypress)',
-                'Colaboró en code reviews y pair programming',
-            ],
-        },
-        tech: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS'],
-    },
-];
-
 const Experience: FC = (): ReactElement => {
-    const { t, language } = useI18n();
+    const { t } = useI18n();
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
     return (
@@ -212,15 +78,17 @@ const Experience: FC = (): ReactElement => {
                                         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                                             <div>
                                                 <h3 className="mb-1">{exp.company}</h3>
-                                                <p className="text-purple-500 mb-2">{exp.position[language]}</p>
+                                                <p className="text-purple-500 mb-2">
+                                                    {t(`experience.items.${exp.id}.position`)}
+                                                </p>
                                                 <div className="flex flex-wrap gap-4 text-sm text-zinc-600 dark:text-zinc-400">
                                                     <div className="flex items-center gap-2">
                                                         <Calendar className="w-4 h-4" />
-                                                        {exp.period[language]}
+                                                        {t(`experience.items.${exp.id}.period`)}
                                                     </div>
                                                     <div className="flex items-center gap-2">
                                                         <MapPin className="w-4 h-4" />
-                                                        {exp.location[language]}
+                                                        {t(`experience.items.${exp.id}.location`)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +98,7 @@ const Experience: FC = (): ReactElement => {
                                         </div>
 
                                         <p className="text-zinc-600 dark:text-zinc-400 mb-4">
-                                            {exp.description[language]}
+                                            {t(`experience.items.${exp.id}.description`)}
                                         </p>
 
                                         {/* Tech stack */}
@@ -272,7 +140,11 @@ const Experience: FC = (): ReactElement => {
                                         >
                                             <div className="pt-4 mt-4 border-t border-zinc-200 dark:border-zinc-800">
                                                 <ul className="space-y-2">
-                                                    {exp.achievements[language].map((achievement, i) => (
+                                                    {(
+                                                        t(`experience.items.${exp.id}.achievements`, {
+                                                            returnObjects: true,
+                                                        }) as string[]
+                                                    ).map((achievement: string, i: number) => (
                                                         <motion.li
                                                             key={i}
                                                             initial={{ opacity: 0, x: -10 }}

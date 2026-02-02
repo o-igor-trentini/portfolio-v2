@@ -245,6 +245,21 @@ const en = {
         subtitle: 'My professional journey',
         present: 'Present',
         viewDetails: 'View Details',
+        items: {
+            logae: {
+                position: 'Full Stack Developer',
+                period: '2023 - Present',
+                location: 'Remote',
+                description:
+                    'Development of scalable systems with Golang and React. Implementation of microservices, RESTful APIs and modern interfaces.',
+                achievements: [
+                    'Reduced API latency by 40% through optimizations',
+                    'Implemented caching system with Redis',
+                    'Developed analytics dashboard with 100k+ events/day',
+                    'Migrated monolith to microservices architecture',
+                ],
+            },
+        },
     },
     contact: {
         title: "Let's Talk",
