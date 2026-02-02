@@ -1,3 +1,5 @@
+import { TECHNOLOGIES } from '../TechStack/constants';
+
 export interface Experience {
     id: string;
     company: string;
@@ -10,6 +12,13 @@ export const experiences: Experience[] = [
         id: 'logae',
         company: 'Logae',
         current: true,
-        tech: ['Golang', 'React', 'TypeScript', 'PostgreSQL', 'RabbitMQ', 'Docker'],
+        tech: [
+            TECHNOLOGIES.GOLANG,
+            TECHNOLOGIES.REACT,
+            TECHNOLOGIES.TYPESCRIPT,
+            TECHNOLOGIES.POSTGRESQL,
+            TECHNOLOGIES.RABBITMQ,
+            TECHNOLOGIES.DOCKER,
+        ],
     },
 ];
