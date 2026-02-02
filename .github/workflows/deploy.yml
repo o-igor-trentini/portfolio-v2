@@ -36,12 +36,12 @@ jobs:
             - name: Build
               run: npm run build
               env:
-                  VITE_MUSIC_PROVIDER: ${{ secrets.VITE_MUSIC_PROVIDER }}
-                  VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
-                  VITE_SPOTIFY_CLIENT_SECRET: ${{ secrets.VITE_SPOTIFY_CLIENT_SECRET }}
-                  VITE_SPOTIFY_REFRESH_TOKEN: ${{ secrets.VITE_SPOTIFY_REFRESH_TOKEN }}
-                  VITE_LASTFM_API_KEY: ${{ secrets.VITE_LASTFM_API_KEY }}
-                  VITE_LASTFM_USERNAME: ${{ secrets.VITE_LASTFM_USERNAME }}
+                  VITE_MUSIC_PROVIDER: ${{ vars.VITE_MUSIC_PROVIDER }}
+                  VITE_SPOTIFY_CLIENT_ID: ${{ vars.VITE_SPOTIFY_CLIENT_ID }}
+                  VITE_SPOTIFY_CLIENT_SECRET: ${{ vars.VITE_SPOTIFY_CLIENT_SECRET }}
+                  VITE_SPOTIFY_REFRESH_TOKEN: ${{ vars.VITE_SPOTIFY_REFRESH_TOKEN }}
+                  VITE_LASTFM_API_KEY: ${{ vars.VITE_LASTFM_API_KEY }}
+                  VITE_LASTFM_USERNAME: ${{ vars.VITE_LASTFM_USERNAME }}
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
