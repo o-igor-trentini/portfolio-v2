@@ -1,12 +1,13 @@
 import { Music, Play, User, Clock, Loader2, ExternalLink } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
+import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
 import { useI18n } from '../../../../hooks/useLanguage';
-import { useSpotify } from '../../../../hooks/useSpotify';
+import { useMusic } from '../../../../hooks/useMusic';
 
 export const SpotifyWidget: FC = (): ReactElement => {
     const { t } = useI18n();
-    const { currentTrack, topArtist, recentTracks, isLoading } = useSpotify();
+    const { currentTrack, topArtist, recentTracks, isLoading, provider } = useMusic();
 
     // Fallback mock data when Spotify is not configured or there's an error
     const mockCurrentTrack = {
@@ -35,19 +36,44 @@ export const SpotifyWidget: FC = (): ReactElement => {
     const displayTopArtist = topArtist || mockTopArtist;
     const displayRecentTracks = recentTracks.length > 0 ? recentTracks : mockRecentTracks;
 
+    // Display provider name in title
+    const providerName = provider === MUSIC_PROVIDERS.LASTFM ? 'Last.fm' : 'Spotify';
+    const isLastFM = provider === MUSIC_PROVIDERS.LASTFM;
+
+    // Provider-specific styles
+    const containerClass = isLastFM
+        ? 'bg-gradient-to-br from-red-500/10 to-red-600/10 rounded-2xl p-6 border border-red-500/20'
+        : 'bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-2xl p-6 border border-green-500/20';
+
+    const iconClass = isLastFM
+        ? 'w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center'
+        : 'w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center';
+
+    const titleClass = isLastFM ? 'text-red-500' : 'text-green-500';
+
+    const progressBarClass = isLastFM ? 'h-full bg-red-500' : 'h-full bg-green-500';
+
+    const badgeClass = isLastFM ? 'text-red-500' : 'text-green-500';
+
+    const chartClass = isLastFM
+        ? 'flex-1 bg-gradient-to-t from-red-500 to-red-400 rounded-t'
+        : 'flex-1 bg-gradient-to-t from-green-500 to-green-400 rounded-t';
+
     return (
-        <div className="bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-2xl p-6 border border-green-500/20">
+        <div className={containerClass}>
             <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
+                <div className={iconClass}>
                     <Music className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-green-500">{t('spotify.title')}</h3>
+                <h3 className={titleClass}>
+                    {t('spotify.title')} - {providerName}
+                </h3>
                 {!currentTrack && !isLoading && <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>}
             </div>
 
             {isLoading ? (
                 <div className="flex items-center justify-center py-12">
-                    <Loader2 className="w-6 h-6 animate-spin text-green-500" />
+                    <Loader2 className={`w-6 h-6 animate-spin ${badgeClass}`} />
                 </div>
             ) : (
                 <>
@@ -71,7 +97,9 @@ export const SpotifyWidget: FC = (): ReactElement => {
                                         className="w-12 h-12 rounded-lg object-cover"
                                     />
                                 ) : (
-                                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                                    <div
+                                        className={`w-12 h-12 rounded-lg bg-gradient-to-br ${isLastFM ? 'from-red-400 to-red-600' : 'from-green-400 to-green-600'} flex items-center justify-center`}
+                                    >
                                         <Play className="w-6 h-6 text-white" />
                                     </div>
                                 )}
@@ -80,9 +108,15 @@ export const SpotifyWidget: FC = (): ReactElement => {
                                         <p className="font-medium truncate">{displayCurrentTrack.name}</p>
                                         {'isPlaying' in displayCurrentTrack && displayCurrentTrack.isPlaying && (
                                             <div className="flex gap-0.5">
-                                                <span className="w-1 h-3 bg-green-500 rounded-full animate-pulse" />
-                                                <span className="w-1 h-3 bg-green-500 rounded-full animate-pulse delay-75" />
-                                                <span className="w-1 h-3 bg-green-500 rounded-full animate-pulse delay-150" />
+                                                <span
+                                                    className={`w-1 h-3 ${isLastFM ? 'bg-red-500' : 'bg-green-500'} rounded-full animate-pulse`}
+                                                />
+                                                <span
+                                                    className={`w-1 h-3 ${isLastFM ? 'bg-red-500' : 'bg-green-500'} rounded-full animate-pulse delay-75`}
+                                                />
+                                                <span
+                                                    className={`w-1 h-3 ${isLastFM ? 'bg-red-500' : 'bg-green-500'} rounded-full animate-pulse delay-150`}
+                                                />
                                             </div>
                                         )}
                                     </div>
@@ -106,9 +140,11 @@ export const SpotifyWidget: FC = (): ReactElement => {
                             <div className="h-1 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
                                 <motion.div
                                     initial={{ width: 0 }}
-                                    animate={{ width: `${displayCurrentTrack.progress}%` }}
+                                    animate={{
+                                        width: `${'progress' in displayCurrentTrack ? displayCurrentTrack.progress : 0}%`,
+                                    }}
                                     transition={{ duration: 1, ease: 'easeOut' }}
-                                    className="h-full bg-green-500"
+                                    className={progressBarClass}
                                 />
                             </div>
                         </div>
@@ -118,7 +154,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                         {/* Top Artist */}
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2 mb-2">
-                                <User className="w-4 h-4 text-green-500" />
+                                <User className={`w-4 h-4 ${badgeClass}`} />
                                 <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('spotify.topArtist')}</p>
                             </div>
                             <div className="flex items-center gap-2">
@@ -134,19 +170,24 @@ export const SpotifyWidget: FC = (): ReactElement => {
                                     </a>
                                 )}
                             </div>
-                            {displayTopArtist.plays && (
+                            {'plays' in displayTopArtist && displayTopArtist.plays && (
                                 <p className="text-xs text-zinc-500">{displayTopArtist.plays} plays</p>
+                            )}
+                            {'playcount' in displayTopArtist && displayTopArtist.playcount && (
+                                <p className="text-xs text-zinc-500">{displayTopArtist.playcount} plays</p>
                             )}
                         </div>
 
                         {/* Weekly Minutes */}
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2 mb-2">
-                                <Clock className="w-4 h-4 text-green-500" />
+                                <Clock className={`w-4 h-4 ${badgeClass}`} />
                                 <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('spotify.weeklyMinutes')}</p>
                             </div>
                             <p className="font-medium">
-                                {currentTrack && 'duration' in displayCurrentTrack && displayCurrentTrack.duration
+                                {currentTrack &&
+                                'duration' in displayCurrentTrack &&
+                                typeof displayCurrentTrack.duration === 'number'
                                     ? Math.round(displayCurrentTrack.duration / 60000)
                                     : 847}{' '}
                                 min
@@ -164,7 +205,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                                     initial={{ height: 0 }}
                                     animate={{ height: `${(value / maxHeight) * 100}%` }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="flex-1 bg-gradient-to-t from-green-500 to-green-400 rounded-t"
+                                    className={chartClass}
                                 />
                             ))}
                         </div>
@@ -179,7 +220,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                     <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                         <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('spotify.recentTracks')}</p>
                         <div className="space-y-2">
-                            {displayRecentTracks.map((track, index) => {
+                            {displayRecentTracks.map((track: any, index: number) => {
                                 const hasAlbumArt = 'albumArt' in track && typeof track.albumArt === 'string';
                                 const albumName =
                                     'album' in track && typeof track.album === 'string' ? track.album : track.name;
