@@ -94,8 +94,6 @@ export const TECHNOLOGIES = {
     MYSQL: 'MySQL',
     GRAPHQL: 'GraphQL',
     REST_APIS: 'REST APIs',
-    WEBSOCKETS: 'WebSockets',
-    GRPC: 'gRPC',
     RABBITMQ: 'RabbitMQ',
 
     // Frontend
@@ -118,6 +116,8 @@ export const TECHNOLOGIES = {
     NGINX: 'Nginx',
     CI_CD: 'CI/CD',
     AWS: 'AWS',
+    GCP: 'GCP',
+    CLOUDFLARE: 'Cloudflare',
     DIGITAL_OCEAN: 'Digital Ocean',
     VERCEL: 'Vercel',
     GITHUB_ACTIONS: 'GitHub Actions',
@@ -127,30 +127,25 @@ export const TECHNOLOGIES = {
     GIT: 'Git',
     GITHUB: 'GitHub',
     BITBUCKET: 'Bitbucket',
-    GITLAB: 'GitLab',
 
     // AI Tools
     GITHUB_COPILOT: 'GitHub Copilot',
     CLAUDE: 'Claude',
     CHATGPT: 'ChatGPT',
-    CURSOR: 'Cursor',
     V0_DEV: 'v0.dev',
 
     // Operating Systems
     LINUX: 'Linux',
     UBUNTU: 'Ubuntu',
-    MACOS: 'macOS',
     WINDOWS: 'Windows',
 
     // Terminals
     WARP: 'Warp',
     TILIX: 'Tilix',
-    ITERM2: 'iTerm2',
     ZSH: 'Zsh',
     OH_MY_ZSH: 'Oh My Zsh',
 
     // Testing
-    JEST: 'Jest',
     VITEST: 'Vitest',
     CYPRESS: 'Cypress',
     PLAYWRIGHT: 'Playwright',

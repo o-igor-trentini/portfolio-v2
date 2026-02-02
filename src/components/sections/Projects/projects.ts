@@ -14,17 +14,10 @@ export const projects: Project[] = [
     {
         id: 'realtime-chat',
         image: '/images/projects/tower.webp',
-        tags: [
-            TECHNOLOGIES.GOLANG,
-            TECHNOLOGIES.WEBSOCKETS,
-            TECHNOLOGIES.REACT,
-            TECHNOLOGIES.REDIS,
-            TECHNOLOGIES.POSTGRESQL,
-        ],
+        tags: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.REACT, TECHNOLOGIES.REDIS, TECHNOLOGIES.POSTGRESQL],
         type: 'professional',
         stack: [
             TECHNOLOGIES.GOLANG,
-            TECHNOLOGIES.WEBSOCKETS,
             TECHNOLOGIES.REACT,
             TECHNOLOGIES.TYPESCRIPT,
             TECHNOLOGIES.REDIS,
