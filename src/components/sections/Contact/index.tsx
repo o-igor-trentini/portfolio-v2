@@ -1,9 +1,10 @@
 import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
-import { useI18n } from '../../../hooks/useLanguage';
 import { GitHubWidget } from './components/GitHubWidget';
 import { SpotifyWidget } from './components/SpotifyWidget';
+import { SocialLinks } from './constants';
+import { useI18n } from '../../../hooks/useLanguage';
 
 const Contact: FC = (): ReactElement => {
     const { t } = useI18n();
@@ -12,14 +13,14 @@ const Contact: FC = (): ReactElement => {
         {
             name: t('contact.socials.github'),
             icon: Github,
-            url: 'https://github.com/igortrentini',
+            url: SocialLinks.Github,
             color: 'from-zinc-700 to-zinc-900',
             hoverColor: 'hover:from-zinc-600 hover:to-zinc-800',
         },
         {
             name: t('contact.socials.linkedin'),
             icon: Linkedin,
-            url: 'https://linkedin.com/in/igortrentini',
+            url: SocialLinks.Linkedin,
             color: 'from-blue-600 to-blue-700',
             hoverColor: 'hover:from-blue-500 hover:to-blue-600',
         },

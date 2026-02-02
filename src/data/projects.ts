@@ -1,3 +1,5 @@
+import { SocialLinks } from '@/components/sections/Contact/constants';
+
 export interface Project {
     id: string;
     image: string;
@@ -14,7 +16,7 @@ export const projects: Project[] = [
         tags: ['Golang', 'WebSockets', 'React', 'Redis', 'PostgreSQL'],
         type: 'professional',
         stack: ['Golang', 'WebSockets', 'React', 'TypeScript', 'Redis', 'PostgreSQL', 'Docker'],
-        github: 'https://github.com/igortrentini/realtime-chat',
+        github: SocialLinks.Github + '/realtime-chat',
     },
     {
         id: 'api-analytics',
@@ -22,7 +24,7 @@ export const projects: Project[] = [
         tags: ['React', 'Golang', 'TimescaleDB', 'Chart.js'],
         type: 'professional',
         stack: ['Golang', 'React', 'TypeScript', 'TimescaleDB', 'Redis', 'Recharts'],
-        github: 'https://github.com/igortrentini/analytics-dashboard',
+        github: SocialLinks.Github + '/analytics-dashboard',
     },
     {
         id: 'task-automation',
@@ -30,7 +32,7 @@ export const projects: Project[] = [
         tags: ['React', 'Golang', 'PostgreSQL', 'Docker'],
         type: 'study',
         stack: ['Golang', 'React', 'TypeScript', 'PostgreSQL', 'Docker', 'React Flow'],
-        github: 'https://github.com/igortrentini/task-automation',
+        github: SocialLinks.Github + '/task-automation',
     },
     {
         id: 'social-connect',
@@ -38,7 +40,7 @@ export const projects: Project[] = [
         tags: ['React', 'TypeScript', 'Node.js', 'Socket.io'],
         type: 'study',
         stack: ['React', 'TypeScript', 'Node.js', 'Socket.io', 'PostgreSQL', 'Redis'],
-        github: 'https://github.com/igortrentini/social-connect',
+        github: SocialLinks.Github + '/social-connect',
     },
     {
         id: 'crypto-tracker',
@@ -46,7 +48,7 @@ export const projects: Project[] = [
         tags: ['React', 'TypeScript', 'CoinGecko API', 'Recharts'],
         type: 'study',
         stack: ['React', 'TypeScript', 'CoinGecko API', 'Recharts', 'LocalStorage'],
-        github: 'https://github.com/igortrentini/crypto-tracker',
+        github: SocialLinks.Github + '/crypto-tracker',
     },
     {
         id: 'ecommerce-api',
@@ -54,6 +56,6 @@ export const projects: Project[] = [
         tags: ['Golang', 'PostgreSQL', 'Redis', 'Stripe API'],
         type: 'professional',
         stack: ['Golang', 'PostgreSQL', 'Redis', 'Stripe API', 'JWT', 'Docker'],
-        github: 'https://github.com/igortrentini/ecommerce-api',
+        github: SocialLinks.Github + '/ecommerce-api',
     },
 ];

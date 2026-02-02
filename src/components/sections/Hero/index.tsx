@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useCallback, type ReactElement } from 'rea
 import { useI18n } from '../../../hooks/useLanguage';
 import { PriorityImage } from '../../common/OptimizedImage';
 import { Button } from '../../ui/button';
+import { SocialLinks } from '../Contact/constants';
 
 export const Hero = (): ReactElement => {
     const { t } = useI18n();
@@ -539,7 +540,7 @@ export const Hero = (): ReactElement => {
                                 className="flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-4"
                             >
                                 <motion.a
-                                    href="https://github.com/igortrentini"
+                                    href={SocialLinks.Github}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     whileHover={{ scale: 1.1, y: -2 }}
@@ -549,7 +550,7 @@ export const Hero = (): ReactElement => {
                                     <Github className="w-5 h-5" />
                                 </motion.a>
                                 <motion.a
-                                    href="https://linkedin.com/in/igortrentini"
+                                    href={SocialLinks.Linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     whileHover={{ scale: 1.1, y: -2 }}
