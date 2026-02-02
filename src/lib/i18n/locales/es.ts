@@ -313,6 +313,7 @@ const es = {
         topRepos: 'Repositorios Destacados',
     },
     terminal: {
+        prompt: 'igor@portfolio:~$',
         welcome: 'Terminal Igor Trentini v1.0.0',
         help: 'Comandos disponibles: about, skills, anime, clear, exit',
         aboutAnime: 'Animes favoritos: Attack on Titan, Death Note, Steins;Gate, Fullmetal Alchemist',

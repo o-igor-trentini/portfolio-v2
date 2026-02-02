@@ -302,6 +302,7 @@ const en = {
         topRepos: 'Featured Repositories',
     },
     terminal: {
+        prompt: 'igor@portfolio:~$',
         welcome: 'Igor Trentini Terminal v1.0.0',
         help: 'Available commands: about, skills, anime, clear, exit',
         aboutAnime: 'Favorite anime: Attack on Titan, Death Note, Steins;Gate, Fullmetal Alchemist',
