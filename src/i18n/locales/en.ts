@@ -233,11 +233,26 @@ const en = {
     techStack: {
         title: 'Tech Stack',
         subtitle: 'Tools I master',
+        filterLabel: 'Filter',
+        all: 'All',
+        item: 'item',
+        items: 'items',
+        badges: {
+            favorite: 'Favorite',
+            professional: 'Professional',
+            learning: 'Learning',
+            hobby: 'Hobby',
+        },
         categories: {
             backend: 'Backend',
             frontend: 'Frontend',
-            devops: 'DevOps',
-            others: 'Others',
+            devops: 'DevOps & Cloud',
+            versioning: 'Version Control',
+            'ai-tools': 'AI Tools',
+            os: 'Operating Systems',
+            terminals: 'Terminals',
+            testing: 'Testing',
+            others: 'Other Technologies',
         },
     },
     experience: {
@@ -248,7 +263,7 @@ const en = {
         items: {
             logae: {
                 position: 'Full Stack Developer',
-                period: '2023 - Present',
+                period: '2021 - Present',
                 location: 'Remote',
                 description:
                     'Development of scalable systems with Golang and React. Implementation of microservices, RESTful APIs and modern interfaces.',

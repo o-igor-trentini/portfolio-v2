@@ -1,4 +1,4 @@
-import { BADGE_CONFIG, BADGE_TYPES, TECHNOLOGIES, TECH_COLORS } from './constants';
+import { BADGE_TYPES, TECH_COLORS, TECHNOLOGIES } from './constants';
 
 export type TechBadge = 'favorite' | 'professional' | 'learning' | 'hobby';
 
@@ -10,11 +10,6 @@ export interface TechItem {
 
 export interface TechCategory {
     id: string;
-    title: {
-        pt: string;
-        en: string;
-        es: string;
-    };
     icon: string;
     items: TechItem[];
 }
@@ -22,11 +17,6 @@ export interface TechCategory {
 export const techStackCategories: TechCategory[] = [
     {
         id: 'backend',
-        title: {
-            pt: 'Backend',
-            en: 'Backend',
-            es: 'Backend',
-        },
         icon: 'Server',
         items: [
             {
@@ -61,11 +51,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'frontend',
-        title: {
-            pt: 'Frontend',
-            en: 'Frontend',
-            es: 'Frontend',
-        },
         icon: 'Code2',
         items: [
             {
@@ -108,11 +93,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'devops',
-        title: {
-            pt: 'DevOps & Cloud',
-            en: 'DevOps & Cloud',
-            es: 'DevOps & Cloud',
-        },
         icon: 'Cloud',
         items: [
             {
@@ -132,11 +112,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'versioning',
-        title: {
-            pt: 'Versionamento',
-            en: 'Version Control',
-            es: 'Control de Versiones',
-        },
         icon: 'GitBranch',
         items: [
             {
@@ -155,11 +130,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'ai-tools',
-        title: {
-            pt: 'Ferramentas de IA',
-            en: 'AI Tools',
-            es: 'Herramientas de IA',
-        },
         icon: 'Sparkles',
         items: [
             {
@@ -179,11 +149,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'os',
-        title: {
-            pt: 'Sistemas Operacionais',
-            en: 'Operating Systems',
-            es: 'Sistemas Operativos',
-        },
         icon: 'Monitor',
         items: [
             {
@@ -202,11 +167,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'terminals',
-        title: {
-            pt: 'Terminais',
-            en: 'Terminals',
-            es: 'Terminales',
-        },
         icon: 'Terminal',
         items: [
             {
@@ -230,11 +190,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'testing',
-        title: {
-            pt: 'Testes',
-            en: 'Testing',
-            es: 'Testing',
-        },
         icon: 'CheckCircle',
         items: [
             { name: TECHNOLOGIES.JEST, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.RED_PINK },
@@ -246,11 +201,6 @@ export const techStackCategories: TechCategory[] = [
     },
     {
         id: 'others',
-        title: {
-            pt: 'Outras Tecnologias',
-            en: 'Other Technologies',
-            es: 'Otras Tecnologías',
-        },
         icon: 'Boxes',
         items: [
             { name: TECHNOLOGIES.WEBSOCKETS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN },
@@ -266,30 +216,3 @@ export const techStackCategories: TechCategory[] = [
         ],
     },
 ];
-
-export const badgeLabels = {
-    [BADGE_TYPES.FAVORITE]: {
-        pt: 'Favorito',
-        en: 'Favorite',
-        es: 'Favorito',
-        ...BADGE_CONFIG[BADGE_TYPES.FAVORITE],
-    },
-    [BADGE_TYPES.PROFESSIONAL]: {
-        pt: 'Profissional',
-        en: 'Professional',
-        es: 'Profesional',
-        ...BADGE_CONFIG[BADGE_TYPES.PROFESSIONAL],
-    },
-    [BADGE_TYPES.LEARNING]: {
-        pt: 'Aprendendo',
-        en: 'Learning',
-        es: 'Aprendiendo',
-        ...BADGE_CONFIG[BADGE_TYPES.LEARNING],
-    },
-    [BADGE_TYPES.HOBBY]: {
-        pt: 'Hobby',
-        en: 'Hobby',
-        es: 'Hobby',
-        ...BADGE_CONFIG[BADGE_TYPES.HOBBY],
-    },
-};

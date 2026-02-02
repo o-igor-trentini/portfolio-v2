@@ -12,8 +12,8 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, useMemo, type FC, type ReactElement } from 'react';
-import { techStackCategories, badgeLabels } from './content';
-import type { TechBadge } from './content';
+import { BADGE_CONFIG } from './constants';
+import { techStackCategories, type TechBadge } from './content';
 import { useI18n } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
@@ -30,7 +30,7 @@ const iconMap: Record<string, any> = {
 };
 
 const TechStack: FC = (): ReactElement => {
-    const { t, language } = useI18n();
+    const { t } = useI18n();
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
 
     const filterByBadge = useMemo(
@@ -57,7 +57,7 @@ const TechStack: FC = (): ReactElement => {
                     <div className="flex flex-wrap items-center justify-center gap-3">
                         <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                             <Filter className="w-4 h-4" />
-                            Filtrar:
+                            {t('techStack.filterLabel')}:
                         </div>
                         <Button
                             variant={selectedBadge === 'all' ? 'default' : 'outline'}
@@ -65,9 +65,9 @@ const TechStack: FC = (): ReactElement => {
                             onClick={() => setSelectedBadge('all')}
                             className={selectedBadge === 'all' ? 'bg-purple-500 hover:bg-purple-600' : ''}
                         >
-                            Todos
+                            {t('techStack.all')}
                         </Button>
-                        {Object.entries(badgeLabels).map(([key, badge]) => (
+                        {Object.entries(BADGE_CONFIG).map(([key, badge]) => (
                             <Button
                                 key={key}
                                 variant={selectedBadge === key ? 'default' : 'outline'}
@@ -76,7 +76,7 @@ const TechStack: FC = (): ReactElement => {
                                 className={selectedBadge === key ? 'bg-purple-500 hover:bg-purple-600' : ''}
                             >
                                 <span className="mr-1">{badge.icon}</span>
-                                {badge[language]}
+                                {t(`techStack.badges.${key}`)}
                             </Button>
                         ))}
                     </div>
@@ -103,9 +103,10 @@ const TechStack: FC = (): ReactElement => {
                                         <CategoryIcon className="w-5 h-5 text-purple-500" />
                                     </div>
                                     <div>
-                                        <h3>{category.title[language]}</h3>
+                                        <h3>{t(`techStack.categories.${category.id}`)}</h3>
                                         <p className="text-xs text-zinc-500">
-                                            {filteredItems.length} {filteredItems.length === 1 ? 'item' : 'itens'}
+                                            {filteredItems.length}{' '}
+                                            {filteredItems.length === 1 ? t('techStack.item') : t('techStack.items')}
                                         </p>
                                     </div>
                                 </div>
@@ -144,7 +145,7 @@ const TechStack: FC = (): ReactElement => {
                                                 {tech.badges && tech.badges.length > 0 && (
                                                     <div className="absolute -top-1 -right-1 flex gap-0.5">
                                                         {tech.badges.slice(0, 2).map((badgeKey: TechBadge) => {
-                                                            const badge = badgeLabels[badgeKey];
+                                                            const badge = BADGE_CONFIG[badgeKey];
                                                             return (
                                                                 <motion.div
                                                                     key={badgeKey}
@@ -157,7 +158,7 @@ const TechStack: FC = (): ReactElement => {
                                                                             0.2,
                                                                     }}
                                                                     className={`w-5 h-5 rounded-full bg-gradient-to-br ${badge.color} flex items-center justify-center text-[10px] shadow-lg`}
-                                                                    title={badge[language]}
+                                                                    title={t(`techStack.badges.${badgeKey}`)}
                                                                 >
                                                                     {badge.icon}
                                                                 </motion.div>

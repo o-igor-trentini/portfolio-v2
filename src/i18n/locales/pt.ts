@@ -245,11 +245,26 @@ const pt = {
     techStack: {
         title: 'Tech Stack',
         subtitle: 'Ferramentas que domino',
+        filterLabel: 'Filtrar',
+        all: 'Todos',
+        item: 'item',
+        items: 'itens',
+        badges: {
+            favorite: 'Favorito',
+            professional: 'Profissional',
+            learning: 'Aprendendo',
+            hobby: 'Hobby',
+        },
         categories: {
             backend: 'Backend',
             frontend: 'Frontend',
-            devops: 'DevOps',
-            others: 'Outros',
+            devops: 'DevOps & Cloud',
+            versioning: 'Versionamento',
+            'ai-tools': 'Ferramentas de IA',
+            os: 'Sistemas Operacionais',
+            terminals: 'Terminais',
+            testing: 'Testes',
+            others: 'Outras Tecnologias',
         },
     },
     experience: {
@@ -260,7 +275,7 @@ const pt = {
         items: {
             logae: {
                 position: 'Full Stack Developer',
-                period: '2023 - Presente',
+                period: '2021 - Presente',
                 location: 'Remoto',
                 description:
                     'Desenvolvimento de sistemas escaláveis com Golang e React. Implementação de microserviços, APIs RESTful e interfaces modernas.',
