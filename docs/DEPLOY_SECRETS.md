@@ -45,6 +45,7 @@ Para que o deploy funcione corretamente com as integrações de música (Spotify
 ## ⚙️ Configuração Mínima
 
 ### Opção 1: Usar apenas Spotify
+
 ```
 VITE_MUSIC_PROVIDER=spotify
 VITE_SPOTIFY_CLIENT_ID=seu_client_id
@@ -53,6 +54,7 @@ VITE_SPOTIFY_REFRESH_TOKEN=seu_refresh_token
 ```
 
 ### Opção 2: Usar apenas Last.fm
+
 ```
 VITE_MUSIC_PROVIDER=lastfm
 VITE_LASTFM_API_KEY=sua_api_key
@@ -60,6 +62,7 @@ VITE_LASTFM_USERNAME=seu_username
 ```
 
 ### Opção 3: Configurar ambos (recomendado para fallback)
+
 ```
 VITE_MUSIC_PROVIDER=spotify
 VITE_SPOTIFY_CLIENT_ID=seu_client_id
