@@ -1,6 +1,36 @@
 # Music Provider Integration
 
-Este projeto suporta duas plataformas de música: **Spotify** e **Last.fm**, com redundância automática caso uma das APIs não esteja disponível.
+Este projeto suporta duas plataformas de música: **Spotify** e **Last.fm**, com **fallback automático** e **alternância manual em tempo real**.
+
+## Funcionalidades
+
+### ✨ Fallback Automático
+
+O sistema tenta o provider preferido primeiro e, se falhar, automaticamente usa o próximo disponível:
+
+**Exemplo 1 - Provider preferido funciona:**
+
+1. Lê `VITE_MUSIC_PROVIDER=spotify`
+2. Realiza requisição para API do Spotify
+3. ✅ Exibe dados retornados pelo Spotify
+
+**Exemplo 2 - Fallback automático:**
+
+1. Lê `VITE_MUSIC_PROVIDER=spotify`
+2. ❌ Ocorre erro na API do Spotify
+3. 🔄 Realiza requisição automática para Last.fm
+4. ✅ Exibe dados retornados pelo Last.fm
+
+**Exemplo 3 - Todos os providers falharam:**
+
+1. ❌ Spotify API indisponível
+2. ❌ Last.fm API indisponível
+3. 📢 Exibe mensagem de erro: "Não foi possível verificar as estatísticas, todos os serviços estão indisponíveis"
+4. 🔄 Botão "Tentar novamente" disponível
+
+### 🔀 Alternância Manual
+
+Quando múltiplos providers estão disponíveis, botões de alternância aparecem no widget permitindo trocar entre eles em tempo real sem recarregar a página.
 
 ## Configuração
 
@@ -56,9 +86,11 @@ VITE_LASTFM_USERNAME=your_lastfm_username_here
     - Localização: `src/hooks/useLastFM/`
     - Retorna: `currentTrack`, `topArtist`, `recentTracks`, `isLoading`, `error`
 
-- **`useMusic`**: Hook unificado que usa o provider configurado
+- **`useMusic`**: Hook unificado com fallback automático
     - Localização: `src/hooks/useMusic.tsx`
-    - Retorna dados do provider ativo + `provider` (spotify/lastfm)
+    - Aceita parâmetro opcional `manualProvider` para override
+    - Retorna dados do provider ativo + `provider`, `availableProviders`, `switchProvider`
+    - Lógica de fallback: tenta provider preferido → fallback automático → erro se todos falharem
 
 ### Configuração
 
@@ -85,21 +117,53 @@ VITE_LASTFM_USERNAME=your_lastfm_username_here
 - ✅ Imagens de álbuns
 - ⚠️ Não possui barra de progresso (API não fornece)
 
-## Vantagens da Redundância
+## Vantagens do Sistema
 
-1. **Alta Disponibilidade**: Se uma API cair, a outra pode ser usada
-2. **Flexibilidade**: Escolha a plataforma que preferir
-3. **Fallback Automático**: Modo demo com dados mockados se nenhuma API estiver configurada
-4. **Interface Unificada**: Mesmo componente funciona com ambas as APIs
+1. **Alta Disponibilidade**: Fallback automático entre APIs garante funcionamento mesmo se uma falhar
+2. **Flexibilidade**: Escolha a plataforma preferida via variável de ambiente
+3. **Alternância Manual**: Botões para trocar entre providers disponíveis em tempo real
+4. **Feedback Claro**: Mensagem de erro amigável quando todos os serviços estão indisponíveis
+5. **Zero Interrupção**: Troca de provider sem reload da página
+6. **Fallback Inteligente**: Modo demo com dados mockados se nenhuma API estiver configurada
+7. **Interface Unificada**: Mesmo componente funciona com todas as APIs
 
 ## Componente
 
-O componente `SpotifyWidget` foi atualizado para:
+O componente `SpotifyWidget` inclui:
 
-- Usar o hook `useMusic` unificado
-- Adaptar cores baseado no provider (verde para Spotify, vermelho para Last.fm)
-- Exibir o nome do provider no título
+- Hook `useMusic` com fallback automático entre providers
+- Cores adaptativas (verde para Spotify, vermelho para Last.fm)
+- Nome do provider exibido no título
+- **Botões de alternância** quando múltiplos providers estão disponíveis
+- **Mensagem de erro** com ícone quando todos os providers falham
+- **Botão "Tentar novamente"** para recarregar após falha
 - Suportar dados de ambas as APIs sem mudanças na interface
+
+## Interface do Hook useMusic
+
+```typescript
+interface MusicData {
+    currentTrack: any;
+    topArtist: any;
+    recentTracks: any[];
+    isLoading: boolean;
+    error: string | null;
+    provider: 'spotify' | 'lastfm' | null;
+    availableProviders: ('spotify' | 'lastfm')[];
+    switchProvider: (provider: 'spotify' | 'lastfm') => void;
+}
+```
+
+### Propriedades Retornadas
+
+- **currentTrack**: Música tocando agora (ou null)
+- **topArtist**: Artista mais ouvido (ou null)
+- **recentTracks**: Array de músicas recentes
+- **isLoading**: Indica se está carregando dados
+- **error**: Mensagem de erro se todos os providers falharam
+- **provider**: Provider atualmente ativo ('spotify' | 'lastfm' | null)
+- **availableProviders**: Lista de providers que responderam com sucesso
+- **switchProvider**: Função para alternar manualmente entre providers
 
 ## Exemplos de Uso
 

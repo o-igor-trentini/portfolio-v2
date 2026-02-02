@@ -1,13 +1,16 @@
-import { Music, Play, User, Clock, Loader2, ExternalLink } from 'lucide-react';
+import { Music, Play, User, Clock, Loader2, ExternalLink, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
+import { useState } from 'react';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
 import { useI18n } from '../../../../hooks/useLanguage';
 import { useMusic } from '../../../../hooks/useMusic';
 
 export const SpotifyWidget: FC = (): ReactElement => {
     const { t } = useI18n();
-    const { currentTrack, topArtist, recentTracks, isLoading, provider } = useMusic();
+    const [manualProvider, setManualProvider] = useState<'spotify' | 'lastfm' | undefined>(undefined);
+    const { currentTrack, topArtist, recentTracks, isLoading, provider, availableProviders, switchProvider, error } =
+        useMusic(manualProvider);
 
     // Fallback mock data when Spotify is not configured or there's an error
     const mockCurrentTrack = {
@@ -37,8 +40,15 @@ export const SpotifyWidget: FC = (): ReactElement => {
     const displayRecentTracks = recentTracks.length > 0 ? recentTracks : mockRecentTracks;
 
     // Display provider name in title
-    const providerName = provider === MUSIC_PROVIDERS.LASTFM ? 'Last.fm' : 'Spotify';
+    const providerName =
+        provider === MUSIC_PROVIDERS.LASTFM ? 'Last.fm' : provider === MUSIC_PROVIDERS.SPOTIFY ? 'Spotify' : 'Music';
     const isLastFM = provider === MUSIC_PROVIDERS.LASTFM;
+
+    // Handler for switching providers
+    const handleSwitchProvider = (newProvider: 'spotify' | 'lastfm') => {
+        setManualProvider(newProvider);
+        switchProvider(newProvider);
+    };
 
     // Provider-specific styles
     const containerClass = isLastFM
@@ -68,12 +78,56 @@ export const SpotifyWidget: FC = (): ReactElement => {
                 <h3 className={titleClass}>
                     {t('spotify.title')} - {providerName}
                 </h3>
-                {!currentTrack && !isLoading && <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>}
+                {!currentTrack && !isLoading && !error && (
+                    <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>
+                )}
+
+                {/* Provider Switcher */}
+                {availableProviders.length > 1 && (
+                    <div className="ml-auto flex gap-1">
+                        {availableProviders.map((p) => (
+                            <button
+                                key={p}
+                                onClick={() => handleSwitchProvider(p)}
+                                className={`px-2 py-1 text-xs rounded transition-colors ${
+                                    provider === p
+                                        ? p === 'spotify'
+                                            ? 'bg-green-500 text-white'
+                                            : 'bg-red-500 text-white'
+                                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700'
+                                }`}
+                                title={`Switch to ${p === 'spotify' ? 'Spotify' : 'Last.fm'}`}
+                            >
+                                {p === 'spotify' ? 'Spotify' : 'Last.fm'}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {isLoading ? (
                 <div className="flex items-center justify-center py-12">
                     <Loader2 className={`w-6 h-6 animate-spin ${badgeClass}`} />
+                </div>
+            ) : error && !currentTrack ? (
+                /* Error state when all providers fail */
+                <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+                    <div className="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
+                        <AlertCircle className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
+                    </div>
+                    <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+                        Não foi possível verificar as estatísticas
+                    </h4>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
+                        Todos os serviços estão indisponíveis no momento
+                    </p>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="flex items-center gap-2 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm"
+                    >
+                        <RefreshCw className="w-4 h-4" />
+                        Tentar novamente
+                    </button>
                 </div>
             ) : (
                 <>
