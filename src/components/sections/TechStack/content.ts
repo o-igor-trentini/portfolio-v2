@@ -1,3 +1,5 @@
+import { BADGE_CONFIG, BADGE_TYPES, TECHNOLOGIES, TECH_COLORS } from './constants';
+
 export type TechBadge = 'favorite' | 'professional' | 'learning' | 'hobby';
 
 export interface TechItem {
@@ -27,18 +29,34 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Server',
         items: [
-            { name: 'Golang', badges: ['favorite', 'professional'], color: 'from-cyan-500 to-blue-500' },
-            { name: 'Node.js', badges: ['professional'], color: 'from-green-600 to-green-700' },
-            { name: 'Python', badges: ['hobby'], color: 'from-yellow-500 to-blue-500' },
-            { name: 'PostgreSQL', badges: ['favorite', 'professional'], color: 'from-blue-500 to-indigo-500' },
-            { name: 'MongoDB', badges: ['professional'], color: 'from-green-500 to-emerald-600' },
-            { name: 'Redis', badges: ['favorite', 'professional'], color: 'from-red-500 to-rose-500' },
-            { name: 'MySQL', badges: ['professional'], color: 'from-blue-400 to-blue-600' },
-            { name: 'GraphQL', badges: ['professional'], color: 'from-pink-500 to-purple-500' },
-            { name: 'REST APIs', badges: ['favorite', 'professional'], color: 'from-indigo-500 to-purple-500' },
-            { name: 'WebSockets', badges: ['professional'], color: 'from-green-500 to-emerald-500' },
-            { name: 'gRPC', badges: ['learning'], color: 'from-blue-600 to-indigo-600' },
-            { name: 'RabbitMQ', badges: ['professional'], color: 'from-orange-500 to-red-500' },
+            {
+                name: TECHNOLOGIES.GOLANG,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.CYAN_BLUE,
+            },
+            { name: TECHNOLOGIES.NODEJS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_DARK },
+            { name: TECHNOLOGIES.PYTHON, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.YELLOW_BLUE },
+            {
+                name: TECHNOLOGIES.POSTGRESQL,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE_INDIGO,
+            },
+            { name: TECHNOLOGIES.MONGODB, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_EMERALD },
+            {
+                name: TECHNOLOGIES.REDIS,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.RED,
+            },
+            { name: TECHNOLOGIES.MYSQL, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE_LIGHT },
+            { name: TECHNOLOGIES.GRAPHQL, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.PINK_PURPLE },
+            {
+                name: TECHNOLOGIES.REST_APIS,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.INDIGO_PURPLE,
+            },
+            { name: TECHNOLOGIES.WEBSOCKETS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN },
+            { name: TECHNOLOGIES.GRPC, badges: [BADGE_TYPES.LEARNING], color: TECH_COLORS.INDIGO },
+            { name: TECHNOLOGIES.RABBITMQ, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
         ],
     },
     {
@@ -50,18 +68,42 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Code2',
         items: [
-            { name: 'React', badges: ['favorite', 'professional'], color: 'from-blue-400 to-cyan-400' },
-            { name: 'TypeScript', badges: ['favorite', 'professional'], color: 'from-blue-600 to-blue-700' },
-            { name: 'JavaScript', badges: ['professional'], color: 'from-yellow-400 to-orange-500' },
-            { name: 'Next.js', badges: ['professional'], color: 'from-zinc-700 to-zinc-900' },
-            { name: 'Tailwind CSS', badges: ['favorite', 'professional'], color: 'from-cyan-500 to-teal-500' },
-            { name: 'Vite', badges: ['favorite', 'professional'], color: 'from-purple-500 to-pink-500' },
-            { name: 'HTML/CSS', badges: ['professional'], color: 'from-orange-500 to-red-500' },
-            { name: 'Framer Motion', badges: ['favorite', 'professional'], color: 'from-pink-500 to-purple-600' },
-            { name: 'shadcn/ui', badges: ['favorite', 'professional'], color: 'from-zinc-800 to-zinc-950' },
-            { name: 'Zustand', badges: ['professional'], color: 'from-amber-600 to-orange-600' },
-            { name: 'React Query', badges: ['professional'], color: 'from-red-500 to-pink-500' },
-            { name: 'React Hook Form', badges: ['professional'], color: 'from-pink-400 to-rose-500' },
+            {
+                name: TECHNOLOGIES.REACT,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE_CYAN,
+            },
+            {
+                name: TECHNOLOGIES.TYPESCRIPT,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE_DARK,
+            },
+            { name: TECHNOLOGIES.JAVASCRIPT, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.YELLOW_ORANGE },
+            { name: TECHNOLOGIES.NEXTJS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ZINC_DARK },
+            {
+                name: TECHNOLOGIES.TAILWIND,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.CYAN_TEAL,
+            },
+            {
+                name: TECHNOLOGIES.VITE,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.PURPLE_PINK,
+            },
+            { name: TECHNOLOGIES.HTML_CSS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
+            {
+                name: TECHNOLOGIES.FRAMER_MOTION,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.PINK,
+            },
+            {
+                name: TECHNOLOGIES.SHADCN,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ZINC_DARKER,
+            },
+            { name: TECHNOLOGIES.ZUSTAND, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE_AMBER },
+            { name: TECHNOLOGIES.REACT_QUERY, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.PINK_RED },
+            { name: TECHNOLOGIES.REACT_HOOK_FORM, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.PINK_ROSE },
         ],
     },
     {
@@ -73,15 +115,19 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Cloud',
         items: [
-            { name: 'Docker', badges: ['favorite', 'professional'], color: 'from-blue-500 to-blue-600' },
-            { name: 'Kubernetes', badges: ['learning'], color: 'from-blue-600 to-indigo-600' },
-            { name: 'Nginx', badges: ['professional'], color: 'from-green-600 to-green-700' },
-            { name: 'CI/CD', badges: ['professional'], color: 'from-orange-500 to-red-500' },
-            { name: 'AWS', badges: ['professional'], color: 'from-orange-400 to-orange-500' },
-            { name: 'Digital Ocean', badges: ['professional'], color: 'from-blue-500 to-blue-600' },
-            { name: 'Vercel', badges: ['professional'], color: 'from-zinc-800 to-zinc-950' },
-            { name: 'GitHub Actions', badges: ['professional'], color: 'from-blue-600 to-purple-600' },
-            { name: 'Terraform', badges: ['learning'], color: 'from-purple-600 to-indigo-600' },
+            {
+                name: TECHNOLOGIES.DOCKER,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE,
+            },
+            { name: TECHNOLOGIES.KUBERNETES, badges: [BADGE_TYPES.LEARNING], color: TECH_COLORS.INDIGO },
+            { name: TECHNOLOGIES.NGINX, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_DARK },
+            { name: TECHNOLOGIES.CI_CD, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
+            { name: TECHNOLOGIES.AWS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE_LIGHT },
+            { name: TECHNOLOGIES.DIGITAL_OCEAN, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE },
+            { name: TECHNOLOGIES.VERCEL, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ZINC_DARKER },
+            { name: TECHNOLOGIES.GITHUB_ACTIONS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE_PURPLE },
+            { name: TECHNOLOGIES.TERRAFORM, badges: [BADGE_TYPES.LEARNING], color: TECH_COLORS.PURPLE_INDIGO },
         ],
     },
     {
@@ -93,10 +139,18 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'GitBranch',
         items: [
-            { name: 'Git', badges: ['favorite', 'professional'], color: 'from-orange-600 to-red-600' },
-            { name: 'GitHub', badges: ['favorite', 'professional'], color: 'from-zinc-700 to-zinc-900' },
-            { name: 'Bitbucket', badges: ['professional'], color: 'from-blue-600 to-blue-700' },
-            { name: 'GitLab', badges: ['professional'], color: 'from-orange-500 to-red-600' },
+            {
+                name: TECHNOLOGIES.GIT,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ORANGE_RED,
+            },
+            {
+                name: TECHNOLOGIES.GITHUB,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ZINC_DARK,
+            },
+            { name: TECHNOLOGIES.BITBUCKET, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE_DARK },
+            { name: TECHNOLOGIES.GITLAB, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
         ],
     },
     {
@@ -108,11 +162,19 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Sparkles',
         items: [
-            { name: 'GitHub Copilot', badges: ['favorite', 'professional'], color: 'from-purple-600 to-pink-600' },
-            { name: 'Claude', badges: ['favorite', 'professional'], color: 'from-amber-600 to-orange-600' },
-            { name: 'ChatGPT', badges: ['professional'], color: 'from-green-500 to-emerald-600' },
-            { name: 'Cursor', badges: ['learning'], color: 'from-blue-500 to-indigo-600' },
-            { name: 'v0.dev', badges: ['hobby'], color: 'from-zinc-800 to-zinc-950' },
+            {
+                name: TECHNOLOGIES.GITHUB_COPILOT,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.PURPLE_PINK_DARK,
+            },
+            {
+                name: TECHNOLOGIES.CLAUDE,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ORANGE_AMBER,
+            },
+            { name: TECHNOLOGIES.CHATGPT, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_EMERALD },
+            { name: TECHNOLOGIES.CURSOR, badges: [BADGE_TYPES.LEARNING], color: TECH_COLORS.INDIGO },
+            { name: TECHNOLOGIES.V0_DEV, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ZINC_DARKER },
         ],
     },
     {
@@ -124,10 +186,18 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Monitor',
         items: [
-            { name: 'Linux', badges: ['favorite', 'professional'], color: 'from-yellow-500 to-orange-500' },
-            { name: 'Ubuntu', badges: ['favorite', 'professional'], color: 'from-orange-500 to-red-500' },
-            { name: 'macOS', badges: ['professional'], color: 'from-zinc-400 to-zinc-600' },
-            { name: 'Windows', badges: ['professional'], color: 'from-blue-500 to-blue-600' },
+            {
+                name: TECHNOLOGIES.LINUX,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.YELLOW,
+            },
+            {
+                name: TECHNOLOGIES.UBUNTU,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ORANGE,
+            },
+            { name: TECHNOLOGIES.MACOS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ZINC_LIGHT },
+            { name: TECHNOLOGIES.WINDOWS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE },
         ],
     },
     {
@@ -139,11 +209,23 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Terminal',
         items: [
-            { name: 'Warp', badges: ['favorite', 'professional'], color: 'from-blue-500 to-cyan-500' },
-            { name: 'Tilix', badges: ['professional'], color: 'from-green-600 to-emerald-600' },
-            { name: 'iTerm2', badges: ['professional'], color: 'from-green-500 to-teal-500' },
-            { name: 'Zsh', badges: ['favorite', 'professional'], color: 'from-purple-500 to-pink-500' },
-            { name: 'Oh My Zsh', badges: ['favorite', 'professional'], color: 'from-pink-500 to-rose-500' },
+            {
+                name: TECHNOLOGIES.WARP,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.CYAN,
+            },
+            { name: TECHNOLOGIES.TILIX, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.EMERALD },
+            { name: TECHNOLOGIES.ITERM2, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_TEAL },
+            {
+                name: TECHNOLOGIES.ZSH,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.PURPLE_PINK,
+            },
+            {
+                name: TECHNOLOGIES.OH_MY_ZSH,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.ROSE,
+            },
         ],
     },
     {
@@ -155,11 +237,11 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'CheckCircle',
         items: [
-            { name: 'Jest', badges: ['professional'], color: 'from-red-600 to-pink-600' },
-            { name: 'Vitest', badges: ['professional'], color: 'from-yellow-500 to-green-500' },
-            { name: 'Cypress', badges: ['professional'], color: 'from-green-600 to-teal-600' },
-            { name: 'Playwright', badges: ['learning'], color: 'from-green-500 to-emerald-600' },
-            { name: 'Testing Library', badges: ['professional'], color: 'from-red-500 to-orange-500' },
+            { name: TECHNOLOGIES.JEST, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.RED_PINK },
+            { name: TECHNOLOGIES.VITEST, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.YELLOW_GREEN },
+            { name: TECHNOLOGIES.CYPRESS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_TEAL_DARK },
+            { name: TECHNOLOGIES.PLAYWRIGHT, badges: [BADGE_TYPES.LEARNING], color: TECH_COLORS.GREEN_EMERALD },
+            { name: TECHNOLOGIES.TESTING_LIBRARY, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.RED_ORANGE },
         ],
     },
     {
@@ -171,43 +253,43 @@ export const techStackCategories: TechCategory[] = [
         },
         icon: 'Boxes',
         items: [
-            { name: 'Websockets', badges: ['professional'], color: 'from-green-500 to-emerald-500' },
-            { name: 'Microservices', badges: ['professional'], color: 'from-indigo-500 to-purple-500' },
-            { name: 'Event Driven', badges: ['professional'], color: 'from-purple-500 to-pink-500' },
-            { name: 'Clean Architecture', badges: ['favorite', 'professional'], color: 'from-blue-600 to-indigo-600' },
-            { name: 'Design Patterns', badges: ['professional'], color: 'from-pink-500 to-rose-500' },
-            { name: 'Agile/Scrum', badges: ['professional'], color: 'from-orange-500 to-red-500' },
+            { name: TECHNOLOGIES.WEBSOCKETS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN },
+            { name: TECHNOLOGIES.MICROSERVICES, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.INDIGO_PURPLE },
+            { name: TECHNOLOGIES.EVENT_DRIVEN, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.PURPLE_PINK },
+            {
+                name: TECHNOLOGIES.CLEAN_ARCHITECTURE,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.INDIGO,
+            },
+            { name: TECHNOLOGIES.DESIGN_PATTERNS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ROSE },
+            { name: TECHNOLOGIES.AGILE_SCRUM, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
         ],
     },
 ];
 
 export const badgeLabels = {
-    favorite: {
+    [BADGE_TYPES.FAVORITE]: {
         pt: 'Favorito',
         en: 'Favorite',
         es: 'Favorito',
-        icon: '⭐',
-        color: 'from-yellow-500 to-orange-500',
+        ...BADGE_CONFIG[BADGE_TYPES.FAVORITE],
     },
-    professional: {
+    [BADGE_TYPES.PROFESSIONAL]: {
         pt: 'Profissional',
         en: 'Professional',
         es: 'Profesional',
-        icon: '💼',
-        color: 'from-blue-500 to-indigo-500',
+        ...BADGE_CONFIG[BADGE_TYPES.PROFESSIONAL],
     },
-    learning: {
+    [BADGE_TYPES.LEARNING]: {
         pt: 'Aprendendo',
         en: 'Learning',
         es: 'Aprendiendo',
-        icon: '📚',
-        color: 'from-green-500 to-emerald-500',
+        ...BADGE_CONFIG[BADGE_TYPES.LEARNING],
     },
-    hobby: {
+    [BADGE_TYPES.HOBBY]: {
         pt: 'Hobby',
         en: 'Hobby',
         es: 'Hobby',
-        icon: '🎮',
-        color: 'from-purple-500 to-pink-500',
+        ...BADGE_CONFIG[BADGE_TYPES.HOBBY],
     },
 };
