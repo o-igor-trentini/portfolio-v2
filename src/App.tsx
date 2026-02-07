@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
+import { SEO } from './components/common/SEO';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
@@ -61,6 +62,8 @@ export default function App() {
 
     return (
         <>
+            <SEO />
+
             <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors cursor-none">
                 <CustomCursor />
 

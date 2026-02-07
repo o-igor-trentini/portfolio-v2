@@ -1,4 +1,11 @@
 const pt = {
+    seo: {
+        title: 'Igor Trentini | Full Stack Developer',
+        description:
+            'Portfólio de Igor Trentini — Full Stack Developer especializado em Golang, React e TypeScript. Criando soluções elegantes e escaláveis.',
+        keywords:
+            'Igor Trentini, Full Stack Developer, Golang, React, TypeScript, portfólio, desenvolvedor, backend, frontend',
+    },
     nav: {
         home: 'Início',
         projects: 'Projetos',
