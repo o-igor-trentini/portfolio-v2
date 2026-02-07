@@ -31,10 +31,48 @@ external → builtin → internal (`@/components`, `@/hooks`) → sibling → pa
 
 Alfabético dentro de cada grupo, garantido pelo `eslint-plugin-import-helpers`.
 
+### Componentes
+
+- Sempre usar **arrow functions** (`const fn = () => {}`) — nunca declaração `function`
+- Sempre usar **functional components** com hooks — nunca class components (exceto casos estritamente necessários)
+- Sempre usar tipagem explícita e importação direta do React:
+
+```tsx
+const MyComponent: FC = (): ReactElement => {
+  const [state, setState] = useState();
+  return <div>...</div>;
+};
+```
+
+- Extrair lógica em **hooks customizados** para centralizar e separar responsabilidades dos componentes
+- Separar dependências em subcomponentes especializados — cada componente deve ter uma única responsabilidade, mantendo arquivos enxutos e a manutenção atômica e simplificada
+
+### JSX — Organização do Render
+
+- Componentes irmãos devem ser separados por uma **linha em branco**
+- Somente um wrapper direto pode "encostar" na declaração de seu filho (sem linha em branco entre wrapper e primeiro filho)
+
+```tsx
+<>
+    <div>
+        <span>texto 1</span>
+
+        <span>texto 2</span>
+    </div>
+
+    <div>
+        <span>teste</span>
+    </div>
+</>
+```
+
 ### Nomenclatura
 
-- **Componentes**: Funcionais com hooks, arquivos em PascalCase
-- **Hooks**: Prefixo `use`, arquivos em camelCase
+- **Tipos/Interfaces**: PascalCase
+- **Constantes**: UPPER_SNAKE_CASE
+- **Arquivos de componentes**: PascalCase
+- **Arquivos de utilitários, services e hooks**: camelCase
+- **Hooks**: Prefixo `use`
 
 ## i18n
 
