@@ -30,8 +30,10 @@ export default [
             'scripts',
             'eslint.config.mjs',
             '.prettierrc.cjs',
-            'src/tests/coverage',
-            'src/tests/reports',
+            'src/tests',
+            '**/*.test.ts',
+            '**/*.test.tsx',
+            'vitest.config.ts',
         ],
     },
     ...fixupConfigRules(
@@ -86,7 +88,10 @@ export default [
                     propElementValues: 'always',
                 },
             ],
-            'react-refresh/only-export-components': ['warn', { allowConstantExport: false }],
+            'react-refresh/only-export-components': [
+                'warn',
+                { allowConstantExport: false, checkJS: false },
+            ],
             'import/order': [
                 1,
                 {

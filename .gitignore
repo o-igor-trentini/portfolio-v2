@@ -10,3 +10,6 @@ build
 # Variável de ambiente
 .env
 .env*.local
+
+# Testes
+src/tests/coverage
