@@ -357,6 +357,9 @@ const pt = {
         previousImage: 'Imagem anterior',
         nextImage: 'Próxima imagem',
         scrollToTop: 'Voltar ao topo',
+        visitGitHub: 'Visitar perfil no GitHub',
+        visitLinkedIn: 'Visitar perfil no LinkedIn',
+        openRepository: 'Abrir repositório',
     },
 } as const;
 

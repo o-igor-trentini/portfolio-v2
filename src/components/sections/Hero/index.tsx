@@ -546,6 +546,7 @@ export const Hero = (): ReactElement => {
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center hover:border-purple-500/50 transition-colors"
+                                    aria-label={t('accessibility.visitGitHub')}
                                 >
                                     <Github className="w-5 h-5" />
                                 </motion.a>
@@ -556,6 +557,7 @@ export const Hero = (): ReactElement => {
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center hover:border-purple-500/50 transition-colors"
+                                    aria-label={t('accessibility.visitLinkedIn')}
                                 >
                                     <Linkedin className="w-5 h-5" />
                                 </motion.a>

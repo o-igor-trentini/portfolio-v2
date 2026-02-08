@@ -151,6 +151,7 @@ const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
                                                 variant="ghost"
                                                 size="icon"
                                                 onClick={() => window.open(project.github, '_blank')}
+                                                aria-label={t('accessibility.openRepository')}
                                             >
                                                 <ExternalLink className="w-4 h-4" />
                                             </Button>

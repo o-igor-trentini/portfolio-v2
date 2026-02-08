@@ -1,6 +1,18 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
-import { afterEach, vi } from 'vitest';
+import type { AxeMatchers } from 'vitest-axe';
+import * as matchers from 'vitest-axe/matchers';
+import { afterEach, expect, vi } from 'vitest';
+
+// Registra matcher toHaveNoViolations do vitest-axe
+expect.extend(matchers);
+
+// Augmenta a interface Assertion do Vitest com os matchers do axe
+declare module 'vitest' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface Assertion<T> extends AxeMatchers {}
+    interface AsymmetricMatchersContaining extends AxeMatchers {}
+}
 
 afterEach(() => {
     cleanup();

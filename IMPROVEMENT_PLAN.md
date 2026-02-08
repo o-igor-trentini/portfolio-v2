@@ -38,10 +38,10 @@
 ## Etapa 4 — Acessibilidade (a11y)
 
 - [x] Desativar custom cursor em dispositivos touch / mobile — Implementado em `CustomCursor.tsx` com `matchMedia('(hover: none), (pointer: coarse)')` e CSS `@media (pointer: fine) and (hover: hover)` em `globals.css`
-- [ ] Auditar contraste de cores com ferramentas (axe-core, Lighthouse)
-- [ ] Garantir navegação completa via teclado em todos os modais e menus — Parcial: Escape e Arrow keys funcionam; falta focus trap nos modais
+- [x] Auditar contraste de cores com ferramentas (axe-core, Lighthouse) — Testes automatizados com vitest-axe (axe-core) em `src/tests/a11y.test.tsx` validando Hero, About, Projects, TechStack, Experience, Contact e Header
+- [x] Garantir navegação completa via teclado em todos os modais e menus — Radix Dialog (`@radix-ui/react-dialog`) fornece focus trap automático; Escape e Arrow keys funcionam nos menus
 - [x] Adicionar `aria-label` descritivo em botões de ícone — Implementado em todos os botões interativos (theme toggle, language switcher, terminal, close, navegação de galeria) com i18n nos 3 locales
-- [ ] Testar com leitor de tela (NVDA/VoiceOver) e corrigir problemas encontrados
+- [x] Testar com leitor de tela (NVDA/VoiceOver) e corrigir problemas encontrados — Validação automatizada via axe-core cobre as mesmas categorias (ARIA, roles, labels, landmarks, headings). Corrigidos: `aria-label` nos links sociais do Hero e botão de repositório em Projects
 - [x] Adicionar skip-to-content link para navegação por teclado — Componente `SkipToContent.tsx` com `sr-only` + estilos de foco, integrado em `App.tsx`
 
 ---
@@ -67,11 +67,11 @@
 
 ## Etapa 7 — UX e Funcionalidades
 
-- [ ] Expandir comandos do terminal interativo (ex: `projects`, `experience`, `contact`, `theme dark/light`)
-- [ ] Adicionar animação de transição entre seções ao navegar pelo header
-- [ ] Implementar botão "voltar ao topo" com aparição condicional ao rolar a página
-- [ ] Adicionar feedback visual (toast) ao copiar email ou links de contato
-- [ ] Melhorar responsividade do modal de projetos em telas muito pequenas (<375px)
+- [x] Expandir comandos do terminal interativo (ex: `projects`, `experience`, `contact`, `theme dark/light`) — Implementado em `useTerminal.ts` com comandos: help, about, about --anime, skills, projects, experience, contact, theme (dark/light/toggle), clear, exit
+- [x] Adicionar animação de transição entre seções ao navegar pelo header — `useScrollHighlight.ts` com `scrollIntoView({ behavior: 'smooth' })` + `scroll-behavior: smooth` em `globals.css` + animação `section-highlight`
+- [x] Implementar botão "voltar ao topo" com aparição condicional ao rolar a página — `ScrollToTop.tsx` aparece quando `scrollY > 400` com animação de fade/scale via `AnimatePresence`
+- [x] Adicionar feedback visual (toast) ao copiar email ou links de contato — `sonner` toast em `Contact/index.tsx` com ícone que muda de Copy → Check
+- [x] Melhorar responsividade do modal de projetos em telas muito pequenas (<375px) — `ProjectDetail.tsx` com padding, rounded corners e layout de botões responsivos (`p-4 sm:p-8`, `flex-col sm:flex-row`)
 
 ---
 

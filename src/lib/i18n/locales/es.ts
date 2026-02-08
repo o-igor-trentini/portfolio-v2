@@ -356,6 +356,9 @@ const es = {
         previousImage: 'Imagen anterior',
         nextImage: 'Siguiente imagen',
         scrollToTop: 'Volver arriba',
+        visitGitHub: 'Visitar perfil en GitHub',
+        visitLinkedIn: 'Visitar perfil en LinkedIn',
+        openRepository: 'Abrir repositorio',
     },
 } as const;
 
