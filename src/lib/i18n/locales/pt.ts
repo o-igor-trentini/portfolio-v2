@@ -283,7 +283,7 @@ const pt = {
             logae: {
                 position: 'Full Stack Developer',
                 period: '2021 - Presente',
-                location: 'Remoto',
+                location: 'Híbrido',
                 description:
                     'Desenvolvimento de sistemas escaláveis com Golang e React. Implementação de microserviços, APIs RESTful e interfaces modernas.',
                 achievements: [
