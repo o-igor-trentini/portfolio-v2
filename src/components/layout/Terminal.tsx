@@ -31,6 +31,15 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
     }, [isOpen]);
 
     useEffect(() => {
+        if (!isOpen) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
+
+    useEffect(() => {
         historyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [history]);
 
@@ -84,6 +93,9 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
                     onClick={onClose}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Terminal"
                 >
                     <motion.div
                         initial={{ scale: 0.9, y: 20 }}
@@ -110,6 +122,7 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                 size="icon"
                                 onClick={onClose}
                                 className="text-zinc-400 hover:text-white h-8 w-8"
+                                aria-label={t('accessibility.close')}
                             >
                                 <X className="w-4 h-4" />
                             </Button>

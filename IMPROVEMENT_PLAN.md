@@ -27,11 +27,11 @@
 
 ## Etapa 3 — Testes
 
-- [ ] Configurar Vitest + React Testing Library
-- [ ] Criar testes unitários para hooks críticos (`useMusic`, `useGitHub`, `useTheme`, `useLanguage`)
-- [ ] Criar testes de renderização para componentes-chave (Header, Hero, Projects)
-- [ ] Adicionar script `test` e `test:coverage` no `package.json`
-- [ ] Integrar execução de testes no workflow do GitHub Actions (CI)
+- [x] Configurar Vitest + React Testing Library
+- [x] Criar testes unitários para hooks críticos (`useMusic`, `useGitHub`, `useTheme`, `useLanguage`)
+- [x] Criar testes de renderização para componentes-chave (Header, Hero, Projects)
+- [x] Adicionar script `test` e `test:coverage` no `package.json`
+- [x] Integrar execução de testes no workflow do GitHub Actions (CI)
 
 ---
 

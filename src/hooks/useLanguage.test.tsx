@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import ptTranslations from '@/lib/i18n/locales/pt';
 import enTranslations from '@/lib/i18n/locales/en';
 import esTranslations from '@/lib/i18n/locales/es';
-import { useI18n, useLanguage } from './useLanguage';
+import { useI18n } from './useLanguage';
 
 const testI18n = i18n.createInstance();
 
@@ -78,11 +78,5 @@ describe('useI18n', () => {
 
         expect(result.current.t('nav.home')).toBe('Home');
         expect(result.current.t('nav.projects')).toBe('Projects');
-    });
-});
-
-describe('useLanguage', () => {
-    it('é alias de useI18n', () => {
-        expect(useLanguage).toBe(useI18n);
     });
 });

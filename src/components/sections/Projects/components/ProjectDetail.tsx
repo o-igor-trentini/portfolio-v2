@@ -1,6 +1,6 @@
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useState, type FC, type ReactElement } from 'react';
+import { useEffect, useState, type FC, type ReactElement } from 'react';
 import { useI18n } from '../../../../hooks/useLanguage';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import { Badge } from '../../../ui/badge';
@@ -16,6 +16,15 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
     const { t } = useI18n();
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
 
+    useEffect(() => {
+        if (!project) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [project, onClose]);
+
     return (
         <AnimatePresence>
             {project && (
@@ -25,6 +34,9 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm overflow-y-auto"
                     onClick={onClose}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={t(`projects.items.${project.id}.title`)}
                 >
                     <div className="min-h-screen py-8 px-4">
                         <motion.div
@@ -63,6 +75,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                     size="icon"
                                     onClick={onClose}
                                     className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white"
+                                    aria-label={t('accessibility.close')}
                                 >
                                     <X className="w-5 h-5" />
                                 </Button>

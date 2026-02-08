@@ -330,6 +330,20 @@ const pt = {
         clear: 'Terminal limpo',
         unknown: 'Comando não encontrado. Digite "help" para ver comandos disponíveis.',
     },
+    accessibility: {
+        skipToContent: 'Pular para o conteúdo',
+        toggleTheme: 'Alternar tema',
+        selectLanguage: 'Selecionar idioma',
+        openTerminal: 'Abrir terminal',
+        openMenu: 'Abrir menu',
+        closeMenu: 'Fechar menu',
+        close: 'Fechar',
+        previousImage: 'Imagem anterior',
+        nextImage: 'Próxima imagem',
+        imageCounter: '{{current}} de {{total}}',
+        backToProjects: 'Voltar aos projetos',
+        viewDetails: 'Ver detalhes',
+    },
 } as const;
 
 export default pt;

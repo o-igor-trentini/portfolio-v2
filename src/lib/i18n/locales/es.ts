@@ -329,6 +329,20 @@ const es = {
         clear: 'Terminal limpiada',
         unknown: 'Comando no encontrado. Escribe "help" para ver comandos disponibles.',
     },
+    accessibility: {
+        skipToContent: 'Saltar al contenido',
+        toggleTheme: 'Cambiar tema',
+        selectLanguage: 'Seleccionar idioma',
+        openTerminal: 'Abrir terminal',
+        openMenu: 'Abrir menú',
+        closeMenu: 'Cerrar menú',
+        close: 'Cerrar',
+        previousImage: 'Imagen anterior',
+        nextImage: 'Siguiente imagen',
+        imageCounter: '{{current}} de {{total}}',
+        backToProjects: 'Volver a proyectos',
+        viewDetails: 'Ver detalles',
+    },
 } as const;
 
 export default es;

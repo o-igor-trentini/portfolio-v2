@@ -1,6 +1,6 @@
 import { Moon, Sun, Globe, Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, type FC, type ReactElement } from 'react';
 import { useI18n } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../ui/button';
@@ -10,7 +10,7 @@ interface HeaderProps {
     onTerminalToggle: () => void;
 }
 
-export const Header = ({ onTerminalToggle }: HeaderProps) => {
+export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
     const { theme, toggleTheme } = useTheme();
     const { t, language, setLanguage } = useI18n();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,13 +78,24 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
 
                 {/* Actions */}
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" onClick={toggleTheme} className="hidden md:flex">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={toggleTheme}
+                        className="hidden md:flex"
+                        aria-label={t('accessibility.toggleTheme')}
+                    >
                         {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
                     </Button>
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="hidden md:flex">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="hidden md:flex"
+                                aria-label={t('accessibility.selectLanguage')}
+                            >
                                 <Globe className="w-4 h-4" />
                             </Button>
                         </DropdownMenuTrigger>
@@ -102,7 +113,13 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                         </DropdownMenuContent>
                     </DropdownMenu>
 
-                    <Button variant="ghost" size="icon" onClick={onTerminalToggle} className="hidden md:flex">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={onTerminalToggle}
+                        className="hidden md:flex"
+                        aria-label={t('accessibility.openTerminal')}
+                    >
                         <TerminalIcon className="w-4 h-4" />
                     </Button>
 
@@ -112,6 +129,8 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                         size="icon"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         className="md:hidden"
+                        aria-label={mobileMenuOpen ? t('accessibility.closeMenu') : t('accessibility.openMenu')}
+                        aria-expanded={mobileMenuOpen}
                     >
                         {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </Button>
@@ -158,12 +177,17 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                             {t('nav.contact')}
                         </button>
                         <div className="flex items-center gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                            <Button variant="ghost" size="icon" onClick={toggleTheme}>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={toggleTheme}
+                                aria-label={t('accessibility.toggleTheme')}
+                            >
                                 {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
                             </Button>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" size="icon">
+                                    <Button variant="ghost" size="icon" aria-label={t('accessibility.selectLanguage')}>
                                         <Globe className="w-4 h-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
@@ -180,7 +204,12 @@ export const Header = ({ onTerminalToggle }: HeaderProps) => {
                                     ))}
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            <Button variant="ghost" size="icon" onClick={onTerminalToggle}>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={onTerminalToggle}
+                                aria-label={t('accessibility.openTerminal')}
+                            >
                                 <TerminalIcon className="w-4 h-4" />
                             </Button>
                         </div>

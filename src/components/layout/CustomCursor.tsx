@@ -1,12 +1,22 @@
 import { motion } from 'motion/react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, type FC, type ReactElement } from 'react';
 
-export const CustomCursor = () => {
+export const CustomCursor: FC = (): ReactElement => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
+    const [isTouch, setIsTouch] = useState(false);
     const rafId = useRef<number | undefined>(undefined);
 
     useEffect(() => {
+        const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+        setIsTouch(mq.matches);
+        const handler = (e: MediaQueryListEvent) => setIsTouch(e.matches);
+        mq.addEventListener('change', handler);
+        return () => mq.removeEventListener('change', handler);
+    }, []);
+
+    useEffect(() => {
+        if (isTouch) return;
         const updateMousePosition = (e: MouseEvent) => {
             // Throttle usando requestAnimationFrame para 60fps
             if (rafId.current) return;
@@ -40,7 +50,9 @@ export const CustomCursor = () => {
                 cancelAnimationFrame(rafId.current);
             }
         };
-    }, []);
+    }, [isTouch]);
+
+    if (isTouch) return <></>;
 
     return (
         <>

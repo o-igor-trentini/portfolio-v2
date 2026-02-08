@@ -318,6 +318,20 @@ const en = {
         clear: 'Terminal cleared',
         unknown: 'Command not found. Type "help" to see available commands.',
     },
+    accessibility: {
+        skipToContent: 'Skip to content',
+        toggleTheme: 'Toggle theme',
+        selectLanguage: 'Select language',
+        openTerminal: 'Open terminal',
+        openMenu: 'Open menu',
+        closeMenu: 'Close menu',
+        close: 'Close',
+        previousImage: 'Previous image',
+        nextImage: 'Next image',
+        imageCounter: '{{current}} of {{total}}',
+        backToProjects: 'Back to projects',
+        viewDetails: 'View details',
+    },
 } as const;
 
 export default en;

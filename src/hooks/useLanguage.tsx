@@ -15,6 +15,3 @@ export const useI18n = () => {
         setLanguage: changeLanguage,
     };
 };
-
-// Keep backwards compatibility for existing imports
-export const useLanguage = useI18n;

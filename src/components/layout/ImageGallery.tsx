@@ -1,6 +1,7 @@
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, type MouseEvent } from 'react';
+import { useCallback, useEffect, useState, type FC, type MouseEvent, type ReactElement } from 'react';
+import { useI18n } from '../../hooks/useLanguage';
 import { OptimizedImage } from '../common/OptimizedImage';
 import { Button } from '../ui/button';
 
@@ -14,28 +15,36 @@ interface ImageGalleryProps {
     color: string;
 }
 
-export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
+export const ImageGallery: FC<ImageGalleryProps> = ({ images, color }): ReactElement => {
+    const { t } = useI18n();
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
     const openLightbox = (index: number) => {
         setSelectedImage(index);
     };
 
-    const closeLightbox = () => {
+    const closeLightbox = useCallback(() => {
         setSelectedImage(null);
-    };
+    }, []);
 
-    const goToPrevious = () => {
-        if (selectedImage !== null) {
-            setSelectedImage(selectedImage === 0 ? images.length - 1 : selectedImage - 1);
-        }
-    };
+    const goToPrevious = useCallback(() => {
+        setSelectedImage((prev) => (prev !== null ? (prev === 0 ? images.length - 1 : prev - 1) : null));
+    }, [images.length]);
 
-    const goToNext = () => {
-        if (selectedImage !== null) {
-            setSelectedImage((selectedImage + 1) % images.length);
-        }
-    };
+    const goToNext = useCallback(() => {
+        setSelectedImage((prev) => (prev !== null ? (prev + 1) % images.length : null));
+    }, [images.length]);
+
+    useEffect(() => {
+        if (selectedImage === null) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') goToPrevious();
+            if (e.key === 'ArrowRight') goToNext();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImage, closeLightbox, goToPrevious, goToNext]);
 
     return (
         <>
@@ -54,14 +63,15 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {images.map((image, index) => (
-                        <motion.div
+                        <motion.button
                             key={index}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 1 + index * 0.1 }}
                             whileHover={{ scale: 1.05 }}
                             onClick={() => openLightbox(index)}
-                            className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-zinc-100 dark:bg-zinc-800"
+                            className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-zinc-100 dark:bg-zinc-800 p-0 border-0"
+                            aria-label={image.caption || `Image ${index + 1}`}
                         >
                             <OptimizedImage
                                 src={image.url}
@@ -99,7 +109,7 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                                     />
                                 </svg>
                             </motion.div>
-                        </motion.div>
+                        </motion.button>
                     ))}
                 </div>
             </motion.div>
@@ -113,12 +123,16 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-lg flex items-center justify-center p-4"
                         onClick={closeLightbox}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Image gallery"
                     >
                         <Button
                             variant="ghost"
                             size="icon"
                             onClick={closeLightbox}
                             className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white z-10"
+                            aria-label={t('accessibility.close')}
                         >
                             <X className="w-5 h-5" />
                         </Button>
@@ -134,6 +148,7 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                                         goToPrevious();
                                     }}
                                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white z-10"
+                                    aria-label={t('accessibility.previousImage')}
                                 >
                                     <ChevronLeft className="w-6 h-6" />
                                 </Button>
@@ -145,6 +160,7 @@ export const ImageGallery = ({ images, color }: ImageGalleryProps) => {
                                         goToNext();
                                     }}
                                     className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white z-10"
+                                    aria-label={t('accessibility.nextImage')}
                                 >
                                     <ChevronRight className="w-6 h-6" />
                                 </Button>
