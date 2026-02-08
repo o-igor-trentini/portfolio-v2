@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { SpotifyData, NowPlayingResponse, TopArtistsResponse, RecentlyPlayedResponse } from './types';
-import { musicCache } from '@/lib/cache';
+import { getCache, setCache } from '@/lib/cache';
 
 const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
@@ -108,7 +108,7 @@ const SPOTIFY_CACHE_TTL = 60_000; // 60 segundos
 
 export const useSpotify = () => {
     const [data, setData] = useState<SpotifyData>(() => {
-        const cached = musicCache.get<Omit<SpotifyData, 'isLoading' | 'error'>>(SPOTIFY_CACHE_KEY);
+        const cached = getCache<Omit<SpotifyData, 'isLoading' | 'error'>>(SPOTIFY_CACHE_KEY);
         if (cached) {
             return { ...cached, isLoading: true, error: null };
         }
@@ -172,7 +172,7 @@ export const useSpotify = () => {
 
                 const newData = { currentTrack, topArtist, recentTracks };
                 setData({ ...newData, isLoading: false, error: null });
-                musicCache.set(SPOTIFY_CACHE_KEY, newData, SPOTIFY_CACHE_TTL);
+                setCache(SPOTIFY_CACHE_KEY, newData, SPOTIFY_CACHE_TTL);
             } catch (error) {
                 console.error('Error fetching Spotify data:', error);
                 setData({

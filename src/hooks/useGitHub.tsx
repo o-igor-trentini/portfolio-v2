@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { githubCache } from '@/lib/cache';
+import { getCache, setCache } from '@/lib/cache';
 
 interface GitHubRepo {
     name: string;
@@ -174,7 +174,7 @@ export const useGitHub = (): GitHubData => {
                 setError(null);
 
                 // Verificar cache — exibir imediatamente se disponível
-                const cached = githubCache.get<GitHubStats>(CACHE_KEY);
+                const cached = getCache<GitHubStats>(CACHE_KEY);
                 if (cached) {
                     setStats(cached);
                     setIsUsingCache(true);
@@ -267,7 +267,7 @@ export const useGitHub = (): GitHubData => {
                     setStats(newStats);
                     setIsRateLimited(false);
                     setIsUsingCache(false);
-                    githubCache.set(CACHE_KEY, newStats, CACHE_TTL);
+                    setCache(CACHE_KEY, newStats, CACHE_TTL);
                 } else {
                     throw reposResult.reason;
                 }
@@ -276,7 +276,7 @@ export const useGitHub = (): GitHubData => {
                 setError(err instanceof Error ? err.message : 'Unknown error');
 
                 // Usar cache se disponível, senão fallback
-                const cached = githubCache.get<GitHubStats>(CACHE_KEY);
+                const cached = getCache<GitHubStats>(CACHE_KEY);
                 if (cached) {
                     setStats(cached);
                     setIsUsingCache(true);
