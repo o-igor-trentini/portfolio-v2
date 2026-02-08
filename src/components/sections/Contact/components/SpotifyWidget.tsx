@@ -1,9 +1,10 @@
 import { useLanguage, useMusic } from '@hooks';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@ui';
-import { Music, Play, User, Clock, Loader2, ExternalLink, AlertCircle, RefreshCw } from 'lucide-react';
+import { Music, Play, User, Clock, ExternalLink, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
+import { SpotifyWidgetSkeleton } from './SpotifyWidgetSkeleton';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
 
 export const SpotifyWidget: FC = (): ReactElement => {
@@ -120,10 +121,8 @@ export const SpotifyWidget: FC = (): ReactElement => {
                 </div>
             </div>
 
-            {isLoading ? (
-                <div className="flex items-center justify-center py-12">
-                    <Loader2 className={`w-6 h-6 animate-spin ${badgeClass}`} />
-                </div>
+            {isLoading && !currentTrack && !topArtist ? (
+                <SpotifyWidgetSkeleton />
             ) : error && !currentTrack ? (
                 /* Error state when all providers fail */
                 <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
@@ -131,17 +130,15 @@ export const SpotifyWidget: FC = (): ReactElement => {
                         <AlertCircle className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
                     </div>
                     <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
-                        Não foi possível verificar as estatísticas
+                        {t('spotify.errorTitle')}
                     </h4>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-                        Todos os serviços estão indisponíveis no momento
-                    </p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t('spotify.errorDescription')}</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="flex items-center gap-2 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm"
                     >
                         <RefreshCw className="w-4 h-4" />
-                        Tentar novamente
+                        {t('spotify.retry')}
                     </button>
                 </div>
             ) : (

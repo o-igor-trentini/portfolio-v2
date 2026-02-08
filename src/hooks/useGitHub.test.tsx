@@ -46,9 +46,70 @@ const mockRepos = [
     },
 ];
 
+/** Cria mock de Response REST com headers de rate limit */
+const mockRestResponse = (
+    body: unknown,
+    ok = true,
+    status = 200,
+    rateLimitRemaining = '60',
+) =>
+    ({
+        ok,
+        status,
+        json: async () => body,
+        headers: new Headers({
+            'X-RateLimit-Remaining': rateLimitRemaining,
+            'X-RateLimit-Reset': '9999999999',
+        }),
+    }) as unknown as Response;
+
+/** Dados GraphQL de contribuições para testes */
+const mockGraphQLContributions = {
+    data: {
+        user: {
+            contributionsCollection: {
+                contributionCalendar: {
+                    weeks: Array.from({ length: 52 }, (_, weekIdx) => ({
+                        contributionDays: Array.from({ length: 7 }, (_, dayIdx) => ({
+                            contributionCount: (weekIdx + dayIdx) % 10,
+                            date: '2025-01-01',
+                        })),
+                    })),
+                },
+            },
+        },
+    },
+};
+
+/** Helper: mock fetch diferenciando REST vs GraphQL por URL */
+const mockFetchForBoth = (
+    restBody: unknown = mockRepos,
+    restOk = true,
+    restStatus = 200,
+    rateLimitRemaining = '60',
+    graphqlBody: unknown = mockGraphQLContributions,
+    graphqlOk = true,
+) => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async (input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : input.toString();
+
+        if (url.includes('graphql')) {
+            return {
+                ok: graphqlOk,
+                json: async () => graphqlBody,
+                headers: new Headers(),
+            } as unknown as Response;
+        }
+
+        // REST endpoint
+        return mockRestResponse(restBody, restOk, restStatus, rateLimitRemaining);
+    });
+};
+
 describe('useGitHub', () => {
     beforeEach(() => {
         vi.restoreAllMocks();
+        sessionStorage.clear();
     });
 
     it('inicia em loading', () => {
@@ -63,10 +124,7 @@ describe('useGitHub', () => {
     });
 
     it('calcula totalStars corretamente', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -79,10 +137,7 @@ describe('useGitHub', () => {
     });
 
     it('calcula totalRepos corretamente', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -94,10 +149,7 @@ describe('useGitHub', () => {
     });
 
     it('calcula topRepos — top 3, filtra nomes com "fork"', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -116,10 +168,7 @@ describe('useGitHub', () => {
     });
 
     it('calcula languages — top 4 com percentuais', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -138,10 +187,7 @@ describe('useGitHub', () => {
     });
 
     it('mapeia cores de linguagens conhecidas', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -164,10 +210,7 @@ describe('useGitHub', () => {
             },
         ];
 
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => reposWithUnknown,
-        } as Response);
+        mockFetchForBoth(reposWithUnknown);
 
         const { result } = renderHook(() => useGitHub());
 
@@ -180,10 +223,7 @@ describe('useGitHub', () => {
     });
 
     it('contributionData tem estrutura 52x7', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
 
@@ -196,11 +236,58 @@ describe('useGitHub', () => {
         expect(data?.[0]).toHaveLength(7);
     });
 
+    it('usa mock de contribuições sem token (VITE_GITHUB_TOKEN vazio)', async () => {
+        mockFetchForBoth();
+
+        const { result } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        // Sem token, GraphQL não é chamado, contribuições devem ser mock (0-4)
+        const data = result.current.stats?.contributionData;
+        expect(data).toHaveLength(52);
+        data?.forEach((week) => {
+            expect(week).toHaveLength(7);
+            week.forEach((day) => {
+                expect(day).toBeGreaterThanOrEqual(0);
+                expect(day).toBeLessThanOrEqual(4);
+            });
+        });
+    });
+
+    it('busca contribuições via GraphQL com token configurado', async () => {
+        vi.stubEnv('VITE_GITHUB_TOKEN', 'ghp_test123');
+
+        // Re-import para pegar novo valor da env
+        vi.resetModules();
+        const { useGitHub: useGitHubWithToken } = await import('./useGitHub');
+
+        mockFetchForBoth();
+
+        const { result } = renderHook(() => useGitHubWithToken());
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        // Verifica que GraphQL foi chamado
+        const fetchCalls = vi.mocked(globalThis.fetch).mock.calls;
+        const graphqlCall = fetchCalls.find(
+            ([url]) => typeof url === 'string' && url.includes('graphql'),
+        );
+        expect(graphqlCall).toBeDefined();
+
+        // Contribuições devem ter estrutura 52x7
+        expect(result.current.stats?.contributionData).toHaveLength(52);
+        expect(result.current.stats?.contributionData?.[0]).toHaveLength(7);
+
+        vi.stubEnv('VITE_GITHUB_TOKEN', '');
+    });
+
     it('fallback com dados mock quando API falha', async () => {
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: false,
-            status: 500,
-        } as Response);
+        mockFetchForBoth(null, false, 500);
 
         const { result } = renderHook(() => useGitHub());
 
@@ -216,12 +303,68 @@ describe('useGitHub', () => {
         expect(result.current.stats?.languages).toHaveLength(4);
     });
 
+    it('rate limit com cache disponível → isRateLimited: true + dados do cache', async () => {
+        // Primeiro fetch: preenche cache
+        mockFetchForBoth();
+        const { result: firstResult } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(firstResult.current.isLoading).toBe(false);
+        });
+
+        vi.restoreAllMocks();
+
+        // Segundo fetch: rate limited (429)
+        mockFetchForBoth(null, true, 429, '0');
+        const { result } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        expect(result.current.isRateLimited).toBe(true);
+        expect(result.current.stats).not.toBeNull();
+        // Deve usar dados do cache (totalStars = 215 do primeiro fetch)
+        expect(result.current.stats?.totalStars).toBe(215);
+    });
+
+    it('rate limit sem cache → fallback para mock', async () => {
+        mockFetchForBoth(null, true, 429, '0');
+
+        const { result } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        expect(result.current.isRateLimited).toBe(true);
+        expect(result.current.stats).not.toBeNull();
+        expect(result.current.stats?.totalStars).toBe(579); // Fallback
+    });
+
+    it('cache é usado imediatamente no mount', async () => {
+        // Primeiro fetch: preenche cache
+        mockFetchForBoth();
+        const { result: firstResult } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(firstResult.current.isLoading).toBe(false);
+        });
+
+        vi.restoreAllMocks();
+
+        // Segundo hook: deve exibir dados do cache imediatamente (isLoading = false)
+        mockFetchForBoth();
+        const { result } = renderHook(() => useGitHub());
+
+        // Com cache, stats é exibido imediatamente
+        expect(result.current.stats).not.toBeNull();
+        expect(result.current.stats?.totalStars).toBe(215);
+    });
+
     it('sai de loading em ambos cenários', async () => {
         // Cenário sucesso
-        vi.spyOn(globalThis, 'fetch').mockResolvedValue({
-            ok: true,
-            json: async () => mockRepos,
-        } as Response);
+        mockFetchForBoth();
 
         const { result: successResult } = renderHook(() => useGitHub());
 
@@ -239,5 +382,17 @@ describe('useGitHub', () => {
         await waitFor(() => {
             expect(errorResult.current.isLoading).toBe(false);
         });
+    });
+
+    it('retorna isUsingCache: false após fetch bem-sucedido', async () => {
+        mockFetchForBoth();
+
+        const { result } = renderHook(() => useGitHub());
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        expect(result.current.isUsingCache).toBe(false);
     });
 });

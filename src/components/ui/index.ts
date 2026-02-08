@@ -21,6 +21,7 @@ export {
 export { Input } from './input';
 export { Label } from './label';
 export { Separator } from './separator';
+export { Skeleton } from './skeleton';
 export {
     Sheet,
     SheetTrigger,

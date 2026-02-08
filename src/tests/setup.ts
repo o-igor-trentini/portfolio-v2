@@ -4,6 +4,7 @@ import { afterEach, vi } from 'vitest';
 
 afterEach(() => {
     cleanup();
+    sessionStorage.clear();
 });
 
 // Mock window.matchMedia (não implementado no jsdom)
@@ -53,6 +54,7 @@ Object.defineProperty(window, 'IntersectionObserver', {
 });
 
 // Mock variáveis de ambiente VITE_*
+vi.stubEnv('VITE_GITHUB_TOKEN', '');
 vi.stubEnv('VITE_MUSIC_PROVIDER', 'spotify');
 vi.stubEnv('VITE_SPOTIFY_CLIENT_ID', '');
 vi.stubEnv('VITE_SPOTIFY_CLIENT_SECRET', '');
