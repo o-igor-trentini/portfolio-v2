@@ -48,11 +48,11 @@
 
 ## Etapa 5 — Performance e Bundle
 
-- [ ] Dividir `main.css` (~4500 linhas) em módulos menores por escopo (layout, animations, theme, components)
-- [ ] Auditar dependências não utilizadas com `npx depcheck`
-- [ ] Analisar bundle com `npx vite-bundle-visualizer` e identificar oportunidades de redução
-- [ ] Implementar cache headers adequados para assets estáticos no deploy
-- [ ] Avaliar substituição de animações CSS pesadas por versões mais leves em dispositivos de baixa performance
+- [x] ~~Dividir `main.css` (~4500 linhas)~~ — Não aplicável: `main.css` é output compilado do Tailwind v4, não CSS manual. O CSS fonte real (`globals.css` + `fonts.css`) totaliza apenas 337 linhas, já bem organizado
+- [x] Auditar dependências não utilizadas — Removidos ~30 aliases versionados (boilerplate shadcn/ui) do `vite.config.ts` que apontavam para pacotes não instalados/usados (recharts, react-hook-form, cmdk, vaul, react-day-picker, input-otp, embla-carousel-react, next-themes, react-resizable-panels e ~18 componentes Radix UI não usados). Import de `path` removido
+- [x] Analisar bundle e otimizar chunks — Corrigido `manualChunks` (função em vez de objeto estático) para funcionar com React 19. Chunk principal reduziu de 387 kB → 132 kB. Adicionado chunk `i18n` separado. Chunk `vendor` corrigido (estava vazio)
+- [x] ~~Cache headers para assets estáticos~~ — Já coberto: Vite gera assets com content-hash (`[name]-[hash].ext`) permitindo cache longo. GitHub Pages aplica headers automáticos adequados. Não há como customizar headers no GitHub Pages
+- [x] ~~Animações CSS pesadas~~ — Já coberto: projeto tem apenas 3 keyframes leves (pulse, enter, exit — Tailwind/Radix). `prefers-reduced-motion` implementado em `globals.css`. Animações JS via `motion/react` otimizam via GPU automaticamente
 
 ---
 
