@@ -1,4 +1,11 @@
 const en = {
+    seo: {
+        title: 'Igor Trentini | Full Stack Developer',
+        description:
+            "Igor Trentini's portfolio — Full Stack Developer specialized in Golang, React and TypeScript. Building elegant and scalable solutions.",
+        keywords:
+            'Igor Trentini, Full Stack Developer, Golang, React, TypeScript, portfolio, developer, backend, frontend',
+    },
     nav: {
         home: 'Home',
         projects: 'Projects',
@@ -287,19 +294,33 @@ const en = {
             instagram: 'Instagram',
         },
     },
-    spotify: {
+    music: {
         title: 'Now Playing',
         topArtist: 'Top Artist',
         weeklyMinutes: 'Minutes This Week',
         recentTracks: 'Recently Played',
         providerAvailable: 'Use',
         providerOffline: 'Service unavailable',
+        errorTitle: 'Could not load statistics',
+        errorDescription: 'All services are currently unavailable',
+        retry: 'Try again',
+        notPlaying: 'Radio silence',
+        notPlayingDescription: 'Ears resting for now',
     },
     github: {
         title: 'GitHub Stats',
         contributions: 'Contributions',
         topLanguages: 'Top Languages',
         topRepos: 'Featured Repositories',
+        rateLimited: 'Rate limit reached. Showing cached data.',
+        totalStars: 'Total Stars',
+        repositories: 'Repositories',
+        noContributions: 'No contribution data',
+        noLanguages: 'No language data',
+        noRepos: 'No repositories found',
+        errorTitle: 'Could not load statistics',
+        errorDescription: 'GitHub data is currently unavailable',
+        retry: 'Try again',
     },
     terminal: {
         prompt: 'igor@portfolio:~$',
@@ -310,6 +331,17 @@ const en = {
         about: 'Full Stack Developer specialized in Golang and React',
         clear: 'Terminal cleared',
         unknown: 'Command not found. Type "help" to see available commands.',
+    },
+    accessibility: {
+        skipToContent: 'Skip to content',
+        toggleTheme: 'Toggle theme',
+        selectLanguage: 'Select language',
+        openTerminal: 'Open terminal',
+        openMenu: 'Open menu',
+        closeMenu: 'Close menu',
+        close: 'Close',
+        previousImage: 'Previous image',
+        nextImage: 'Next image',
     },
 } as const;
 

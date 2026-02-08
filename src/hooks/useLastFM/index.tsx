@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { LastFMData, LastFMRecentTracksResponse, LastFMTopArtistsResponse } from './types';
+import { getCache, setCache } from '@/lib/cache';
 
 const LASTFM_API_BASE = 'https://ws.audioscrobbler.com/2.0/';
 const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
@@ -60,13 +61,16 @@ const getTopArtists = async (): Promise<LastFMTopArtistsResponse | null> => {
     }
 };
 
+const LASTFM_CACHE_KEY = 'lastfm';
+const LASTFM_CACHE_TTL = 60_000; // 60 segundos
+
 export const useLastFM = () => {
-    const [data, setData] = useState<LastFMData>({
-        currentTrack: null,
-        topArtist: null,
-        recentTracks: [],
-        isLoading: true,
-        error: null,
+    const [data, setData] = useState<LastFMData>(() => {
+        const cached = getCache<Omit<LastFMData, 'isLoading' | 'error'>>(LASTFM_CACHE_KEY);
+        if (cached) {
+            return { ...cached, isLoading: true, error: null };
+        }
+        return { currentTrack: null, topArtist: null, recentTracks: [], isLoading: true, error: null };
     });
 
     useEffect(() => {
@@ -130,13 +134,9 @@ export const useLastFM = () => {
                         url: track.url,
                     }));
 
-                setData({
-                    currentTrack,
-                    topArtist,
-                    recentTracks,
-                    isLoading: false,
-                    error: null,
-                });
+                const newData = { currentTrack, topArtist, recentTracks };
+                setData({ ...newData, isLoading: false, error: null });
+                setCache(LASTFM_CACHE_KEY, newData, LASTFM_CACHE_TTL);
             } catch (error) {
                 console.error('Error fetching Last.fm data:', error);
                 setData({

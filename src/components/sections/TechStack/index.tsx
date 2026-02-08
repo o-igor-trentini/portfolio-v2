@@ -1,3 +1,5 @@
+import { useLanguage } from '@hooks';
+import { Button } from '@ui';
 import {
     Code2,
     Server,
@@ -14,8 +16,6 @@ import { motion } from 'motion/react';
 import { useState, useMemo, type FC, type ReactElement } from 'react';
 import { BADGE_CONFIG } from './constants';
 import { techStackCategories, type TechBadge } from './content';
-import { useI18n } from '../../../hooks/useLanguage';
-import { Button } from '../../ui/button';
 
 const iconMap: Record<string, any> = {
     Server,
@@ -30,7 +30,7 @@ const iconMap: Record<string, any> = {
 };
 
 const TechStack: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [selectedBadge, setSelectedBadge] = useState<TechBadge | 'all'>('all');
 
     const filterByBadge = useMemo(

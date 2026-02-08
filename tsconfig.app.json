@@ -16,7 +16,9 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@hooks": ["./src/hooks"],
+            "@ui": ["./src/components/ui"]
         },
 
         /* Linting */
@@ -26,5 +28,6 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true
     },
-    "include": ["src/**/*.ts*"]
+    "include": ["src/**/*.ts*"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/tests"]
 }

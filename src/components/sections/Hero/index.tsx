@@ -1,13 +1,13 @@
+import { useLanguage } from '@hooks';
+import { Button } from '@ui';
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState, useRef, useCallback, type ReactElement } from 'react';
-import { useI18n } from '../../../hooks/useLanguage';
 import { PriorityImage } from '../../common/OptimizedImage';
-import { Button } from '../../ui/button';
 import { SocialLinks } from '../Contact/constants';
 
 export const Hero = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const rafId = useRef<number | undefined>(undefined);
 

@@ -217,8 +217,8 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Hide default cursor on desktop */
-@media (pointer: fine) {
+/* Hide default cursor on desktop (only devices with fine pointer AND hover capability) */
+@media (pointer: fine) and (hover: hover) {
     * {
         cursor: none !important;
     }

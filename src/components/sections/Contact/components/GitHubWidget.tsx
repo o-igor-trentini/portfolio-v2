@@ -1,13 +1,12 @@
-import { Github, GitBranch, Star, Code, Loader2, ExternalLink } from 'lucide-react';
+import { useGitHub, useLanguage } from '@hooks';
+import { Github, GitBranch, Star, Code, ExternalLink, AlertTriangle, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type ReactElement } from 'react';
-
-import { useGitHub } from '../../../../hooks/useGitHub';
-import { useI18n } from '../../../../hooks/useLanguage';
+import { GitHubWidgetSkeleton } from './GitHubWidgetSkeleton';
 
 export const GitHubWidget: FC = (): ReactElement => {
-    const { t } = useI18n();
-    const { stats, isLoading } = useGitHub();
+    const { t } = useLanguage();
+    const { stats, isLoading, isRateLimited } = useGitHub();
     const containerRef = useRef<HTMLDivElement>(null);
     const [weeksToShow, setWeeksToShow] = useState(52);
 
@@ -47,12 +46,37 @@ export const GitHubWidget: FC = (): ReactElement => {
                     <Github className="w-5 h-5 text-white dark:text-zinc-900" />
                 </div>
                 <h3>{t('github.title')}</h3>
-                {!stats && !isLoading && <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>}
             </div>
 
-            {isLoading ? (
-                <div className="flex items-center justify-center py-12">
-                    <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+            {/* Rate limit banner */}
+            {isRateLimited && (
+                <div className="flex items-center gap-2 mb-4 p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800">
+                    <AlertTriangle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0" />
+                    <p className="text-xs text-yellow-700 dark:text-yellow-300">{t('github.rateLimited')}</p>
+                </div>
+            )}
+
+            {isLoading && !stats ? (
+                <GitHubWidgetSkeleton />
+            ) : !stats ? (
+                <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+                    <div className="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
+                        <AlertCircle className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
+                    </div>
+
+                    <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+                        {t('github.errorTitle')}
+                    </h4>
+
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t('github.errorDescription')}</p>
+
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="flex items-center gap-2 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm"
+                    >
+                        <RefreshCw className="w-4 h-4" />
+                        {t('github.retry')}
+                    </button>
                 </div>
             ) : (
                 <>
@@ -62,14 +86,20 @@ export const GitHubWidget: FC = (): ReactElement => {
                             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                                 <div className="flex items-center gap-2 mb-1">
                                     <Star className="w-4 h-4 text-yellow-500" />
-                                    <p className="text-xs text-zinc-600 dark:text-zinc-400">Total Stars</p>
+
+                                    <p className="text-xs text-zinc-600 dark:text-zinc-400">{t('github.totalStars')}</p>
                                 </div>
+
                                 <p className="text-2xl font-bold">{stats.totalStars}</p>
                             </div>
+
                             <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
                                 <div className="flex items-center gap-2 mb-1">
                                     <GitBranch className="w-4 h-4 text-purple-500" />
-                                    <p className="text-xs text-zinc-600 dark:text-zinc-400">Repositories</p>
+
+                                    <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                                        {t('github.repositories')}
+                                    </p>
                                 </div>
                                 <p className="text-2xl font-bold">{stats.totalRepos}</p>
                             </div>
@@ -79,6 +109,7 @@ export const GitHubWidget: FC = (): ReactElement => {
                     {/* Contribution Heatmap */}
                     <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">
                         <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('github.contributions')}</p>
+
                         {contributions.length > 0 ? (
                             <div ref={containerRef} className="flex gap-1 overflow-hidden">
                                 {visibleContributions.map((week, weekIndex) => (
@@ -108,7 +139,7 @@ export const GitHubWidget: FC = (): ReactElement => {
                             </div>
                         ) : (
                             <div className="h-24 flex items-center justify-center text-zinc-400">
-                                <p className="text-sm">No contribution data</p>
+                                <p className="text-sm">{t('github.noContributions')}</p>
                             </div>
                         )}
                     </div>
@@ -117,6 +148,7 @@ export const GitHubWidget: FC = (): ReactElement => {
                     <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">
                         <div className="flex items-center gap-2 mb-3">
                             <Code className="w-4 h-4 text-purple-500" />
+
                             <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('github.topLanguages')}</p>
                         </div>
 
@@ -169,8 +201,10 @@ export const GitHubWidget: FC = (): ReactElement => {
                                                     <div
                                                         className={`w-3 h-3 rounded-full bg-gradient-to-br ${lang.color}`}
                                                     />
+
                                                     <span className="text-sm">{lang.name}</span>
                                                 </div>
+
                                                 <span className="text-sm text-zinc-600 dark:text-zinc-400">
                                                     {lang.percentage}%
                                                 </span>
@@ -181,7 +215,7 @@ export const GitHubWidget: FC = (): ReactElement => {
                             </>
                         ) : (
                             <div className="h-24 flex items-center justify-center text-zinc-400">
-                                <p className="text-sm">No language data</p>
+                                <p className="text-sm">{t('github.noLanguages')}</p>
                             </div>
                         )}
                     </div>
@@ -210,16 +244,20 @@ export const GitHubWidget: FC = (): ReactElement => {
                                             <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
                                                 <GitBranch className="w-4 h-4 text-purple-500" />
                                             </div>
+
                                             <div className="min-w-0 flex-1">
                                                 <div className="flex items-center gap-2">
                                                     <p className="text-sm font-medium truncate">{repo.name}</p>
+
                                                     <ExternalLink className="w-3 h-3 text-zinc-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                                                 </div>
                                                 <p className="text-xs text-zinc-500">{repo.language}</p>
                                             </div>
                                         </div>
+
                                         <div className="flex items-center gap-1 text-yellow-500 flex-shrink-0 ml-2">
                                             <Star className="w-3 h-3 fill-current" />
+
                                             <span className="text-xs">{repo.stars}</span>
                                         </div>
                                     </motion.a>
@@ -227,7 +265,7 @@ export const GitHubWidget: FC = (): ReactElement => {
                             </div>
                         ) : (
                             <div className="h-24 flex items-center justify-center text-zinc-400">
-                                <p className="text-sm">No repositories found</p>
+                                <p className="text-sm">{t('github.noRepos')}</p>
                             </div>
                         )}
                     </div>

@@ -1,13 +1,13 @@
+import { useLanguage } from '@hooks';
 import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { GitHubWidget } from './components/GitHubWidget';
-import { SpotifyWidget } from './components/SpotifyWidget';
+import { MusicWidget } from './components/MusicWidget';
 import { SocialLinks } from './constants';
-import { useI18n } from '../../../hooks/useLanguage';
 
 const Contact: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
 
     const socialLinks = [
         {
@@ -118,7 +118,7 @@ const Contact: FC = (): ReactElement => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <SpotifyWidget />
+                            <MusicWidget />
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}

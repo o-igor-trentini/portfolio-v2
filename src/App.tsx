@@ -1,10 +1,12 @@
-import { useState, useEffect, lazy, Suspense, useCallback } from 'react';
+import { useThemeEffect } from '@hooks';
+import { Toaster } from '@ui';
+import { useState, useEffect, lazy, Suspense, useCallback, type FC, type ReactElement } from 'react';
+import { SEO } from './components/common/SEO';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Header } from './components/layout/Header';
+import { SkipToContent } from './components/layout/SkipToContent';
 import { Hero } from './components/sections/Hero';
 import type { Project } from './components/sections/Projects/projects';
-import { Toaster } from './components/ui/sonner';
-import { useThemeEffect } from './hooks/useTheme';
 
 // Lazy load componentes pesados
 const Terminal = lazy(() => import('./components/layout/Terminal'));
@@ -16,7 +18,7 @@ const TechStack = lazy(() => import('./components/sections/TechStack'));
 const Experience = lazy(() => import('./components/sections/Experience'));
 const Contact = lazy(() => import('./components/sections/Contact'));
 
-export default function App() {
+export const App: FC = (): ReactElement => {
     useThemeEffect();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);
@@ -61,12 +63,16 @@ export default function App() {
 
     return (
         <>
-            <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors cursor-none">
+            <SEO />
+
+            <SkipToContent />
+
+            <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
                 <CustomCursor />
 
                 <Header onTerminalToggle={handleOpenTerminal} />
 
-                <main>
+                <main id="main-content">
                     <Hero />
 
                     <Suspense fallback={<div className="h-screen" />}>
@@ -94,4 +100,4 @@ export default function App() {
             <Toaster position="bottom-right" />
         </>
     );
-}
+};

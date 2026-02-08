@@ -1,9 +1,9 @@
+import { useLanguage } from '@hooks';
 import { Clapperboard, Coffee, Dumbbell, Film, Tv } from 'lucide-react';
 import { motion } from 'motion/react';
-import { useState, type FC, type ReactElement } from 'react';
+import { useState, type FC, type KeyboardEvent, type ReactElement } from 'react';
 import { AboutDetailModal } from './components/AboutDetailModal';
 import { aboutInterests } from './content';
-import { useI18n } from '../../../hooks/useLanguage';
 
 const iconMap = {
     coffee: Coffee,
@@ -21,7 +21,7 @@ const colorMap = {
 };
 
 const About: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 
@@ -51,7 +51,17 @@ const About: FC = (): ReactElement => {
                                 transition={{ delay: index * 0.1 }}
                                 onMouseEnter={() => setHoveredCard(interest.id)}
                                 onMouseLeave={() => setHoveredCard(null)}
+                                onFocus={() => setHoveredCard(interest.id)}
+                                onBlur={() => setHoveredCard(null)}
                                 onClick={() => setSelectedInterest(interest.id)}
+                                onKeyDown={(e: KeyboardEvent) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelectedInterest(interest.id);
+                                    }
+                                }}
+                                role="button"
+                                tabIndex={0}
                                 className="group perspective-1000 cursor-pointer"
                             >
                                 <motion.div

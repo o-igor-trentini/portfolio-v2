@@ -1,6 +1,10 @@
-name: Deploy to GitHub Pages
+name: CI / Deploy
 
 on:
+    pull_request:
+        branches:
+            - main
+
     push:
         branches:
             - main
@@ -33,9 +37,16 @@ jobs:
             - name: Install dependencies
               run: npm ci --legacy-peer-deps
 
+            - name: Lint
+              run: npm run lint
+
+            - name: Run tests
+              run: npm test
+
             - name: Build
               run: npm run build
               env:
+                  VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
                   VITE_MUSIC_PROVIDER: ${{ secrets.VITE_MUSIC_PROVIDER }}
                   VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
                   VITE_SPOTIFY_CLIENT_SECRET: ${{ secrets.VITE_SPOTIFY_CLIENT_SECRET }}
@@ -48,7 +59,9 @@ jobs:
               with:
                   path: ./dist
 
+    # Deploy apenas em push e workflow_dispatch — PRs executam somente o job build (validação)
     deploy:
+        if: github.event_name != 'pull_request'
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}

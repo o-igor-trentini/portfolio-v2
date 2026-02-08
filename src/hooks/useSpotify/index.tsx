@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { SpotifyData, NowPlayingResponse, TopArtistsResponse, RecentlyPlayedResponse } from './types';
+import { getCache, setCache } from '@/lib/cache';
 
 const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const SPOTIFY_NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
@@ -102,13 +103,16 @@ const getRecentlyPlayed = async (accessToken: string): Promise<RecentlyPlayedRes
     }
 };
 
+const SPOTIFY_CACHE_KEY = 'spotify';
+const SPOTIFY_CACHE_TTL = 60_000; // 60 segundos
+
 export const useSpotify = () => {
-    const [data, setData] = useState<SpotifyData>({
-        currentTrack: null,
-        topArtist: null,
-        recentTracks: [],
-        isLoading: true,
-        error: null,
+    const [data, setData] = useState<SpotifyData>(() => {
+        const cached = getCache<Omit<SpotifyData, 'isLoading' | 'error'>>(SPOTIFY_CACHE_KEY);
+        if (cached) {
+            return { ...cached, isLoading: true, error: null };
+        }
+        return { currentTrack: null, topArtist: null, recentTracks: [], isLoading: true, error: null };
     });
 
     useEffect(() => {
@@ -166,13 +170,9 @@ export const useSpotify = () => {
                         albumArt: item.track.album.images[0]?.url,
                     })) || [];
 
-                setData({
-                    currentTrack,
-                    topArtist,
-                    recentTracks,
-                    isLoading: false,
-                    error: null,
-                });
+                const newData = { currentTrack, topArtist, recentTracks };
+                setData({ ...newData, isLoading: false, error: null });
+                setCache(SPOTIFY_CACHE_KEY, newData, SPOTIFY_CACHE_TTL);
             } catch (error) {
                 console.error('Error fetching Spotify data:', error);
                 setData({

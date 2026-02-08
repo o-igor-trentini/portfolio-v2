@@ -1,4 +1,11 @@
 const es = {
+    seo: {
+        title: 'Igor Trentini | Full Stack Developer',
+        description:
+            'Portafolio de Igor Trentini — Full Stack Developer especializado en Golang, React y TypeScript. Creando soluciones elegantes y escalables.',
+        keywords:
+            'Igor Trentini, Full Stack Developer, Golang, React, TypeScript, portafolio, desarrollador, backend, frontend',
+    },
     nav: {
         home: 'Inicio',
         projects: 'Proyectos',
@@ -298,19 +305,33 @@ const es = {
             instagram: 'Instagram',
         },
     },
-    spotify: {
+    music: {
         title: 'Escuchando Ahora',
         topArtist: 'Artista Favorito',
         weeklyMinutes: 'Minutos Esta Semana',
         recentTracks: 'Tocadas Recientemente',
         providerAvailable: 'Usar',
         providerOffline: 'Servicio no disponible',
+        errorTitle: 'No se pudieron verificar las estadísticas',
+        errorDescription: 'Todos los servicios están no disponibles en este momento',
+        retry: 'Intentar de nuevo',
+        notPlaying: 'Radio silencio',
+        notPlayingDescription: 'Los oídos descansan por ahora',
     },
     github: {
         title: 'GitHub Stats',
         contributions: 'Contribuciones',
         topLanguages: 'Lenguajes Principales',
         topRepos: 'Repositorios Destacados',
+        rateLimited: 'Límite de solicitudes alcanzado. Mostrando datos en caché.',
+        totalStars: 'Estrellas Totales',
+        repositories: 'Repositorios',
+        noContributions: 'Sin datos de contribución',
+        noLanguages: 'Sin datos de lenguajes',
+        noRepos: 'No se encontraron repositorios',
+        errorTitle: 'No se pudieron cargar las estadísticas',
+        errorDescription: 'Los datos de GitHub no están disponibles en este momento',
+        retry: 'Intentar de nuevo',
     },
     terminal: {
         prompt: 'igor@portfolio:~$',
@@ -321,6 +342,17 @@ const es = {
         about: 'Full Stack Developer especializado en Golang y React',
         clear: 'Terminal limpiada',
         unknown: 'Comando no encontrado. Escribe "help" para ver comandos disponibles.',
+    },
+    accessibility: {
+        skipToContent: 'Saltar al contenido',
+        toggleTheme: 'Cambiar tema',
+        selectLanguage: 'Seleccionar idioma',
+        openTerminal: 'Abrir terminal',
+        openMenu: 'Abrir menú',
+        closeMenu: 'Cerrar menú',
+        close: 'Cerrar',
+        previousImage: 'Imagen anterior',
+        nextImage: 'Siguiente imagen',
     },
 } as const;
 

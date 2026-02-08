@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 export type Language = 'pt' | 'en' | 'es';
 
-export const useI18n = () => {
+export const useLanguage = () => {
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lang: Language) => {
@@ -15,6 +15,3 @@ export const useI18n = () => {
         setLanguage: changeLanguage,
     };
 };
-
-// Keep backwards compatibility for existing imports
-export const useLanguage = useI18n;

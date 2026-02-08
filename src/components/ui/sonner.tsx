@@ -1,7 +1,7 @@
+import { useTheme } from '@hooks';
 import type { CSSProperties } from 'react';
 import { Toaster as Sonner } from 'sonner';
 import type { ToasterProps } from 'sonner';
-import { useTheme } from '../../hooks/useTheme';
 
 const Toaster = ({ ...props }: ToasterProps) => {
     const theme = useTheme((state) => state.theme);
