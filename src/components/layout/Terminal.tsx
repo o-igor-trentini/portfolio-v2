@@ -1,162 +1,18 @@
-import { useLanguage, useTheme } from '@hooks';
+import { useLanguage } from '@hooks';
 import { Button } from '@ui';
 import { Terminal as TerminalIcon, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useCallback, useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
-import { SocialLinks } from '@/components/sections/Contact/constants';
-import { experiences } from '@/components/sections/Experience/content';
-import { projects } from '@/components/sections/Projects/projects';
+import { type FC, type ReactElement } from 'react';
+import { useTerminal } from '@/hooks/useTerminal';
 
 interface TerminalProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-interface CommandOutput {
-    command: string;
-    output: string;
-}
-
 const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
     const { t } = useLanguage();
-    const { theme, setTheme, toggleTheme } = useTheme();
-    const [input, setInput] = useState('');
-    const [history, setHistory] = useState<CommandOutput[]>([
-        { command: '', output: t('terminal.welcome') },
-        { command: '', output: t('terminal.help') },
-    ]);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const historyEndRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (isOpen) {
-            inputRef.current?.focus();
-        }
-    }, [isOpen]);
-
-    useEffect(() => {
-        if (!isOpen) return;
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, onClose]);
-
-    useEffect(() => {
-        historyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [history]);
-
-    const scrollToSectionAndClose = useCallback(
-        (id: string) => {
-            // Aguarda o usuário visualizar a resposta antes de fechar
-            setTimeout(() => {
-                onClose();
-                setTimeout(() => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 300);
-            }, 1500);
-        },
-        [onClose],
-    );
-
-    const executeCommand = (cmd: string) => {
-        const trimmedCmd = cmd.trim().toLowerCase();
-        let output = '';
-
-        switch (trimmedCmd) {
-            case 'help':
-                output = t('terminal.help');
-                break;
-            case 'about':
-                output = t('terminal.about');
-                break;
-            case 'about --anime':
-            case 'anime': {
-                const favorites = t('about.interests.anime.favorites', {
-                    returnObjects: true,
-                }) as string[];
-                output = Array.isArray(favorites)
-                    ? favorites.map((f) => `  • ${f}`).join('\n')
-                    : t('about.interests.anime.description');
-                break;
-            }
-            case 'skills': {
-                const current = experiences.find((e) => e.current);
-                output = current ? current.tech.join(', ') : '';
-                break;
-            }
-            case 'projects': {
-                const list = projects
-                    .map((p) => `  • ${t(`projects.items.${p.id}.title`)} [${p.tags.join(', ')}]`)
-                    .join('\n');
-                output = `${t('projects.title')} (${projects.length}):\n${list}`;
-                setHistory((prev) => [...prev, { command: cmd, output }]);
-                scrollToSectionAndClose('projects');
-                return;
-            }
-            case 'experience': {
-                const expList = experiences
-                    .map((e) => {
-                        const position = t(`experience.items.${e.id}.position`);
-                        const period = t(`experience.items.${e.id}.period`);
-                        return `${position} @ ${e.company} (${period})\nTech: ${e.tech.join(', ')}`;
-                    })
-                    .join('\n\n');
-                setHistory((prev) => [...prev, { command: cmd, output: expList }]);
-                scrollToSectionAndClose('experience');
-                return;
-            }
-            case 'contact': {
-                const links = Object.entries(SocialLinks)
-                    .map(([name, url]) => `  ${name}: ${url}`)
-                    .join('\n');
-                output = `${t('contact.title')}:\n${links}`;
-                setHistory((prev) => [...prev, { command: cmd, output }]);
-                scrollToSectionAndClose('contact');
-                return;
-            }
-            case 'theme':
-                output = t('terminal.themeCurrent', { theme });
-                break;
-            case 'theme dark':
-                setTheme('dark');
-                output = t('terminal.themeChanged', { theme: 'dark' });
-                break;
-            case 'theme light':
-                setTheme('light');
-                output = t('terminal.themeChanged', { theme: 'light' });
-                break;
-            case 'theme toggle':
-                toggleTheme();
-                output = t('terminal.themeChanged', { theme: theme === 'light' ? 'dark' : 'light' });
-                break;
-            case 'clear':
-                setHistory([]);
-                return;
-            case 'exit':
-                onClose();
-                return;
-            case '':
-                return;
-            default:
-                output = t('terminal.unknown');
-        }
-
-        setHistory((prev) => [...prev, { command: cmd, output }]);
-    };
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        const value = inputRef.current?.value ?? input;
-        if (value.trim()) {
-            executeCommand(value);
-            setInput('');
-        }
-    };
+    const { history, input, setInput, inputRef, historyEndRef, handleSubmit, prompt } = useTerminal(isOpen, onClose);
 
     return (
         <AnimatePresence>
@@ -188,9 +44,10 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <TerminalIcon className="w-4 h-4 text-green-400" />
-                                    <span className="text-sm text-zinc-300">{t('terminal.prompt')}</span>
+                                    <span className="text-sm text-zinc-300">{prompt}</span>
                                 </div>
                             </div>
+
                             <Button
                                 variant="ghost"
                                 size="icon"
@@ -208,7 +65,8 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                 <div key={index} className="mb-4">
                                     {entry.command && (
                                         <div className="flex items-center gap-2 text-green-400 mb-1">
-                                            <span className="text-purple-400">{t('terminal.prompt')}</span>
+                                            <span className="text-purple-400">{prompt}</span>
+
                                             <span>{entry.command}</span>
                                         </div>
                                     )}
@@ -221,7 +79,8 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                         {/* Terminal Input */}
                         <form onSubmit={handleSubmit} className="border-t border-zinc-800 p-4 bg-zinc-800/50">
                             <div className="flex items-center gap-2">
-                                <span className="text-purple-400 font-mono text-sm">{t('terminal.prompt')}</span>
+                                <span className="text-purple-400 font-mono text-sm">{prompt}</span>
+
                                 <input
                                     ref={inputRef}
                                     type="text"
