@@ -28,52 +28,37 @@ export const useMusic = (manualProvider?: 'spotify' | 'lastfm'): MusicData => {
     const preferredProvider = manualProvider || MUSIC_PROVIDER;
 
     useEffect(() => {
-        // Check which providers are available (not loading and no error)
+        // Verifica dados disponíveis independente do estado de loading (aproveita cache)
+        const spotifyHasData =
+            !spotifyData.error &&
+            (spotifyData.currentTrack || spotifyData.topArtist || spotifyData.recentTracks.length > 0);
+        const lastfmHasData =
+            !lastfmData.error &&
+            (lastfmData.currentTrack || lastfmData.topArtist || lastfmData.recentTracks.length > 0);
+
         const available: ('spotify' | 'lastfm')[] = [];
-
-        if (!spotifyData.isLoading && !spotifyData.error && spotifyData.currentTrack) {
-            available.push('spotify');
-        }
-        if (!lastfmData.isLoading && !lastfmData.error && lastfmData.currentTrack) {
-            available.push('lastfm');
-        }
-
+        if (spotifyHasData) available.push('spotify');
+        if (lastfmHasData) available.push('lastfm');
         setAvailableProviders(available);
 
-        // Select active provider based on priority and availability
+        // Seleção do provider ativo baseada em dados disponíveis (inclui cache)
         if (manualProvider) {
-            // Manual override takes precedence
             setActiveProvider(manualProvider);
-        } else if (!spotifyData.isLoading && !lastfmData.isLoading) {
-            // Auto-select based on preferred provider and availability
-            if (preferredProvider === MUSIC_PROVIDERS.SPOTIFY) {
-                if (
-                    !spotifyData.error &&
-                    (spotifyData.currentTrack || spotifyData.topArtist || spotifyData.recentTracks.length > 0)
-                ) {
-                    setActiveProvider('spotify');
-                } else if (
-                    !lastfmData.error &&
-                    (lastfmData.currentTrack || lastfmData.topArtist || lastfmData.recentTracks.length > 0)
-                ) {
-                    setActiveProvider('lastfm');
-                } else {
-                    setActiveProvider(null);
-                }
-            } else {
-                if (
-                    !lastfmData.error &&
-                    (lastfmData.currentTrack || lastfmData.topArtist || lastfmData.recentTracks.length > 0)
-                ) {
-                    setActiveProvider('lastfm');
-                } else if (
-                    !spotifyData.error &&
-                    (spotifyData.currentTrack || spotifyData.topArtist || spotifyData.recentTracks.length > 0)
-                ) {
-                    setActiveProvider('spotify');
-                } else {
-                    setActiveProvider(null);
-                }
+        } else if (preferredProvider === MUSIC_PROVIDERS.SPOTIFY) {
+            if (spotifyHasData) {
+                setActiveProvider('spotify');
+            } else if (lastfmHasData) {
+                setActiveProvider('lastfm');
+            } else if (!spotifyData.isLoading && !lastfmData.isLoading) {
+                setActiveProvider(null);
+            }
+        } else {
+            if (lastfmHasData) {
+                setActiveProvider('lastfm');
+            } else if (spotifyHasData) {
+                setActiveProvider('spotify');
+            } else if (!spotifyData.isLoading && !lastfmData.isLoading) {
+                setActiveProvider(null);
             }
         }
     }, [spotifyData, lastfmData, preferredProvider, manualProvider]);
