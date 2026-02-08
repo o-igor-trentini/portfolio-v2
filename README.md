@@ -20,6 +20,9 @@ npm run build            # Verificação TypeScript + build Vite
 npm run preview          # Pré-visualiza o build de produção
 npm run lint             # ESLint (zero warnings permitidos)
 npm run lint:fix         # Corrige problemas de lint automaticamente
+npm test                 # Roda os testes (Vitest)
+npm run test:watch       # Testes em modo watch
+npm run test:coverage    # Testes com cobertura
 npm run optimize-images  # Otimiza imagens em src/ (sharp)
 npm run deploy           # Build + deploy no GitHub Pages
 ```
@@ -73,4 +76,4 @@ Português (`pt.ts`) é o idioma padrão e de fallback. Chaves de tradução sã
 
 ## Deploy
 
-GitHub Actions faz deploy no GitHub Pages ao push na branch `main`. Utiliza Node 24 e `npm install --legacy-peer-deps`.
+GitHub Actions roda lint, testes e build em PRs para `main` (validação) e faz deploy no GitHub Pages ao push na `main`. Utiliza Node 24 e `npm ci --legacy-peer-deps`.

@@ -11,9 +11,10 @@ npm run dev              # Servidor de desenvolvimento (porta 3000)
 npm run build            # TypeScript check + build
 npm run lint             # Lint (zero warnings)
 npm run lint:fix         # Auto-fix lint
+npm test                 # Roda os testes (Vitest)
+npm run test:watch       # Testes em modo watch
+npm run test:coverage    # Testes com cobertura
 ```
-
-Não há test runner configurado.
 
 ## Navegação do Código
 
