@@ -1,7 +1,7 @@
 import { Moon, Sun, Globe, Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
-import { useI18n } from '../../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
     const { theme, toggleTheme } = useTheme();
-    const { t, language, setLanguage } = useI18n();
+    const { t, language, setLanguage } = useLanguage();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const scrollToSection = (id: string) => {

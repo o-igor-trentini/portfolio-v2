@@ -1,7 +1,7 @@
 import { Clapperboard, Coffee, Dumbbell, Film, Sparkles, Tv, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, type FC, type ReactElement } from 'react';
-import { useI18n } from '../../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 import { ImageGallery } from '../../../layout/ImageGallery';
 import { Button } from '../../../ui/button';
 import { aboutInterests } from '../content';
@@ -28,7 +28,7 @@ interface AboutDetailModalProps {
 }
 
 export const AboutDetailModal: FC<AboutDetailModalProps> = ({ interestId, onClose }): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const interest = aboutInterests.find((i) => i.id === interestId);
 
     useEffect(() => {

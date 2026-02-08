@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 import ptTranslations from '@/lib/i18n/locales/pt';
 import enTranslations from '@/lib/i18n/locales/en';
 import esTranslations from '@/lib/i18n/locales/es';
-import { useI18n } from './useLanguage';
+import { useLanguage } from './useLanguage';
 
 const testI18n = i18n.createInstance();
 
@@ -31,7 +31,7 @@ describe('useI18n', () => {
     });
 
     it('retorna t, language e setLanguage', () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
 
         expect(result.current.t).toBeDefined();
         expect(result.current.language).toBeDefined();
@@ -39,12 +39,12 @@ describe('useI18n', () => {
     });
 
     it('inicializa com idioma pt', () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
         expect(result.current.language).toBe('pt');
     });
 
     it('troca para en', async () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
 
         await act(async () => {
             result.current.setLanguage('en');
@@ -54,7 +54,7 @@ describe('useI18n', () => {
     });
 
     it('troca para es', async () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
 
         await act(async () => {
             result.current.setLanguage('es');
@@ -64,13 +64,13 @@ describe('useI18n', () => {
     });
 
     it('traduz chaves corretamente em pt', () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
         expect(result.current.t('nav.home')).toBe('Início');
         expect(result.current.t('nav.projects')).toBe('Projetos');
     });
 
     it('traduz chaves corretamente após trocar para en', async () => {
-        const { result } = renderHook(() => useI18n(), { wrapper });
+        const { result } = renderHook(() => useLanguage(), { wrapper });
 
         await act(async () => {
             result.current.setLanguage('en');

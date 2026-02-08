@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { useMemo, useState, type FC, type ReactElement } from 'react';
 import type { Project } from './projects';
 import { projects } from './projects';
-import { useI18n } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../hooks/useLanguage';
 import { OptimizedImage } from '../../common/OptimizedImage';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';
@@ -13,7 +13,7 @@ interface ProjectsProps {
 }
 
 const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [selectedFilter, setSelectedFilter] = useState<'all' | 'professional' | 'study'>('all');
 
     const filteredProjects = useMemo(

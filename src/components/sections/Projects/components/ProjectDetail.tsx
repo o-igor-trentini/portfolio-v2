@@ -1,7 +1,7 @@
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
-import { useI18n } from '../../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import { Badge } from '../../../ui/badge';
 import { Button } from '../../../ui/button';
@@ -13,7 +13,7 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { useState, type FC, type KeyboardEvent, type ReactElement } from 'react';
 import { AboutDetailModal } from './components/AboutDetailModal';
 import { aboutInterests } from './content';
-import { useI18n } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../hooks/useLanguage';
 
 const iconMap = {
     coffee: Coffee,
@@ -21,7 +21,7 @@ const colorMap = {
 };
 
 const About: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 

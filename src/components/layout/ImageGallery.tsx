@@ -1,7 +1,7 @@
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCallback, useEffect, useState, type FC, type MouseEvent, type ReactElement } from 'react';
-import { useI18n } from '../../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { OptimizedImage } from '../common/OptimizedImage';
 import { Button } from '../ui/button';
 
@@ -16,7 +16,7 @@ interface ImageGalleryProps {
 }
 
 export const ImageGallery: FC<ImageGalleryProps> = ({ images, color }): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
     const openLightbox = (index: number) => {

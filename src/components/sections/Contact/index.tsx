@@ -4,10 +4,10 @@ import type { FC, ReactElement } from 'react';
 import { GitHubWidget } from './components/GitHubWidget';
 import { SpotifyWidget } from './components/SpotifyWidget';
 import { SocialLinks } from './constants';
-import { useI18n } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../hooks/useLanguage';
 
 const Contact: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
 
     const socialLinks = [
         {

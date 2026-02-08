@@ -2,11 +2,11 @@ import { Briefcase, Calendar, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
 import { experiences } from './content';
-import { useI18n } from '../../../hooks/useLanguage';
+import { useLanguage } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
 const Experience: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
     return (

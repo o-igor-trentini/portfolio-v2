@@ -3,12 +3,12 @@ import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
-import { useI18n } from '../../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 import { useMusic } from '../../../../hooks/useMusic';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/tooltip';
 
 export const SpotifyWidget: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [manualProvider, setManualProvider] = useState<'spotify' | 'lastfm' | undefined>(undefined);
     const { currentTrack, topArtist, recentTracks, isLoading, provider, availableProviders, switchProvider, error } =
         useMusic(manualProvider);

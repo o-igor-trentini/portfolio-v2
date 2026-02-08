@@ -5,7 +5,7 @@ import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
 import type { Project } from './components/sections/Projects/projects';
 import { Toaster } from './components/ui/sonner';
-import { useI18n } from './hooks/useLanguage';
+import { useLanguage } from './hooks/useLanguage';
 import { useThemeEffect } from './hooks/useTheme';
 
 // Lazy load componentes pesados
@@ -20,7 +20,7 @@ const Contact = lazy(() => import('./components/sections/Contact'));
 
 export const App: FC = (): ReactElement => {
     useThemeEffect();
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 

@@ -3,10 +3,10 @@ import { motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type ReactElement } from 'react';
 
 import { useGitHub } from '../../../../hooks/useGitHub';
-import { useI18n } from '../../../../hooks/useLanguage';
+import { useLanguage } from '../../../../hooks/useLanguage';
 
 export const GitHubWidget: FC = (): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const { stats, isLoading } = useGitHub();
     const containerRef = useRef<HTMLDivElement>(null);
     const [weeksToShow, setWeeksToShow] = useState(52);

@@ -1,5 +1,5 @@
 import { useEffect, type FC, type ReactElement } from 'react';
-import { useI18n, type Language } from '../../hooks/useLanguage';
+import { useLanguage, type Language } from '../../hooks/useLanguage';
 
 const langMap: Record<Language, string> = {
     pt: 'pt-BR',
@@ -14,7 +14,7 @@ const ogLocaleMap: Record<Language, string> = {
 };
 
 export const SEO: FC = (): ReactElement => {
-    const { t, language } = useI18n();
+    const { t, language } = useLanguage();
 
     const title = t('seo.title');
     const description = t('seo.description');

@@ -1,7 +1,7 @@
 import { Terminal as TerminalIcon, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
-import { useI18n } from '../../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage';
 import { Button } from '../ui/button';
 
 interface TerminalProps {
@@ -15,7 +15,7 @@ interface CommandOutput {
 }
 
 const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
-    const { t } = useI18n();
+    const { t } = useLanguage();
     const [input, setInput] = useState('');
     const [history, setHistory] = useState<CommandOutput[]>([
         { command: '', output: t('terminal.welcome') },
