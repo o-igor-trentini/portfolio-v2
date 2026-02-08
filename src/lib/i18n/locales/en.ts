@@ -328,9 +328,6 @@ const en = {
         close: 'Close',
         previousImage: 'Previous image',
         nextImage: 'Next image',
-        imageCounter: '{{current}} of {{total}}',
-        backToProjects: 'Back to projects',
-        viewDetails: 'View details',
     },
 } as const;
 

@@ -2,10 +2,10 @@ import { useState, useEffect, lazy, Suspense, useCallback, type FC, type ReactEl
 import { SEO } from './components/common/SEO';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Header } from './components/layout/Header';
+import { SkipToContent } from './components/layout/SkipToContent';
 import { Hero } from './components/sections/Hero';
 import type { Project } from './components/sections/Projects/projects';
 import { Toaster } from './components/ui/sonner';
-import { useLanguage } from './hooks/useLanguage';
 import { useThemeEffect } from './hooks/useTheme';
 
 // Lazy load componentes pesados
@@ -20,7 +20,6 @@ const Contact = lazy(() => import('./components/sections/Contact'));
 
 export const App: FC = (): ReactElement => {
     useThemeEffect();
-    const { t } = useLanguage();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
@@ -66,12 +65,7 @@ export const App: FC = (): ReactElement => {
         <>
             <SEO />
 
-            <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-purple-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg"
-            >
-                {t('accessibility.skipToContent')}
-            </a>
+            <SkipToContent />
 
             <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
                 <CustomCursor />

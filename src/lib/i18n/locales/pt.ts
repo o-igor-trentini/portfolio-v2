@@ -340,9 +340,6 @@ const pt = {
         close: 'Fechar',
         previousImage: 'Imagem anterior',
         nextImage: 'Próxima imagem',
-        imageCounter: '{{current}} de {{total}}',
-        backToProjects: 'Voltar aos projetos',
-        viewDetails: 'Ver detalhes',
     },
 } as const;
 

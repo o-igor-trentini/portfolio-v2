@@ -38,12 +38,17 @@ export const ImageGallery: FC<ImageGalleryProps> = ({ images, color }): ReactEle
     useEffect(() => {
         if (selectedImage === null) return;
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Escape') {
+                e.stopImmediatePropagation();
+                closeLightbox();
+            }
             if (e.key === 'ArrowLeft') goToPrevious();
             if (e.key === 'ArrowRight') goToNext();
         };
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
+
+        // Captura para interceptar antes dos listeners dos modais pais
+        document.addEventListener('keydown', handleKeyDown, true);
+        return () => document.removeEventListener('keydown', handleKeyDown, true);
     }, [selectedImage, closeLightbox, goToPrevious, goToNext]);
 
     return (
