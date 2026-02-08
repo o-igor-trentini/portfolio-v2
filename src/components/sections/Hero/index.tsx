@@ -1,7 +1,7 @@
+import { useLanguage } from '@hooks';
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useState, useRef, useCallback, type ReactElement } from 'react';
-import { useLanguage } from '../../../hooks/useLanguage';
 import { PriorityImage } from '../../common/OptimizedImage';
 import { Button } from '../../ui/button';
 import { SocialLinks } from '../Contact/constants';

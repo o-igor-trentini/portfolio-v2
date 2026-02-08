@@ -1,8 +1,8 @@
+import { useLanguage } from '@hooks';
 import { Briefcase, Calendar, MapPin, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
 import { experiences } from './content';
-import { useLanguage } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
 const Experience: FC = (): ReactElement => {

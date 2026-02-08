@@ -1,10 +1,9 @@
+import { useLanguage, useMusic } from '@hooks';
 import { Music, Play, User, Clock, Loader2, ExternalLink, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
-import { useLanguage } from '../../../../hooks/useLanguage';
-import { useMusic } from '../../../../hooks/useMusic';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/tooltip';
 
 export const SpotifyWidget: FC = (): ReactElement => {

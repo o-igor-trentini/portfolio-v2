@@ -1,7 +1,7 @@
+import { useLanguage } from '@hooks';
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCallback, useEffect, useState, type FC, type MouseEvent, type ReactElement } from 'react';
-import { useLanguage } from '../../hooks/useLanguage';
 import { OptimizedImage } from '../common/OptimizedImage';
 import { Button } from '../ui/button';
 

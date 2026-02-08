@@ -1,7 +1,7 @@
+import { useLanguage } from '@hooks';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
-import { useLanguage } from '../../../../hooks/useLanguage';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import { Badge } from '../../../ui/badge';
 import { Button } from '../../../ui/button';

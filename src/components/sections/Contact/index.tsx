@@ -1,10 +1,10 @@
+import { useLanguage } from '@hooks';
 import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { GitHubWidget } from './components/GitHubWidget';
 import { SpotifyWidget } from './components/SpotifyWidget';
 import { SocialLinks } from './constants';
-import { useLanguage } from '../../../hooks/useLanguage';
 
 const Contact: FC = (): ReactElement => {
     const { t } = useLanguage();

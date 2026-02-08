@@ -1,5 +1,5 @@
+import { useLanguage, type Language } from '@hooks';
 import { useEffect, type FC, type ReactElement } from 'react';
-import { useLanguage, type Language } from '../../hooks/useLanguage';
 
 const langMap: Record<Language, string> = {
     pt: 'pt-BR',

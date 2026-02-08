@@ -1,7 +1,7 @@
+import { useLanguage } from '@hooks';
 import { Clapperboard, Coffee, Dumbbell, Film, Sparkles, Tv, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, type FC, type ReactElement } from 'react';
-import { useLanguage } from '../../../../hooks/useLanguage';
 import { ImageGallery } from '../../../layout/ImageGallery';
 import { Button } from '../../../ui/button';
 import { aboutInterests } from '../content';

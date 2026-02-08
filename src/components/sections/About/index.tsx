@@ -1,9 +1,9 @@
+import { useLanguage } from '@hooks';
 import { Clapperboard, Coffee, Dumbbell, Film, Tv } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type KeyboardEvent, type ReactElement } from 'react';
 import { AboutDetailModal } from './components/AboutDetailModal';
 import { aboutInterests } from './content';
-import { useLanguage } from '../../../hooks/useLanguage';
 
 const iconMap = {
     coffee: Coffee,

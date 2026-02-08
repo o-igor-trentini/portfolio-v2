@@ -1,7 +1,7 @@
+import { useLanguage } from '@hooks';
 import { Terminal as TerminalIcon, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
-import { useLanguage } from '../../hooks/useLanguage';
 import { Button } from '../ui/button';
 
 interface TerminalProps {

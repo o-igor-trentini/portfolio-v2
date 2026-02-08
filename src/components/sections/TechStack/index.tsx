@@ -1,3 +1,4 @@
+import { useLanguage } from '@hooks';
 import {
     Code2,
     Server,
@@ -14,7 +15,6 @@ import { motion } from 'motion/react';
 import { useState, useMemo, type FC, type ReactElement } from 'react';
 import { BADGE_CONFIG } from './constants';
 import { techStackCategories, type TechBadge } from './content';
-import { useLanguage } from '../../../hooks/useLanguage';
 import { Button } from '../../ui/button';
 
 const iconMap: Record<string, any> = {

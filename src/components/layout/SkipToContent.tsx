@@ -1,5 +1,5 @@
+import { useLanguage } from '@hooks';
 import type { FC, ReactElement } from 'react';
-import { useLanguage } from '../../hooks/useLanguage';
 
 export const SkipToContent: FC = (): ReactElement => {
     const { t } = useLanguage();

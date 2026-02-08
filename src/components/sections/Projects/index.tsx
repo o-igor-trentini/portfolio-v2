@@ -1,9 +1,9 @@
+import { useLanguage } from '@hooks';
 import { Briefcase, ChevronRight, ExternalLink, Filter, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useMemo, useState, type FC, type ReactElement } from 'react';
 import type { Project } from './projects';
 import { projects } from './projects';
-import { useLanguage } from '../../../hooks/useLanguage';
 import { OptimizedImage } from '../../common/OptimizedImage';
 import { Badge } from '../../ui/badge';
 import { Button } from '../../ui/button';

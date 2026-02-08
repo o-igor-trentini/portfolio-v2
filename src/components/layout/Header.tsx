@@ -1,8 +1,7 @@
+import { useLanguage, useTheme } from '@hooks';
 import { Moon, Sun, Globe, Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
-import { useLanguage } from '../../hooks/useLanguage';
-import { useTheme } from '../../hooks/useTheme';
 import { Button } from '../ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
