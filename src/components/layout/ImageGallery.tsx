@@ -1,9 +1,9 @@
 import { useLanguage } from '@hooks';
+import { Button } from '@ui';
 import { X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCallback, useEffect, useState, type FC, type MouseEvent, type ReactElement } from 'react';
 import { OptimizedImage } from '../common/OptimizedImage';
-import { Button } from '../ui/button';
 
 interface GalleryImage {
     url: string;

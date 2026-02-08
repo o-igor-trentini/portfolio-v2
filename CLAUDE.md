@@ -18,9 +18,10 @@ Não há test runner configurado.
 ## Navegação do Código
 
 - `@/*` mapeia para `src/*` — sempre usar para imports
-- Componentes de UI (shadcn/ui): `src/components/ui/`
+- `@hooks` mapeia para `src/hooks/` (barrel file) — usar `import { ... } from '@hooks'` para hooks
+- `@ui` mapeia para `src/components/ui/` (barrel file) — usar `import { ... } from '@ui'` para componentes UI
 - Seções da página: `src/components/sections/` (cada uma com seu diretório)
-- Hooks de estado: `src/hooks/` (useTheme, useI18n, useMusic, useGitHub)
+- Hooks de estado: `src/hooks/` (useTheme, useLanguage, useMusic, useGitHub)
 - Traduções: `src/lib/i18n/locales/` (`pt.ts` é a fonte de verdade)
 - Variáveis de ambiente prefixadas com `VITE_` (ver `.env.example`)
 

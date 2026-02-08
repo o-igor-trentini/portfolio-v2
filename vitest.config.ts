@@ -8,6 +8,7 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, './src'),
             '@hooks': path.resolve(__dirname, './src/hooks'),
+            '@ui': path.resolve(__dirname, './src/components/ui'),
         },
     },
     test: {

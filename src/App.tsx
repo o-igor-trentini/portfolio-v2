@@ -1,4 +1,5 @@
 import { useThemeEffect } from '@hooks';
+import { Toaster } from '@ui';
 import { useState, useEffect, lazy, Suspense, useCallback, type FC, type ReactElement } from 'react';
 import { SEO } from './components/common/SEO';
 import { CustomCursor } from './components/layout/CustomCursor';
@@ -6,7 +7,6 @@ import { Header } from './components/layout/Header';
 import { SkipToContent } from './components/layout/SkipToContent';
 import { Hero } from './components/sections/Hero';
 import type { Project } from './components/sections/Projects/projects';
-import { Toaster } from './components/ui/sonner';
 
 // Lazy load componentes pesados
 const Terminal = lazy(() => import('./components/layout/Terminal'));

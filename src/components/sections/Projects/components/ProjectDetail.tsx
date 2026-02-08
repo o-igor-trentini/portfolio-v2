@@ -1,10 +1,9 @@
 import { useLanguage } from '@hooks';
+import { Badge, Button } from '@ui';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
 import { OptimizedImage } from '../../../common/OptimizedImage';
-import { Badge } from '../../../ui/badge';
-import { Button } from '../../../ui/button';
 import type { Project } from '../projects';
 
 interface ProjectDetailProps {

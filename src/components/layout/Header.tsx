@@ -1,9 +1,8 @@
 import { useLanguage, useTheme } from '@hooks';
+import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@ui';
 import { Moon, Sun, Globe, Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
-import { Button } from '../ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 interface HeaderProps {
     onTerminalToggle: () => void;

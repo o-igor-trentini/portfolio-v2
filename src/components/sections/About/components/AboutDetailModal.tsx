@@ -1,9 +1,9 @@
 import { useLanguage } from '@hooks';
+import { Button } from '@ui';
 import { Clapperboard, Coffee, Dumbbell, Film, Sparkles, Tv, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, type FC, type ReactElement } from 'react';
 import { ImageGallery } from '../../../layout/ImageGallery';
-import { Button } from '../../../ui/button';
 import { aboutInterests } from '../content';
 
 const iconMap = {
