@@ -1,8 +1,11 @@
-import { useLanguage } from '@hooks';
+import { useLanguage, useTheme } from '@hooks';
 import { Button } from '@ui';
 import { Terminal as TerminalIcon, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
+import { useCallback, useEffect, useRef, useState, type FC, type FormEvent, type ReactElement } from 'react';
+import { SocialLinks } from '@/components/sections/Contact/constants';
+import { experiences } from '@/components/sections/Experience/content';
+import { projects } from '@/components/sections/Projects/projects';
 
 interface TerminalProps {
     isOpen: boolean;
@@ -16,6 +19,7 @@ interface CommandOutput {
 
 const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
     const { t } = useLanguage();
+    const { theme, setTheme, toggleTheme } = useTheme();
     const [input, setInput] = useState('');
     const [history, setHistory] = useState<CommandOutput[]>([
         { command: '', output: t('terminal.welcome') },
@@ -43,6 +47,22 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
         historyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [history]);
 
+    const scrollToSectionAndClose = useCallback(
+        (id: string) => {
+            // Aguarda o usuário visualizar a resposta antes de fechar
+            setTimeout(() => {
+                onClose();
+                setTimeout(() => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 300);
+            }, 1500);
+        },
+        [onClose],
+    );
+
     const executeCommand = (cmd: string) => {
         const trimmedCmd = cmd.trim().toLowerCase();
         let output = '';
@@ -55,11 +75,64 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                 output = t('terminal.about');
                 break;
             case 'about --anime':
-            case 'anime':
-                output = t('terminal.aboutAnime');
+            case 'anime': {
+                const favorites = t('about.interests.anime.favorites', {
+                    returnObjects: true,
+                }) as string[];
+                output = Array.isArray(favorites)
+                    ? favorites.map((f) => `  • ${f}`).join('\n')
+                    : t('about.interests.anime.description');
                 break;
-            case 'skills':
-                output = t('terminal.aboutSkills');
+            }
+            case 'skills': {
+                const current = experiences.find((e) => e.current);
+                output = current ? current.tech.join(', ') : '';
+                break;
+            }
+            case 'projects': {
+                const list = projects
+                    .map((p) => `  • ${t(`projects.items.${p.id}.title`)} [${p.tags.join(', ')}]`)
+                    .join('\n');
+                output = `${t('projects.title')} (${projects.length}):\n${list}`;
+                setHistory((prev) => [...prev, { command: cmd, output }]);
+                scrollToSectionAndClose('projects');
+                return;
+            }
+            case 'experience': {
+                const expList = experiences
+                    .map((e) => {
+                        const position = t(`experience.items.${e.id}.position`);
+                        const period = t(`experience.items.${e.id}.period`);
+                        return `${position} @ ${e.company} (${period})\nTech: ${e.tech.join(', ')}`;
+                    })
+                    .join('\n\n');
+                setHistory((prev) => [...prev, { command: cmd, output: expList }]);
+                scrollToSectionAndClose('experience');
+                return;
+            }
+            case 'contact': {
+                const links = Object.entries(SocialLinks)
+                    .map(([name, url]) => `  ${name}: ${url}`)
+                    .join('\n');
+                output = `${t('contact.title')}:\n${links}`;
+                setHistory((prev) => [...prev, { command: cmd, output }]);
+                scrollToSectionAndClose('contact');
+                return;
+            }
+            case 'theme':
+                output = t('terminal.themeCurrent', { theme });
+                break;
+            case 'theme dark':
+                setTheme('dark');
+                output = t('terminal.themeChanged', { theme: 'dark' });
+                break;
+            case 'theme light':
+                setTheme('light');
+                output = t('terminal.themeChanged', { theme: 'light' });
+                break;
+            case 'theme toggle':
+                toggleTheme();
+                output = t('terminal.themeChanged', { theme: theme === 'light' ? 'dark' : 'light' });
                 break;
             case 'clear':
                 setHistory([]);
@@ -73,13 +146,14 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                 output = t('terminal.unknown');
         }
 
-        setHistory([...history, { command: cmd, output }]);
+        setHistory((prev) => [...prev, { command: cmd, output }]);
     };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        if (input.trim()) {
-            executeCommand(input);
+        const value = inputRef.current?.value ?? input;
+        if (value.trim()) {
+            executeCommand(value);
             setInput('');
         }
     };

@@ -1,13 +1,29 @@
 import { useLanguage } from '@hooks';
-import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
+import { Check, Copy, Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
-import type { FC, ReactElement } from 'react';
+import { useCallback, useState, type FC, type MouseEvent, type ReactElement } from 'react';
+import { toast } from 'sonner';
 import { GitHubWidget } from './components/GitHubWidget';
 import { MusicWidget } from './components/MusicWidget';
 import { SocialLinks } from './constants';
 
 const Contact: FC = (): ReactElement => {
     const { t } = useLanguage();
+    const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+
+    const handleCopy = useCallback(
+        (e: MouseEvent, url: string, name: string) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            navigator.clipboard.writeText(url).then(() => {
+                setCopiedUrl(url);
+                toast.success(t('contact.copied', { name }));
+                setTimeout(() => setCopiedUrl(null), 2000);
+            });
+        },
+        [t],
+    );
 
     const socialLinks = [
         {
@@ -43,6 +59,7 @@ const Contact: FC = (): ReactElement => {
                     className="text-center mb-16"
                 >
                     <h2 className="mb-4">{t('contact.title')}</h2>
+
                     <p className="text-zinc-600 dark:text-zinc-400">{t('contact.subtitle')}</p>
                 </motion.div>
 
@@ -58,8 +75,10 @@ const Contact: FC = (): ReactElement => {
                                 <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
                                     <Share2 className="w-5 h-5 text-purple-500" />
                                 </div>
+
                                 <div>
                                     <h3>{t('contact.socials.title')}</h3>
+
                                     <p className="text-sm text-zinc-600 dark:text-zinc-400">
                                         {t('contact.socials.subtitle')}
                                     </p>
@@ -70,6 +89,8 @@ const Contact: FC = (): ReactElement => {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {socialLinks.map((social, index) => {
                                     const Icon = social.icon;
+                                    const isCopied = copiedUrl === social.url;
+
                                     return (
                                         <motion.a
                                             key={social.name}
@@ -88,6 +109,19 @@ const Contact: FC = (): ReactElement => {
                                                 className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
                                             />
 
+                                            {/* Botão de copiar */}
+                                            <button
+                                                onClick={(e) => handleCopy(e, social.url, social.name)}
+                                                className="absolute top-3 right-3 z-10 p-1.5 rounded-md bg-zinc-200/80 dark:bg-zinc-700/80 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-zinc-300 dark:hover:bg-zinc-600"
+                                                aria-label={t('contact.copyLink', { name: social.name })}
+                                            >
+                                                {isCopied ? (
+                                                    <Check className="w-3.5 h-3.5 text-green-500" />
+                                                ) : (
+                                                    <Copy className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300" />
+                                                )}
+                                            </button>
+
                                             {/* Content */}
                                             <div className="relative flex items-center gap-4">
                                                 <div
@@ -95,10 +129,12 @@ const Contact: FC = (): ReactElement => {
                                                 >
                                                     <Icon className="w-6 h-6" />
                                                 </div>
+
                                                 <div className="flex-1">
                                                     <p className="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                                                         {social.name}
                                                     </p>
+
                                                     <p className="text-xs text-zinc-500 dark:text-zinc-400">
                                                         {social.url.replace('https://', '').replace('mailto:', '')}
                                                     </p>
@@ -120,6 +156,7 @@ const Contact: FC = (): ReactElement => {
                         >
                             <MusicWidget />
                         </motion.div>
+
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}

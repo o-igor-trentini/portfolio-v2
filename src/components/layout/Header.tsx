@@ -1,8 +1,14 @@
-import { useLanguage, useTheme } from '@hooks';
+import { useLanguage, useScrollHighlight, useTheme } from '@hooks';
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@ui';
 import { Moon, Sun, Globe, Menu, X, Terminal as TerminalIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState, type FC, type ReactElement } from 'react';
+
+const languages = [
+    { code: 'pt' as const, label: 'PT', flag: '🇧🇷' },
+    { code: 'en' as const, label: 'EN', flag: '🇺🇸' },
+    { code: 'es' as const, label: 'ES', flag: '🇪🇸' },
+];
 
 interface HeaderProps {
     onTerminalToggle: () => void;
@@ -11,21 +17,13 @@ interface HeaderProps {
 export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
     const { theme, toggleTheme } = useTheme();
     const { t, language, setLanguage } = useLanguage();
+    const { scrollToSection: scrollHighlight } = useScrollHighlight();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const scrollToSection = (id: string) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setMobileMenuOpen(false);
-        }
+        scrollHighlight(id);
+        setMobileMenuOpen(false);
     };
-
-    const languages = [
-        { code: 'pt' as const, label: 'PT', flag: '🇧🇷' },
-        { code: 'en' as const, label: 'EN', flag: '🇺🇸' },
-        { code: 'es' as const, label: 'ES', flag: '🇪🇸' },
-    ];
 
     return (
         <motion.header
@@ -48,24 +46,28 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                     <button onClick={() => scrollToSection('home')} className="hover:text-purple-500 transition-colors">
                         {t('nav.home')}
                     </button>
+
                     <button
                         onClick={() => scrollToSection('projects')}
                         className="hover:text-purple-500 transition-colors"
                     >
                         {t('nav.projects')}
                     </button>
+
                     <button
                         onClick={() => scrollToSection('about')}
                         className="hover:text-purple-500 transition-colors"
                     >
                         {t('nav.about')}
                     </button>
+
                     <button
                         onClick={() => scrollToSection('experience')}
                         className="hover:text-purple-500 transition-colors"
                     >
                         {t('nav.experience')}
                     </button>
+
                     <button
                         onClick={() => scrollToSection('contact')}
                         className="hover:text-purple-500 transition-colors"
@@ -97,6 +99,7 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                                 <Globe className="w-4 h-4" />
                             </Button>
                         </DropdownMenuTrigger>
+
                         <DropdownMenuContent align="end">
                             {languages.map((lang) => (
                                 <DropdownMenuItem
@@ -105,6 +108,7 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                                     className={language === lang.code ? 'bg-purple-500/10' : ''}
                                 >
                                     <span className="mr-2">{lang.flag}</span>
+
                                     {lang.label}
                                 </DropdownMenuItem>
                             ))}
@@ -150,30 +154,35 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                         >
                             {t('nav.home')}
                         </button>
+
                         <button
                             onClick={() => scrollToSection('projects')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
                             {t('nav.projects')}
                         </button>
+
                         <button
                             onClick={() => scrollToSection('about')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
                             {t('nav.about')}
                         </button>
+
                         <button
                             onClick={() => scrollToSection('experience')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
                             {t('nav.experience')}
                         </button>
+
                         <button
                             onClick={() => scrollToSection('contact')}
                             className="text-left hover:text-purple-500 transition-colors"
                         >
                             {t('nav.contact')}
                         </button>
+
                         <div className="flex items-center gap-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                             <Button
                                 variant="ghost"
@@ -183,12 +192,14 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                             >
                                 {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
                             </Button>
+
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" aria-label={t('accessibility.selectLanguage')}>
                                         <Globe className="w-4 h-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
+
                                 <DropdownMenuContent>
                                     {languages.map((lang) => (
                                         <DropdownMenuItem
@@ -197,11 +208,13 @@ export const Header: FC<HeaderProps> = ({ onTerminalToggle }): ReactElement => {
                                             className={language === lang.code ? 'bg-purple-500/10' : ''}
                                         >
                                             <span className="mr-2">{lang.flag}</span>
+
                                             {lang.label}
                                         </DropdownMenuItem>
                                     ))}
                                 </DropdownMenuContent>
                             </DropdownMenu>
+
                             <Button
                                 variant="ghost"
                                 size="icon"

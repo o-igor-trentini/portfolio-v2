@@ -298,6 +298,8 @@ const pt = {
     contact: {
         title: 'Vamos Conversar',
         subtitle: 'Estou sempre aberto a novas oportunidades',
+        copied: 'Link do {{name}} copiado!',
+        copyLink: 'Copiar link do {{name}}',
         socials: {
             title: 'Redes Sociais',
             subtitle: 'Conecte-se comigo nas redes sociais',
@@ -337,10 +339,10 @@ const pt = {
     terminal: {
         prompt: 'igor@portfolio:~$',
         welcome: 'Terminal Igor Trentini v1.0.0',
-        help: 'Comandos disponíveis: about, skills, anime, clear, exit',
-        aboutAnime: 'Animes favoritos: Attack on Titan, Death Note, Steins;Gate, Fullmetal Alchemist',
-        aboutSkills: 'Skills: Golang, React, TypeScript, PostgreSQL, Redis, Docker',
+        help: 'Comandos disponíveis: about, skills, anime, projects, experience, contact, theme [dark|light|toggle], clear, exit',
         about: 'Full Stack Developer especializado em Golang e React',
+        themeCurrent: 'Tema atual: {{theme}}',
+        themeChanged: 'Tema alterado para: {{theme}}',
         clear: 'Terminal limpo',
         unknown: 'Comando não encontrado. Digite "help" para ver comandos disponíveis.',
     },
@@ -354,6 +356,7 @@ const pt = {
         close: 'Fechar',
         previousImage: 'Imagem anterior',
         nextImage: 'Próxima imagem',
+        scrollToTop: 'Voltar ao topo',
     },
 } as const;
 

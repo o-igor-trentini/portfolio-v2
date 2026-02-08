@@ -286,6 +286,8 @@ const en = {
     contact: {
         title: "Let's Talk",
         subtitle: "I'm always open to new opportunities",
+        copied: '{{name}} link copied!',
+        copyLink: 'Copy {{name}} link',
         socials: {
             title: 'Social Networks',
             subtitle: 'Connect with me on social media',
@@ -325,10 +327,10 @@ const en = {
     terminal: {
         prompt: 'igor@portfolio:~$',
         welcome: 'Igor Trentini Terminal v1.0.0',
-        help: 'Available commands: about, skills, anime, clear, exit',
-        aboutAnime: 'Favorite anime: Attack on Titan, Death Note, Steins;Gate, Fullmetal Alchemist',
-        aboutSkills: 'Skills: Golang, React, TypeScript, PostgreSQL, Redis, Docker',
+        help: 'Available commands: about, skills, anime, projects, experience, contact, theme [dark|light|toggle], clear, exit',
         about: 'Full Stack Developer specialized in Golang and React',
+        themeCurrent: 'Current theme: {{theme}}',
+        themeChanged: 'Theme changed to: {{theme}}',
         clear: 'Terminal cleared',
         unknown: 'Command not found. Type "help" to see available commands.',
     },
@@ -342,6 +344,7 @@ const en = {
         close: 'Close',
         previousImage: 'Previous image',
         nextImage: 'Next image',
+        scrollToTop: 'Scroll to top',
     },
 } as const;
 

@@ -9,6 +9,7 @@ import { Hero } from './components/sections/Hero';
 import type { Project } from './components/sections/Projects/projects';
 
 // Lazy load componentes pesados
+const ScrollToTop = lazy(() => import('./components/layout/ScrollToTop'));
 const Terminal = lazy(() => import('./components/layout/Terminal'));
 const Footer = lazy(() => import('./components/layout/Footer'));
 const Projects = lazy(() => import('./components/sections/Projects'));
@@ -92,6 +93,8 @@ export const App: FC = (): ReactElement => {
             </div>
 
             <Suspense fallback={null}>
+                <ScrollToTop />
+
                 <ProjectDetail project={selectedProject} onClose={handleCloseProject} />
 
                 <Terminal isOpen={isTerminalOpen} onClose={handleCloseTerminal} />

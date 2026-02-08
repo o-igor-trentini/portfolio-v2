@@ -37,12 +37,12 @@
 
 ## Etapa 4 — Acessibilidade (a11y)
 
-- [ ] Desativar custom cursor em dispositivos touch / mobile (media query `hover: none`)
+- [x] Desativar custom cursor em dispositivos touch / mobile — Implementado em `CustomCursor.tsx` com `matchMedia('(hover: none), (pointer: coarse)')` e CSS `@media (pointer: fine) and (hover: hover)` em `globals.css`
 - [ ] Auditar contraste de cores com ferramentas (axe-core, Lighthouse)
-- [ ] Garantir navegação completa via teclado em todos os modais e menus
-- [ ] Adicionar `aria-label` descritivo em botões de ícone (theme toggle, language switcher)
+- [ ] Garantir navegação completa via teclado em todos os modais e menus — Parcial: Escape e Arrow keys funcionam; falta focus trap nos modais
+- [x] Adicionar `aria-label` descritivo em botões de ícone — Implementado em todos os botões interativos (theme toggle, language switcher, terminal, close, navegação de galeria) com i18n nos 3 locales
 - [ ] Testar com leitor de tela (NVDA/VoiceOver) e corrigir problemas encontrados
-- [ ] Adicionar skip-to-content link para navegação por teclado
+- [x] Adicionar skip-to-content link para navegação por teclado — Componente `SkipToContent.tsx` com `sr-only` + estilos de foco, integrado em `App.tsx`
 
 ---
 
@@ -58,10 +58,10 @@
 
 ## Etapa 6 — Dados e Integrações
 
-- [ ] Substituir dados mockados de contribuição do GitHub por dados reais via GitHub GraphQL API
-- [ ] Adicionar tratamento de rate limit da API do GitHub (exibir aviso ou usar cache local)
-- [ ] Implementar cache em memória (ou sessionStorage) para respostas de API, evitando requisições repetidas na mesma sessão
-- [ ] Adicionar estados de loading skeleton nos widgets (GitHub stats, Music player)
+- [x] Substituir dados mockados de contribuição do GitHub por dados reais via GitHub GraphQL API — Implementado em `useGitHub.tsx` com query GraphQL para `contributionsCollection.contributionCalendar`
+- [x] Adicionar tratamento de rate limit da API do GitHub — Detecta headers `X-RateLimit-Remaining`/`X-RateLimit-Reset`, exibe banner de aviso em `GitHubWidget.tsx` e faz fallback para cache
+- [x] Implementar cache em memória (ou sessionStorage) para respostas de API — Módulo `src/lib/cache.ts` com sessionStorage + TTL. Usado em `useGitHub` (1h), `useSpotify` (60s) e `useLastFM` (60s)
+- [x] Adicionar estados de loading skeleton nos widgets — `GitHubWidgetSkeleton.tsx` e `MusicWidgetSkeleton.tsx` com skeletons detalhados para cada seção
 
 ---
 
@@ -79,8 +79,8 @@
 
 - [ ] Adicionar Husky + lint-staged para lint automático no pre-commit
 - [ ] Configurar commitlint para padronizar mensagens de commit (Conventional Commits)
-- [ ] Criar arquivo `.env.example` documentando todas as variáveis de ambiente necessárias
-- [ ] Adicionar `CONTRIBUTING.md` com instruções de setup local
+- [x] Criar arquivo `.env.example` documentando todas as variáveis de ambiente necessárias — Arquivo criado com todas as variáveis (GitHub, Music provider, Spotify, Last.fm)
+- [x] Adicionar `CONTRIBUTING.md` com instruções de setup local — Guia completo com convenções de código, estilo, imports, componentes, i18n e naming
 - [ ] Configurar Renovate ou Dependabot para atualização automática de dependências
 
 ---
