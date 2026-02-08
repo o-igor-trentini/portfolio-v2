@@ -74,6 +74,12 @@ VITE_LASTFM_USERNAME
 
 Português (`pt.ts`) é o idioma padrão e de fallback. Chaves de tradução são objetos aninhados (ex: `t('projects.card.viewProject')`). Ao adicionar conteúdo, atualizar os três arquivos de locale (`pt.ts`, `en.ts`, `es.ts`) mantendo a mesma estrutura.
 
-## Deploy
+## Qualidade e Automação
 
-GitHub Actions roda lint, testes e build em PRs para `main` (validação) e faz deploy no GitHub Pages ao push na `main`. Utiliza Node 24 e `npm ci --legacy-peer-deps`.
+- **Git hooks** (Husky): `pre-commit` roda lint-staged (ESLint + Prettier nos arquivos staged); `commit-msg` valida [Conventional Commits](https://www.conventionalcommits.org/) via commitlint
+- **CI** (GitHub Actions): lint, testes e build em PRs para `main`; deploy no GitHub Pages ao push na `main` (Node 24, `npm ci --legacy-peer-deps`)
+- **Dependabot**: atualização semanal de dependências npm e GitHub Actions
+
+## Contribuição
+
+Consultar [CONTRIBUTING.md](CONTRIBUTING.md) para convenções de código, estilo, fluxo de commits e workflow de desenvolvimento.

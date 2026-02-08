@@ -34,6 +34,7 @@ export default [
             '**/*.test.ts',
             '**/*.test.tsx',
             'vitest.config.ts',
+            'commitlint.config.mjs',
         ],
     },
     ...fixupConfigRules(
@@ -88,10 +89,7 @@ export default [
                     propElementValues: 'always',
                 },
             ],
-            'react-refresh/only-export-components': [
-                'warn',
-                { allowConstantExport: false, checkJS: false },
-            ],
+            'react-refresh/only-export-components': ['warn', { allowConstantExport: false, checkJS: false }],
             'import/order': [
                 1,
                 {

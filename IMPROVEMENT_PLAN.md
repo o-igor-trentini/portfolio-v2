@@ -77,11 +77,11 @@
 
 ## Etapa 8 — DX (Developer Experience)
 
-- [ ] Adicionar Husky + lint-staged para lint automático no pre-commit
-- [ ] Configurar commitlint para padronizar mensagens de commit (Conventional Commits)
+- [x] Adicionar Husky + lint-staged para lint automático no pre-commit — Husky v9 com hook `pre-commit` executando `lint-staged` (ESLint + Prettier nos arquivos staged)
+- [x] Configurar commitlint para padronizar mensagens de commit (Conventional Commits) — `@commitlint/config-conventional` com hook `commit-msg` via Husky
 - [x] Criar arquivo `.env.example` documentando todas as variáveis de ambiente necessárias — Arquivo criado com todas as variáveis (GitHub, Music provider, Spotify, Last.fm)
 - [x] Adicionar `CONTRIBUTING.md` com instruções de setup local — Guia completo com convenções de código, estilo, imports, componentes, i18n e naming
-- [ ] Configurar Renovate ou Dependabot para atualização automática de dependências
+- [x] Configurar Renovate ou Dependabot para atualização automática de dependências — Dependabot configurado para npm (semanal, com agrupamento dev/prod) e GitHub Actions
 
 ---
 

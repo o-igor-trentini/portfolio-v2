@@ -28,8 +28,11 @@ npm run test:coverage    # Testes com cobertura
 
 ## Diretrizes
 
+Seguir as convenções definidas em [CONTRIBUTING.md](CONTRIBUTING.md). Resumo essencial:
+
 - Código, pastas e arquivos em **inglês**; documentação, comentários, logs e nomes de teste em **pt-BR** (com acentuação)
 - Comentários apenas para lógica complexa, avisos importantes ou algo relevante
 - Ao adicionar conteúdo i18n, atualizar os três locales (`pt.ts`, `en.ts`, `es.ts`) mantendo a mesma estrutura
 - Seções novas devem usar `React.lazy()` para code splitting
 - Componentes de UI seguem o padrão CVA + `cn()` (clsx + tailwind-merge)
+- Commits seguem [Conventional Commits](https://www.conventionalcommits.org/) — validado por commitlint via Husky
