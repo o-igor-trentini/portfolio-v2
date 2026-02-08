@@ -4,10 +4,10 @@ import { Music, Pause, Play, User, ExternalLink, AlertCircle, RefreshCw } from '
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { useState } from 'react';
-import { SpotifyWidgetSkeleton } from './SpotifyWidgetSkeleton';
+import { MusicWidgetSkeleton } from './MusicWidgetSkeleton';
 import { MUSIC_PROVIDERS } from '../../../../config/musicProvider';
 
-export const SpotifyWidget: FC = (): ReactElement => {
+export const MusicWidget: FC = (): ReactElement => {
     const { t } = useLanguage();
     const [manualProvider, setManualProvider] = useState<'spotify' | 'lastfm' | undefined>(undefined);
     const { currentTrack, topArtist, recentTracks, isLoading, provider, availableProviders, switchProvider } =
@@ -46,7 +46,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                     <Music className="w-5 h-5 text-white" />
                 </div>
                 <h3 className={titleClass}>
-                    {t('spotify.title')} - {providerName}
+                    {t('music.title')} - {providerName}
                 </h3>
 
                 {/* Provider Switcher - Shows all providers with status */}
@@ -56,8 +56,8 @@ export const SpotifyWidget: FC = (): ReactElement => {
                         const isActive = provider === p;
                         const providerLabel = p === 'spotify' ? 'Spotify' : 'Last.fm';
                         const tooltipText = isAvailable
-                            ? `${t('spotify.providerAvailable')}: ${providerLabel}`
-                            : t('spotify.providerOffline');
+                            ? `${t('music.providerAvailable')}: ${providerLabel}`
+                            : t('music.providerOffline');
 
                         return (
                             <Tooltip key={p}>
@@ -88,7 +88,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
             </div>
 
             {isLoading && !currentTrack && !topArtist ? (
-                <SpotifyWidgetSkeleton />
+                <MusicWidgetSkeleton />
             ) : !currentTrack && !topArtist && !isLoading ? (
                 /* Estado indisponível quando não há dados */
                 <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
@@ -96,15 +96,15 @@ export const SpotifyWidget: FC = (): ReactElement => {
                         <AlertCircle className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
                     </div>
                     <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
-                        {t('spotify.errorTitle')}
+                        {t('music.errorTitle')}
                     </h4>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t('spotify.errorDescription')}</p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t('music.errorDescription')}</p>
                     <button
                         onClick={() => window.location.reload()}
                         className="flex items-center gap-2 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm"
                     >
                         <RefreshCw className="w-4 h-4" />
-                        {t('spotify.retry')}
+                        {t('music.retry')}
                     </button>
                 </div>
             ) : (
@@ -188,8 +188,8 @@ export const SpotifyWidget: FC = (): ReactElement => {
                                     <Pause className="w-6 h-6 text-zinc-400" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="font-medium text-zinc-500">{t('spotify.notPlaying')}</p>
-                                    <p className="text-sm text-zinc-400">{t('spotify.notPlayingDescription')}</p>
+                                    <p className="font-medium text-zinc-500">{t('music.notPlaying')}</p>
+                                    <p className="text-sm text-zinc-400">{t('music.notPlayingDescription')}</p>
                                 </div>
                             </div>
                         )}
@@ -200,7 +200,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">
                             <div className="flex items-center gap-2 mb-2">
                                 <User className={`w-4 h-4 ${badgeClass}`} />
-                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('spotify.topArtist')}</p>
+                                <p className="text-sm text-zinc-600 dark:text-zinc-400">{t('music.topArtist')}</p>
                             </div>
                             <div className="flex items-center gap-2">
                                 <p className="font-medium flex-1 truncate">{topArtist.name}</p>
@@ -227,7 +227,7 @@ export const SpotifyWidget: FC = (): ReactElement => {
                     {/* Recent Tracks */}
                     {recentTracks.length > 0 && (
                         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 border border-zinc-200 dark:border-zinc-800">
-                            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('spotify.recentTracks')}</p>
+                            <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{t('music.recentTracks')}</p>
                             <div className="space-y-2">
                                 {recentTracks.map((track: any, index: number) => {
                                     const hasAlbumArt = 'albumArt' in track && typeof track.albumArt === 'string';

@@ -294,7 +294,7 @@ const en = {
             instagram: 'Instagram',
         },
     },
-    spotify: {
+    music: {
         title: 'Now Playing',
         topArtist: 'Top Artist',
         weeklyMinutes: 'Minutes This Week',

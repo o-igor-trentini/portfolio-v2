@@ -3,7 +3,7 @@ import { Github, Instagram, Linkedin, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { FC, ReactElement } from 'react';
 import { GitHubWidget } from './components/GitHubWidget';
-import { SpotifyWidget } from './components/SpotifyWidget';
+import { MusicWidget } from './components/MusicWidget';
 import { SocialLinks } from './constants';
 
 const Contact: FC = (): ReactElement => {
@@ -118,7 +118,7 @@ const Contact: FC = (): ReactElement => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <SpotifyWidget />
+                            <MusicWidget />
                         </motion.div>
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}

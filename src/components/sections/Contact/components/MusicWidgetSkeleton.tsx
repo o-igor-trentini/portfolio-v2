@@ -1,7 +1,7 @@
 import { Skeleton } from '@ui';
 import type { FC, ReactElement } from 'react';
 
-export const SpotifyWidgetSkeleton: FC = (): ReactElement => (
+export const MusicWidgetSkeleton: FC = (): ReactElement => (
     <>
         {/* Current Track */}
         <div className="bg-white dark:bg-zinc-900 rounded-xl p-4 mb-4 border border-zinc-200 dark:border-zinc-800">

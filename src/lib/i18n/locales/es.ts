@@ -305,7 +305,7 @@ const es = {
             instagram: 'Instagram',
         },
     },
-    spotify: {
+    music: {
         title: 'Escuchando Ahora',
         topArtist: 'Artista Favorito',
         weeklyMinutes: 'Minutos Esta Semana',
