@@ -315,6 +315,8 @@ const es = {
         errorTitle: 'No se pudieron verificar las estadísticas',
         errorDescription: 'Todos los servicios están no disponibles en este momento',
         retry: 'Intentar de nuevo',
+        notPlaying: 'Radio silencio',
+        notPlayingDescription: 'Los oídos descansan por ahora',
     },
     github: {
         title: 'GitHub Stats',
@@ -327,6 +329,9 @@ const es = {
         noContributions: 'Sin datos de contribución',
         noLanguages: 'Sin datos de lenguajes',
         noRepos: 'No se encontraron repositorios',
+        errorTitle: 'No se pudieron cargar las estadísticas',
+        errorDescription: 'Los datos de GitHub no están disponibles en este momento',
+        retry: 'Intentar de nuevo',
     },
     terminal: {
         prompt: 'igor@portfolio:~$',

@@ -1,5 +1,5 @@
 import { useGitHub, useLanguage } from '@hooks';
-import { Github, GitBranch, Star, Code, ExternalLink, AlertTriangle } from 'lucide-react';
+import { Github, GitBranch, Star, Code, ExternalLink, AlertTriangle, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useEffect, useRef, useState, type FC, type ReactElement } from 'react';
 import { GitHubWidgetSkeleton } from './GitHubWidgetSkeleton';
@@ -46,7 +46,6 @@ export const GitHubWidget: FC = (): ReactElement => {
                     <Github className="w-5 h-5 text-white dark:text-zinc-900" />
                 </div>
                 <h3>{t('github.title')}</h3>
-                {!stats && !isLoading && <span className="text-xs text-zinc-500 ml-auto">(Demo Mode)</span>}
             </div>
 
             {/* Rate limit banner */}
@@ -59,6 +58,26 @@ export const GitHubWidget: FC = (): ReactElement => {
 
             {isLoading && !stats ? (
                 <GitHubWidgetSkeleton />
+            ) : !stats ? (
+                <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+                    <div className="w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4">
+                        <AlertCircle className="w-8 h-8 text-zinc-400 dark:text-zinc-500" />
+                    </div>
+
+                    <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+                        {t('github.errorTitle')}
+                    </h4>
+
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{t('github.errorDescription')}</p>
+
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="flex items-center gap-2 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-lg transition-colors text-sm"
+                    >
+                        <RefreshCw className="w-4 h-4" />
+                        {t('github.retry')}
+                    </button>
+                </div>
             ) : (
                 <>
                     {/* Stats Overview */}

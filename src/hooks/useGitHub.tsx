@@ -126,38 +126,11 @@ const fetchContributions = async (): Promise<number[][] | null> => {
     });
 };
 
-/** Gera contribuições aleatórias como fallback */
-const generateMockContributions = (): number[][] =>
-    Array.from({ length: 52 }, () => Array.from({ length: 7 }, () => Math.floor(Math.random() * 5)));
-
 /** Lê rate limit dos headers */
 const parseRateLimit = (response: Response) => ({
     remaining: parseInt(response.headers.get('X-RateLimit-Remaining') || '60', 10),
     reset: parseInt(response.headers.get('X-RateLimit-Reset') || '0', 10),
 });
-
-const FALLBACK_STATS: GitHubStats = {
-    totalStars: 579,
-    totalRepos: 42,
-    topRepos: [
-        { name: 'realtime-chat', stars: 234, language: 'Go', url: '#', description: 'Real-time chat system' },
-        {
-            name: 'analytics-dashboard',
-            stars: 189,
-            language: 'TypeScript',
-            url: '#',
-            description: 'Analytics dashboard',
-        },
-        { name: 'task-automation', stars: 156, language: 'Go', url: '#', description: 'Task automation platform' },
-    ],
-    languages: [
-        { name: 'Go', percentage: 45, color: languageColors.Go },
-        { name: 'TypeScript', percentage: 30, color: languageColors.TypeScript },
-        { name: 'JavaScript', percentage: 15, color: languageColors.JavaScript },
-        { name: 'Other', percentage: 10, color: languageColors.Other },
-    ],
-    contributionData: generateMockContributions(),
-};
 
 export const useGitHub = (): GitHubData => {
     const [stats, setStats] = useState<GitHubStats | null>(null);
@@ -201,12 +174,12 @@ export const useGitHub = (): GitHubData => {
                         setIsRateLimited(true);
                         setRateLimitReset(rateLimit.reset);
 
-                        // Usar cache se disponível, senão fallback
+                        // Usar cache se disponível
                         if (cached) {
                             setStats(cached);
                             setIsUsingCache(true);
                         } else {
-                            setStats(FALLBACK_STATS);
+                            setStats(null);
                             setError('Rate limited');
                         }
 
@@ -251,10 +224,8 @@ export const useGitHub = (): GitHubData => {
                         .sort((a, b) => b.percentage - a.percentage)
                         .slice(0, 4);
 
-                    // Contribuições: reais ou mock
-                    const contributionData =
-                        (contribResult.status === 'fulfilled' ? contribResult.value : null) ||
-                        generateMockContributions();
+                    // Contribuições: reais ou vazio
+                    const contributionData = (contribResult.status === 'fulfilled' ? contribResult.value : null) || [];
 
                     const newStats: GitHubStats = {
                         totalStars,
@@ -275,13 +246,11 @@ export const useGitHub = (): GitHubData => {
                 console.error('Error fetching GitHub data:', err);
                 setError(err instanceof Error ? err.message : 'Unknown error');
 
-                // Usar cache se disponível, senão fallback
+                // Usar cache se disponível
                 const cached = getCache<GitHubStats>(CACHE_KEY);
                 if (cached) {
                     setStats(cached);
                     setIsUsingCache(true);
-                } else {
-                    setStats(FALLBACK_STATS);
                 }
             } finally {
                 setIsLoading(false);

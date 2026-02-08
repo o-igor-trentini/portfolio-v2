@@ -222,7 +222,7 @@ describe('useGitHub', () => {
         expect(zigLang?.color).toContain('zinc');
     });
 
-    it('contributionData tem estrutura 52x7', async () => {
+    it('contributionData vazio sem token (GraphQL não é chamado)', async () => {
         mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
@@ -231,30 +231,9 @@ describe('useGitHub', () => {
             expect(result.current.isLoading).toBe(false);
         });
 
+        // Sem token, GraphQL retorna null → contributionData = []
         const data = result.current.stats?.contributionData;
-        expect(data).toHaveLength(52);
-        expect(data?.[0]).toHaveLength(7);
-    });
-
-    it('usa mock de contribuições sem token (VITE_GITHUB_TOKEN vazio)', async () => {
-        mockFetchForBoth();
-
-        const { result } = renderHook(() => useGitHub());
-
-        await waitFor(() => {
-            expect(result.current.isLoading).toBe(false);
-        });
-
-        // Sem token, GraphQL não é chamado, contribuições devem ser mock (0-4)
-        const data = result.current.stats?.contributionData;
-        expect(data).toHaveLength(52);
-        data?.forEach((week) => {
-            expect(week).toHaveLength(7);
-            week.forEach((day) => {
-                expect(day).toBeGreaterThanOrEqual(0);
-                expect(day).toBeLessThanOrEqual(4);
-            });
-        });
+        expect(data).toHaveLength(0);
     });
 
     it('busca contribuições via GraphQL com token configurado', async () => {
@@ -286,7 +265,7 @@ describe('useGitHub', () => {
         vi.stubEnv('VITE_GITHUB_TOKEN', '');
     });
 
-    it('fallback com dados mock quando API falha', async () => {
+    it('stats é null quando API falha sem cache', async () => {
         mockFetchForBoth(null, false, 500);
 
         const { result } = renderHook(() => useGitHub());
@@ -296,11 +275,7 @@ describe('useGitHub', () => {
         });
 
         expect(result.current.error).toBeTruthy();
-        expect(result.current.stats).not.toBeNull();
-        expect(result.current.stats?.totalStars).toBe(579);
-        expect(result.current.stats?.totalRepos).toBe(42);
-        expect(result.current.stats?.topRepos).toHaveLength(3);
-        expect(result.current.stats?.languages).toHaveLength(4);
+        expect(result.current.stats).toBeNull();
     });
 
     it('rate limit com cache disponível → isRateLimited: true + dados do cache', async () => {
@@ -328,7 +303,7 @@ describe('useGitHub', () => {
         expect(result.current.stats?.totalStars).toBe(215);
     });
 
-    it('rate limit sem cache → fallback para mock', async () => {
+    it('rate limit sem cache → stats null', async () => {
         mockFetchForBoth(null, true, 429, '0');
 
         const { result } = renderHook(() => useGitHub());
@@ -338,8 +313,8 @@ describe('useGitHub', () => {
         });
 
         expect(result.current.isRateLimited).toBe(true);
-        expect(result.current.stats).not.toBeNull();
-        expect(result.current.stats?.totalStars).toBe(579); // Fallback
+        expect(result.current.stats).toBeNull();
+        expect(result.current.error).toBe('Rate limited');
     });
 
     it('cache é usado imediatamente no mount', async () => {

@@ -304,6 +304,8 @@ const en = {
         errorTitle: 'Could not load statistics',
         errorDescription: 'All services are currently unavailable',
         retry: 'Try again',
+        notPlaying: 'Radio silence',
+        notPlayingDescription: 'Ears resting for now',
     },
     github: {
         title: 'GitHub Stats',
@@ -316,6 +318,9 @@ const en = {
         noContributions: 'No contribution data',
         noLanguages: 'No language data',
         noRepos: 'No repositories found',
+        errorTitle: 'Could not load statistics',
+        errorDescription: 'GitHub data is currently unavailable',
+        retry: 'Try again',
     },
     terminal: {
         prompt: 'igor@portfolio:~$',
