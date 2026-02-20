@@ -35,6 +35,8 @@ export default [
             '**/*.test.tsx',
             'vitest.config.ts',
             'commitlint.config.mjs',
+            'netlify',
+            '.netlify',
         ],
     },
     ...fixupConfigRules(

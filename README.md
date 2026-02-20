@@ -29,15 +29,21 @@ npm run deploy           # Build + deploy no GitHub Pages
 
 ## Variáveis de Ambiente
 
-Prefixadas com `VITE_` para acesso no client-side:
+Server-side (Netlify Functions):
+
+```
+SPOTIFY_CLIENT_ID
+SPOTIFY_CLIENT_SECRET
+SPOTIFY_REFRESH_TOKEN
+GITHUB_TOKEN
+LASTFM_API_KEY
+LASTFM_USERNAME
+```
+
+Client-side (prefixo `VITE_`):
 
 ```
 VITE_MUSIC_PROVIDER=spotify|lastfm
-VITE_SPOTIFY_CLIENT_ID
-VITE_SPOTIFY_CLIENT_SECRET
-VITE_SPOTIFY_REFRESH_TOKEN
-VITE_LASTFM_API_KEY
-VITE_LASTFM_USERNAME
 ```
 
 ## Arquitetura

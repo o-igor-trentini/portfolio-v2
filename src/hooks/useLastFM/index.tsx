@@ -1,65 +1,12 @@
 import { useState, useEffect } from 'react';
 import type { LastFMData, LastFMRecentTracksResponse, LastFMTopArtistsResponse } from './types';
+import { fetchFunction } from '@/lib/api';
 import { getCache, setCache } from '@/lib/cache';
 
-const LASTFM_API_BASE = 'https://ws.audioscrobbler.com/2.0/';
-const LASTFM_API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
-const LASTFM_USERNAME = import.meta.env.VITE_LASTFM_USERNAME;
-
-const getRecentTracks = async (): Promise<LastFMRecentTracksResponse | null> => {
-    if (!LASTFM_API_KEY || !LASTFM_USERNAME) {
-        console.warn('Last.fm credentials not configured');
-        return null;
-    }
-
-    try {
-        const url = new URL(LASTFM_API_BASE);
-        url.searchParams.append('method', 'user.getrecenttracks');
-        url.searchParams.append('user', LASTFM_USERNAME);
-        url.searchParams.append('api_key', LASTFM_API_KEY);
-        url.searchParams.append('format', 'json');
-        url.searchParams.append('limit', '3');
-
-        const response = await fetch(url.toString());
-
-        if (!response.ok) {
-            throw new Error('Failed to get recent tracks from Last.fm');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error getting Last.fm recent tracks:', error);
-        return null;
-    }
-};
-
-const getTopArtists = async (): Promise<LastFMTopArtistsResponse | null> => {
-    if (!LASTFM_API_KEY || !LASTFM_USERNAME) {
-        console.warn('Last.fm credentials not configured');
-        return null;
-    }
-
-    try {
-        const url = new URL(LASTFM_API_BASE);
-        url.searchParams.append('method', 'user.gettopartists');
-        url.searchParams.append('user', LASTFM_USERNAME);
-        url.searchParams.append('api_key', LASTFM_API_KEY);
-        url.searchParams.append('format', 'json');
-        url.searchParams.append('period', '7day');
-        url.searchParams.append('limit', '1');
-
-        const response = await fetch(url.toString());
-
-        if (!response.ok) {
-            throw new Error('Failed to get top artists from Last.fm');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error getting Last.fm top artists:', error);
-        return null;
-    }
-};
+interface LastFMFunctionResponse {
+    recentTracks: LastFMRecentTracksResponse | null;
+    topArtists: LastFMTopArtistsResponse | null;
+}
 
 const LASTFM_CACHE_KEY = 'lastfm';
 const LASTFM_CACHE_TTL = 60_000; // 60 segundos
@@ -77,21 +24,11 @@ export const useLastFM = () => {
         const fetchLastFMData = async () => {
             setData((prev) => ({ ...prev, isLoading: true, error: null }));
 
-            if (!LASTFM_API_KEY || !LASTFM_USERNAME) {
-                setData({
-                    currentTrack: null,
-                    topArtist: null,
-                    recentTracks: [],
-                    isLoading: false,
-                    error: 'Last.fm not configured',
-                });
-                return;
-            }
-
             try {
-                const [recentTracksData, topArtistsData] = await Promise.all([getRecentTracks(), getTopArtists()]);
+                const { recentTracks: recentTracksData, topArtists: topArtistsData } =
+                    await fetchFunction<LastFMFunctionResponse>('lastfm');
 
-                // Get current track (most recent track with nowplaying attribute)
+                // Track atual (mais recente com atributo nowplaying)
                 const tracks = recentTracksData?.recenttracks?.track || [];
                 const nowPlayingTrack = tracks.find((track) => track['@attr']?.nowplaying === 'true');
 
@@ -108,7 +45,7 @@ export const useLastFM = () => {
                       }
                     : null;
 
-                // Get top artist
+                // Top artist da semana
                 const topArtist = topArtistsData?.topartists?.artist?.[0]
                     ? {
                           name: topArtistsData.topartists.artist[0].name,
@@ -120,7 +57,7 @@ export const useLastFM = () => {
                       }
                     : null;
 
-                // Get recent tracks (excluding now playing)
+                // Tracks recentes (excluindo a que está tocando)
                 const recentTracks = tracks
                     .filter((track) => track['@attr']?.nowplaying !== 'true')
                     .slice(0, 3)
@@ -137,8 +74,8 @@ export const useLastFM = () => {
                 const newData = { currentTrack, topArtist, recentTracks };
                 setData({ ...newData, isLoading: false, error: null });
                 setCache(LASTFM_CACHE_KEY, newData, LASTFM_CACHE_TTL);
-            } catch (error) {
-                console.error('Error fetching Last.fm data:', error);
+            } catch {
+                console.error('Error fetching Last.fm data');
                 setData({
                     currentTrack: null,
                     topArtist: null,
@@ -151,7 +88,7 @@ export const useLastFM = () => {
 
         fetchLastFMData();
 
-        // Refresh data every 30 seconds
+        // Atualiza a cada 30 segundos
         const interval = setInterval(fetchLastFMData, 30000);
 
         return () => clearInterval(interval);

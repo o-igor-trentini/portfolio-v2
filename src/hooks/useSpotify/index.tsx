@@ -1,107 +1,13 @@
 import { useState, useEffect } from 'react';
 import type { SpotifyData, NowPlayingResponse, TopArtistsResponse, RecentlyPlayedResponse } from './types';
+import { fetchFunction } from '@/lib/api';
 import { getCache, setCache } from '@/lib/cache';
 
-const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const SPOTIFY_NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
-const SPOTIFY_TOP_ARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists?limit=1&time_range=short_term';
-const SPOTIFY_RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played?limit=3';
-
-const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
-const REFRESH_TOKEN = import.meta.env.VITE_SPOTIFY_REFRESH_TOKEN;
-
-const getAccessToken = async (): Promise<string | null> => {
-    if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
-        console.warn('Spotify credentials not configured');
-        return null;
-    }
-
-    try {
-        const response = await fetch(SPOTIFY_TOKEN_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: `Basic ${btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
-            },
-            body: new URLSearchParams({
-                grant_type: 'refresh_token',
-                refresh_token: REFRESH_TOKEN,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to get access token');
-        }
-
-        const data = await response.json();
-        return data.access_token;
-    } catch (error) {
-        console.error('Error getting Spotify access token:', error);
-        return null;
-    }
-};
-
-const getNowPlaying = async (accessToken: string): Promise<NowPlayingResponse | null> => {
-    try {
-        const response = await fetch(SPOTIFY_NOW_PLAYING_ENDPOINT, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-
-        if (response.status === 204 || response.status === 404) {
-            return null;
-        }
-
-        if (!response.ok) {
-            throw new Error('Failed to get now playing');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error getting now playing:', error);
-        return null;
-    }
-};
-
-const getTopArtists = async (accessToken: string): Promise<TopArtistsResponse | null> => {
-    try {
-        const response = await fetch(SPOTIFY_TOP_ARTISTS_ENDPOINT, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to get top artists');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error getting top artists:', error);
-        return null;
-    }
-};
-
-const getRecentlyPlayed = async (accessToken: string): Promise<RecentlyPlayedResponse | null> => {
-    try {
-        const response = await fetch(SPOTIFY_RECENTLY_PLAYED_ENDPOINT, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to get recently played');
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error getting recently played:', error);
-        return null;
-    }
-};
+interface SpotifyFunctionResponse {
+    nowPlaying: NowPlayingResponse | null;
+    topArtists: TopArtistsResponse | null;
+    recentlyPlayed: RecentlyPlayedResponse | null;
+}
 
 const SPOTIFY_CACHE_KEY = 'spotify';
 const SPOTIFY_CACHE_TTL = 60_000; // 60 segundos
@@ -119,25 +25,9 @@ export const useSpotify = () => {
         const fetchSpotifyData = async () => {
             setData((prev) => ({ ...prev, isLoading: true, error: null }));
 
-            const accessToken = await getAccessToken();
-
-            if (!accessToken) {
-                setData({
-                    currentTrack: null,
-                    topArtist: null,
-                    recentTracks: [],
-                    isLoading: false,
-                    error: 'Spotify not configured',
-                });
-                return;
-            }
-
             try {
-                const [nowPlaying, topArtists, recentlyPlayed] = await Promise.all([
-                    getNowPlaying(accessToken),
-                    getTopArtists(accessToken),
-                    getRecentlyPlayed(accessToken),
-                ]);
+                const { nowPlaying, topArtists, recentlyPlayed } =
+                    await fetchFunction<SpotifyFunctionResponse>('spotify');
 
                 const currentTrack = nowPlaying?.item
                     ? {
@@ -173,8 +63,8 @@ export const useSpotify = () => {
                 const newData = { currentTrack, topArtist, recentTracks };
                 setData({ ...newData, isLoading: false, error: null });
                 setCache(SPOTIFY_CACHE_KEY, newData, SPOTIFY_CACHE_TTL);
-            } catch (error) {
-                console.error('Error fetching Spotify data:', error);
+            } catch {
+                console.error('Error fetching Spotify data');
                 setData({
                     currentTrack: null,
                     topArtist: null,

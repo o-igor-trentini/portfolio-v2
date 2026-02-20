@@ -13,3 +13,6 @@ build
 
 # Testes
 src/tests/coverage
+
+# Local Netlify folder
+.netlify

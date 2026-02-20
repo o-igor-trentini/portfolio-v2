@@ -36,8 +36,6 @@ interface GitHubData {
     isUsingCache: boolean;
 }
 
-const GITHUB_USERNAME = 'o-igor-trentini';
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN || '';
 const CACHE_KEY = 'stats';
 const CACHE_TTL = 60 * 60 * 1000; // 1 hora
 
@@ -59,22 +57,6 @@ const languageColors: Record<string, string> = {
     Other: 'from-zinc-400 to-zinc-500',
 };
 
-const GRAPHQL_QUERY = `
-query($username: String!) {
-    user(login: $username) {
-        contributionsCollection {
-            contributionCalendar {
-                weeks {
-                    contributionDays {
-                        contributionCount
-                        date
-                    }
-                }
-            }
-        }
-    }
-}`;
-
 /** Converte contributionCount para escala 0-4 */
 const toLevel = (count: number): number => {
     if (count === 0) return 0;
@@ -84,21 +66,9 @@ const toLevel = (count: number): number => {
     return 4;
 };
 
-/** Busca contribuições reais via GraphQL (requer token) */
+/** Busca contribuições via BFF */
 const fetchContributions = async (): Promise<number[][] | null> => {
-    if (!GITHUB_TOKEN) return null;
-
-    const response = await fetch('https://api.github.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GITHUB_TOKEN}`,
-        },
-        body: JSON.stringify({
-            query: GRAPHQL_QUERY,
-            variables: { username: GITHUB_USERNAME },
-        }),
-    });
+    const response = await fetch('/.netlify/functions/github?type=contributions');
 
     if (!response.ok) return null;
 
@@ -154,14 +124,9 @@ export const useGitHub = (): GitHubData => {
                     setIsLoading(false);
                 }
 
-                // Buscar dados atualizados em paralelo (REST + GraphQL)
-                const headers: HeadersInit = {};
-                if (GITHUB_TOKEN) {
-                    headers.Authorization = `Bearer ${GITHUB_TOKEN}`;
-                }
-
+                // Buscar dados atualizados em paralelo (repos + contribuições via BFF)
                 const [reposResult, contribResult] = await Promise.allSettled([
-                    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=stars&per_page=100`, { headers }),
+                    fetch('/.netlify/functions/github?type=repos'),
                     fetchContributions(),
                 ]);
 
