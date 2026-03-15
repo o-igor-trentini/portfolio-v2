@@ -3,6 +3,7 @@ import { Badge, Button } from '@ui';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
+import ArchitectureFlow, { type ArchitectureNode } from './ArchitectureFlow';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import type { Project } from '../projects';
 
@@ -137,6 +138,11 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                             exit={{ opacity: 0, x: 20 }}
                                             className="space-y-8"
                                         >
+                                            {/* Description */}
+                                            <p className="text-zinc-600 dark:text-zinc-400">
+                                                {t(`projects.items.${project.id}.description`)}
+                                            </p>
+
                                             {/* Problem */}
                                             <div>
                                                 <h3 className="mb-3 text-purple-500">{t('projects.detail.problem')}</h3>
@@ -180,10 +186,14 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                                     {t('projects.detail.architecture')}
                                                 </h3>
 
-                                                <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-3 sm:p-6">
-                                                    <code className="text-sm text-zinc-600 dark:text-zinc-400 whitespace-pre-wrap">
-                                                        {t(`projects.items.${project.id}.architecture`)}
-                                                    </code>
+                                                <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-3 sm:p-6 overflow-x-auto">
+                                                    <ArchitectureFlow
+                                                        layers={
+                                                            t(`projects.items.${project.id}.architecture`, {
+                                                                returnObjects: true,
+                                                            }) as ArchitectureNode[][]
+                                                        }
+                                                    />
                                                 </div>
                                             </div>
 

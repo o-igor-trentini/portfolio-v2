@@ -57,110 +57,80 @@ const es = {
         projectCount: 'proyecto',
         projectsCount: 'proyectos',
         items: {
-            'realtime-chat': {
-                title: 'Chat en Tiempo Real',
+            'risk-platform': {
+                title: 'Plataforma de Análisis de Riesgo',
                 description:
-                    'Sistema de chat en tiempo real con WebSockets, autenticación JWT y arquitectura de microservicios',
+                    'La mayor y mejor plataforma de análisis de riesgo del segmento logístico. Solución fullstack con múltiples aplicaciones, decenas de integraciones, validación facial con IA y chat en tiempo real. Procesos inteligentes con IA para extracción y registro automatizado de datos a partir de documentos, reduciendo intervención humana. Entrega velocidad y seguridad para transportistas, aseguradoras y embarcadores realicen sus viajes con confianza en la calidad del análisis',
                 descriptionSimple:
-                    'Una aplicación de mensajería instantánea donde puedes chatear en tiempo real con otras personas',
+                    'Líder del mercado en análisis de riesgo para logística. Automatiza la verificación de documentos y datos de conductores, vehículos y empresas, optimizando mano de obra y proporcionando seguridad para transportistas, aseguradoras y embarcadores',
                 problem:
-                    'Las empresas necesitan sistemas de comunicación interna escalables y seguros que soporten miles de usuarios simultáneos',
+                    'Las empresas de logística necesitaban analizar manualmente datos de conductores, vehículos y empresas para gestión de riesgo — un proceso lento y propenso a errores',
                 solution:
-                    'Implementación de WebSockets con Go para comunicación bidireccional, Redis para pub/sub y PostgreSQL para persistencia. La arquitectura de microservicios permite escalar horizontalmente',
-                architecture:
-                    'API Gateway → Servicio de Auth → Servicio de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
-                highlights: [
-                    'Soporta 10,000+ conexiones simultáneas',
-                    'Latencia promedio de 50ms',
-                    'Sistema de presencia online en tiempo real',
-                    'Historial de mensajes con búsqueda full-text',
+                    'Monorepo fullstack con decenas de miles de líneas en Go y React, con integraciones extensibles vía interfaz — agregar un nuevo proveedor solo requiere implementar una interfaz. Procesamiento asíncrono vía mensajería, OCR con IA y chat en tiempo real',
+                architecture: [
+                    [
+                        {
+                            label: 'Frontend Principal',
+                            detail: 'React SPA',
+                            items: [
+                                'Gestión de análisis y operaciones',
+                                'Chat en tiempo real',
+                                'Dashboards e informes',
+                            ],
+                        },
+                        {
+                            label: 'Frontend Verificación Facial',
+                            detail: 'React SPA',
+                            items: ['Captura vía webcam', 'Detección facial', 'Prueba de vida (liveness)'],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Backend Principal',
+                            detail: 'Go/Gin',
+                            items: [
+                                'Servidor HTTP (API REST)',
+                                'Consumers RabbitMQ',
+                                'Integraciones con decenas de proveedores',
+                                'OCR con Document AI',
+                            ],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Backend Automatización',
+                            detail: 'Go',
+                            items: ['Cron jobs', 'Publisher RabbitMQ', 'Ejecuciones automáticas'],
+                        },
+                        {
+                            label: 'Backend Integración Registros',
+                            detail: 'Go',
+                            items: [
+                                'Interfaz para sistema legado',
+                                'Sincronización bilateral de datos',
+                                'Integrador legado en proceso de migración',
+                            ],
+                        },
+                    ],
+                    [
+                        { label: 'PostgreSQL' },
+                        { label: 'RabbitMQ' },
+                        { label: 'Firebase', detail: 'Chat' },
+                        { label: 'AWS S3', detail: 'Storage' },
+                        { label: 'Keycloak', detail: 'SSO' },
+                        { label: 'APIs Internas' },
+                        { label: 'APIs Externas' },
+                        { label: 'Webhooks', detail: 'Entrada/Salida' },
+                    ],
                 ],
-            },
-            'api-analytics': {
-                title: 'Dashboard de Analytics',
-                description:
-                    'Dashboard de analytics en tiempo real con procesamiento de eventos y visualizaciones interactivas',
-                descriptionSimple:
-                    'Una herramienta que muestra gráficos y estadísticas sobre el uso de aplicaciones y sitios web',
-                problem: 'Necesidad de procesar y visualizar millones de eventos de analytics con baja latencia',
-                solution:
-                    'Sistema de ingestión de datos en batch con Go, TimescaleDB para series temporales y agregaciones pre-computadas. Frontend React con visualizaciones optimizadas',
-                architecture: 'Event Collector → Message Queue → Processing Service → TimescaleDB → API → Dashboard',
                 highlights: [
-                    'Procesa 1M+ eventos por segundo',
-                    'Consultas con respuesta en <100ms',
-                    'Gráficos interactivos con drill-down',
-                    'Exportación de informes personalizados',
-                ],
-            },
-            'task-automation': {
-                title: 'Plataforma de Automatización de Tareas',
-                description:
-                    'Plataforma de automatización de tareas con interfaz visual drag-and-drop e integraciones con APIs externas',
-                descriptionSimple:
-                    'Una herramienta que conecta diferentes aplicaciones y automatiza tareas repetitivas sin necesidad de programar',
-                problem:
-                    'Usuarios no técnicos necesitan automatizar workflows complejos entre diferentes servicios sin conocimiento de código',
-                solution:
-                    'Editor visual drag-and-drop con React Flow, motor de ejecución en Go con workers paralelos y sistema de plugins para integraciones',
-                architecture:
-                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
-                highlights: [
-                    '50+ integraciones listas para usar',
-                    'Ejecuciones paralelas con retry automático',
-                    'Logs detallados y debugging visual',
-                    'Webhooks y triggers personalizados',
-                ],
-            },
-            'social-connect': {
-                title: 'Social Connect',
-                description: 'Clon de red social con feed en tiempo real, sistema de posts, likes y comentarios',
-                descriptionSimple:
-                    'Una red social donde puedes publicar fotos, dar like y comentar en las publicaciones de otros usuarios',
-                problem: 'Aprender sobre optimización de feeds, scroll infinito e interacciones en tiempo real',
-                solution:
-                    'Implementación de virtual scrolling para rendimiento, WebSocket para actualizaciones en tiempo real y sistema de caché con Redis',
-                architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
-                highlights: [
-                    'Feed con scroll infinito optimizado',
-                    'Actualizaciones en tiempo real de likes/comentarios',
-                    'Upload de imágenes con preview',
-                    'Sistema de seguir/dejar de seguir usuarios',
-                ],
-            },
-            'crypto-tracker': {
-                title: 'Crypto Tracker',
-                description:
-                    'Aplicación de seguimiento de criptomonedas con gráficos en tiempo real y alertas de precio',
-                descriptionSimple:
-                    'Una app que muestra los precios de criptomonedas y envía notificaciones cuando el precio cambia',
-                problem: 'Practicar integración con APIs externas y visualización de datos en tiempo real',
-                solution:
-                    'Integración con CoinGecko API, gráficos interactivos con Recharts y sistema de notificaciones push',
-                architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
-                highlights: [
-                    'Gráficos de precios con múltiples timeframes',
-                    'Lista de favoritos persistente',
-                    'Alertas personalizados de precio',
-                    'Dark mode automático',
-                ],
-            },
-            'ecommerce-api': {
-                title: 'API de E-Commerce',
-                description: 'API RESTful completa para e-commerce con carrito, checkout y gestión de pedidos',
-                descriptionSimple:
-                    'Backend de una tienda online con sistema de carrito de compras y procesamiento de pedidos',
-                problem:
-                    'Los e-commerces necesitan sistemas robustos de procesamiento de pagos y gestión de inventario',
-                solution:
-                    'API RESTful en Go con integración Stripe, sistema de caché en Redis y transacciones ACID en PostgreSQL',
-                architecture:
-                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
-                highlights: [
-                    'Procesamiento de pagos con Stripe',
-                    'Sistema de inventario con control de stock',
-                    'Carrito de compras con sesión persistente',
-                    'Historial completo de pedidos',
+                    'Más de mil empresas atendidas con cientos de miles de operaciones mensuales',
+                    'Miles de usuarios activos entre webservice y plataforma web',
+                    'Integraciones con decenas de proveedores (APIs gubernamentales, OCR, validación facial)',
+                    'Chat en tiempo real y procesamiento asíncrono vía mensajería',
+                    'Multi-tenancy con RBAC personalizado y permisos granulares',
+                    'Único desarrollador por 2+ años en sistema de misión crítica',
+                    'Integraciones con APIs internas y externas con webhooks bidireccionales',
                 ],
             },
         },
@@ -280,16 +250,17 @@ const es = {
         viewDetails: 'Ver Detalles',
         items: {
             logae: {
-                position: 'Full Stack Developer',
+                position: 'Desarrollador Backend Go / Full Stack',
                 period: '2021 - Presente',
-                location: 'Híbrido',
+                location: 'Concórdia, SC — Híbrido',
                 description:
-                    'Desarrollo de sistemas escalables con Golang y React. Implementación de microservicios, APIs RESTful e interfaces modernas.',
+                    'Desarrollador backend en Logae (Grupo Raster, 500+ empleados), empresa de software enfocada en logística y gestión de riesgo. Referencia técnica del equipo (~30 devs) hace 3 años, responsable de decisiones de arquitectura, code reviews y mentoría.',
                 achievements: [
-                    'Redujo latencia de APIs en 40% mediante optimizaciones',
-                    'Implementó sistema de cache con Redis',
-                    'Desarrolló dashboard analytics con 100k+ eventos/día',
-                    'Migró monolito a arquitectura de microservicios',
+                    'Lideró múltiples proyectos de cero a producción, atendiendo más de mil empresas con cientos de miles de operaciones mensuales',
+                    'Múltiples sistemas y cerca de 20 bibliotecas/SDKs en Go en producción con arquitectura limpia',
+                    'Caché de OCR redujo costos con APIs de IA en 70-80%',
+                    'Sistema multi-tenant white label con RBAC granular propio',
+                    'Actuó 2+ años como único desarrollador de proyectos de misión crítica en producción',
                 ],
             },
         },

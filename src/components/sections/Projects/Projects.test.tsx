@@ -45,14 +45,14 @@ describe('Projects', () => {
         vi.clearAllMocks();
     });
 
-    it('renderiza todos os projetos (6)', () => {
+    it('renderiza todos os projetos (1)', () => {
         render(<Projects onProjectClick={mockProjectClick} />);
 
         const viewButtons = screen.getAllByText('Ver Detalhes');
-        expect(viewButtons).toHaveLength(6);
+        expect(viewButtons).toHaveLength(1);
     });
 
-    it('filtra profissionais (3)', async () => {
+    it('filtra profissionais (1)', async () => {
         const user = userEvent.setup();
         render(<Projects onProjectClick={mockProjectClick} />);
 
@@ -61,34 +61,34 @@ describe('Projects', () => {
         await user.click(filterButton);
 
         const viewButtons = screen.getAllByText('Ver Detalhes');
-        expect(viewButtons).toHaveLength(3);
+        expect(viewButtons).toHaveLength(1);
     });
 
-    it('filtra estudos (3)', async () => {
+    it('filtra estudos (0)', async () => {
         const user = userEvent.setup();
         render(<Projects onProjectClick={mockProjectClick} />);
 
         const filterButton = screen.getByRole('button', { name: /Estudos/i });
         await user.click(filterButton);
 
-        const viewButtons = screen.getAllByText('Ver Detalhes');
-        expect(viewButtons).toHaveLength(3);
+        const viewButtons = screen.queryAllByText('Ver Detalhes');
+        expect(viewButtons).toHaveLength(0);
     });
 
     it('atualiza contador ao mudar filtro', async () => {
         const user = userEvent.setup();
         render(<Projects onProjectClick={mockProjectClick} />);
 
-        // Todos: 6 projetos
-        expect(screen.getByText('6 projetos')).toBeInTheDocument();
+        // Todos: 1 projeto
+        expect(screen.getByText('1 projeto')).toBeInTheDocument();
 
-        // Filtra profissionais: 3
+        // Filtra profissionais: 1
         await user.click(screen.getByRole('button', { name: /Profissionais/i }));
-        expect(screen.getByText('3 projetos')).toBeInTheDocument();
+        expect(screen.getByText('1 projeto')).toBeInTheDocument();
 
-        // Filtra estudos: 3
+        // Filtra estudos: 0
         await user.click(screen.getByRole('button', { name: /Estudos/i }));
-        expect(screen.getByText('3 projetos')).toBeInTheDocument();
+        expect(screen.getByText('0 projetos')).toBeInTheDocument();
     });
 
     it('onProjectClick chamado ao clicar "Ver Detalhes"', async () => {

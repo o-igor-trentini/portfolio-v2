@@ -86,6 +86,8 @@ export const BADGE_CONFIG = {
 export const TECHNOLOGIES = {
     // Backend
     GOLANG: 'Golang',
+    GIN: 'Gin',
+    GORM: 'GORM',
     NODEJS: 'Node.js',
     PYTHON: 'Python',
     POSTGRESQL: 'PostgreSQL',
@@ -95,12 +97,15 @@ export const TECHNOLOGIES = {
     GRAPHQL: 'GraphQL',
     REST_APIS: 'REST APIs',
     RABBITMQ: 'RabbitMQ',
+    KEYCLOAK: 'Keycloak',
+    FIREBASE: 'Firebase',
 
     // Frontend
     REACT: 'React',
     TYPESCRIPT: 'TypeScript',
     JAVASCRIPT: 'JavaScript',
     NEXTJS: 'Next.js',
+    ANT_DESIGN: 'Ant Design',
     TAILWIND: 'Tailwind CSS',
     VITE: 'Vite',
     HTML_CSS: 'HTML/CSS',
@@ -115,6 +120,7 @@ export const TECHNOLOGIES = {
     KUBERNETES: 'Kubernetes',
     NGINX: 'Nginx',
     CI_CD: 'CI/CD',
+    JENKINS: 'Jenkins',
     AWS: 'AWS',
     GCP: 'GCP',
     CLOUDFLARE: 'Cloudflare',
@@ -122,6 +128,7 @@ export const TECHNOLOGIES = {
     VERCEL: 'Vercel',
     GITHUB_ACTIONS: 'GitHub Actions',
     TERRAFORM: 'Terraform',
+    NEW_RELIC: 'New Relic',
 
     // Versioning
     GIT: 'Git',
@@ -146,6 +153,8 @@ export const TECHNOLOGIES = {
     OH_MY_ZSH: 'Oh My Zsh',
 
     // Testing
+    TESTIFY: 'Testify',
+    TESTCONTAINERS: 'Testcontainers',
     VITEST: 'Vitest',
     CYPRESS: 'Cypress',
     PLAYWRIGHT: 'Playwright',

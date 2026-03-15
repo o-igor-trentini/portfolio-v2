@@ -14,9 +14,7 @@ vi.mock('./useTheme', () => ({
     }),
 }));
 
-const wrapper = ({ children }: { children: ReactNode }) => (
-    <I18nTestProvider>{children}</I18nTestProvider>
-);
+const wrapper = ({ children }: { children: ReactNode }) => <I18nTestProvider>{children}</I18nTestProvider>;
 
 describe('useTerminal', () => {
     const mockOnClose = vi.fn();
@@ -130,8 +128,8 @@ describe('useTerminal', () => {
             submitCommand(result, 'projects');
 
             const output = lastOutput(result);
-            expect(output).toMatch(/Projetos \(6\)/);
-            expect(output).toMatch(/Chat em Tempo Real/);
+            expect(output).toMatch(/Projetos \(1\)/);
+            expect(output).toMatch(/Plataforma de Análise de Risco/);
             expect(output).toMatch(/Golang/);
         });
 
@@ -158,7 +156,7 @@ describe('useTerminal', () => {
             submitCommand(result, 'experience');
 
             const output = lastOutput(result);
-            expect(output).toMatch(/Full Stack Developer @ Logae/);
+            expect(output).toMatch(/Desenvolvedor Backend Go \/ Full Stack @ Logae/);
             expect(output).toMatch(/2021/);
             expect(output).toMatch(/Golang.*React.*TypeScript/);
         });

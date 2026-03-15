@@ -24,7 +24,13 @@ export const techStackCategories: TechCategory[] = [
                 badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
                 color: TECH_COLORS.CYAN_BLUE,
             },
-            { name: TECHNOLOGIES.NODEJS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_DARK },
+            {
+                name: TECHNOLOGIES.GIN,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.CYAN_TEAL,
+            },
+            { name: TECHNOLOGIES.GORM, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.BLUE_LIGHT },
+            { name: TECHNOLOGIES.NODEJS, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.GREEN_DARK },
             {
                 name: TECHNOLOGIES.POSTGRESQL,
                 badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
@@ -43,6 +49,8 @@ export const techStackCategories: TechCategory[] = [
                 color: TECH_COLORS.INDIGO_PURPLE,
             },
             { name: TECHNOLOGIES.RABBITMQ, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
+            { name: TECHNOLOGIES.KEYCLOAK, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.PURPLE_INDIGO },
+            { name: TECHNOLOGIES.FIREBASE, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.YELLOW_ORANGE },
         ],
     },
     {
@@ -60,6 +68,11 @@ export const techStackCategories: TechCategory[] = [
                 color: TECH_COLORS.BLUE_DARK,
             },
             { name: TECHNOLOGIES.NEXTJS, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ZINC_DARK },
+            {
+                name: TECHNOLOGIES.ANT_DESIGN,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE,
+            },
             {
                 name: TECHNOLOGIES.TAILWIND,
                 badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.HOBBY],
@@ -95,8 +108,10 @@ export const techStackCategories: TechCategory[] = [
             },
             { name: TECHNOLOGIES.NGINX, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_DARK },
             { name: TECHNOLOGIES.CI_CD, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE },
-            { name: TECHNOLOGIES.AWS, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ORANGE_LIGHT },
-            { name: TECHNOLOGIES.GCP, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ORANGE_LIGHT },
+            { name: TECHNOLOGIES.JENKINS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.RED },
+            { name: TECHNOLOGIES.AWS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE_LIGHT },
+            { name: TECHNOLOGIES.GCP, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.ORANGE_LIGHT },
+            { name: TECHNOLOGIES.NEW_RELIC, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_TEAL },
             { name: TECHNOLOGIES.CLOUDFLARE, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ORANGE_LIGHT },
             { name: TECHNOLOGIES.VERCEL, badges: [BADGE_TYPES.HOBBY], color: TECH_COLORS.ZINC_DARKER },
             {
@@ -184,6 +199,12 @@ export const techStackCategories: TechCategory[] = [
         id: 'testing',
         icon: 'CheckCircle',
         items: [
+            {
+                name: TECHNOLOGIES.TESTIFY,
+                badges: [BADGE_TYPES.FAVORITE, BADGE_TYPES.PROFESSIONAL],
+                color: TECH_COLORS.BLUE_INDIGO,
+            },
+            { name: TECHNOLOGIES.TESTCONTAINERS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.CYAN_BLUE },
             { name: TECHNOLOGIES.VITEST, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.YELLOW_GREEN },
             { name: TECHNOLOGIES.CYPRESS, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_TEAL_DARK },
             { name: TECHNOLOGIES.PLAYWRIGHT, badges: [BADGE_TYPES.PROFESSIONAL], color: TECH_COLORS.GREEN_EMERALD },
