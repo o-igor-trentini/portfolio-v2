@@ -29,6 +29,11 @@ vi.mock('motion/react', () => ({
         },
     ),
     AnimatePresence: ({ children }: any) => children,
+    useAnimationControls: () => ({
+        start: vi.fn(),
+        stop: vi.fn(),
+        set: vi.fn(),
+    }),
 }));
 
 // Mock PriorityImage
