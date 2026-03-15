@@ -2,11 +2,48 @@
 
 Guia de convenções e padrões para contribuir com o projeto.
 
+## Índice
+
+- [Idioma](#idioma)
+- [Prioridades de Desenvolvimento](#prioridades-de-desenvolvimento)
+- [Estrutura de Responsabilidades](#estrutura-de-responsabilidades)
+- [Estilo de Código](#estilo-de-código)
+- [Git Hooks (Husky)](#git-hooks-husky)
+- [Testes](#testes)
+- [Atualização de Dependências](#atualização-de-dependências)
+- [i18n](#i18n)
+- [Checklist de PR](#checklist-de-pr)
+- [Links Úteis](#links-úteis)
+
+---
+
 ## Idioma
 
 - Código, nomes de pastas e arquivos sempre em **inglês**
 - Documentação, comentários, logs e nomes de teste sempre em **pt-BR** (com acentuação correta)
 - Comentários apenas para lógica complexa, avisos importantes ou algo relevante — evitar comentários óbvios ou desnecessários
+
+## Prioridades de Desenvolvimento
+
+1. **Correção** - Funcionalidade correta e sem bugs
+2. **Segurança** - Sem vulnerabilidades (XSS, exposição de tokens, etc.)
+3. **Padrões** - Seguir estrutura e convenções existentes
+4. **Performance** - Lazy loading, memoization quando necessário
+5. **Legibilidade** - Código claro e auto-documentado
+
+## Estrutura de Responsabilidades
+
+| Camada       | Responsabilidade                               | Localização                |
+| ------------ | ---------------------------------------------- | -------------------------- |
+| **Sections** | Seções da página (lazy-loaded)                 | `src/components/sections/` |
+| **Layout**   | Estrutura da página (Header, Footer, Terminal) | `src/components/layout/`   |
+| **UI**       | Primitivos atômicos (shadcn/ui)                | `src/components/ui/`       |
+| **Hooks**    | Lógica reutilizável e estado                   | `src/hooks/`               |
+| **Lib**      | Utilitários, API client, i18n                  | `src/lib/`                 |
+| **BFF**      | Serverless functions (protegem tokens)         | `netlify/functions/`       |
+| **Config**   | Configurações runtime                          | `src/config/`              |
+
+---
 
 ## Estilo de Código
 
@@ -84,6 +121,15 @@ import { cn } from '@/lib/utils';
 - **Arquivos de utilitários, services e hooks**: camelCase
 - **Hooks**: Prefixo `use`
 
+### Documentação de Código (JSDoc)
+
+- Componentes de seção, hooks customizados e componentes reutilizáveis devem ter JSDoc
+- Usar tags `@component`, `@hook`, `@example` quando aplicável
+- `@example` apenas para APIs complexas ou não-intuitivas
+- Componentes shadcn/ui não precisam de JSDoc adicional (exceto customizações específicas do projeto)
+
+> **Padrões detalhados:** Consulte [subagent_documentation_specialist.md](./.claude/agents/subagent_documentation_specialist.md)
+
 ## Git Hooks (Husky)
 
 O projeto usa [Husky](https://typicode.github.io/husky/) para executar verificações automáticas antes de commits e pushes.
@@ -145,6 +191,61 @@ git commit -m "Feat: algo"             # tipo em maiúscula
 git commit -m "feat:sem espaço"        # falta espaço após ':'
 ```
 
+## Testes
+
+### Referência Rápida
+
+- **Framework:** Vitest + React Testing Library
+- **Acessibilidade:** vitest-axe (`toHaveNoViolations`)
+- **Setup:** `src/tests/setup.ts`
+- **Meta de cobertura:** 60% statements/lines, 50% branches, 60% functions
+- **Padrão:** Testes co-localizados (ao lado do código testado)
+
+### Comandos
+
+```bash
+npm test                 # Roda testes (single run)
+npm run test:watch       # Testes em modo watch
+npm run test:coverage    # Testes com cobertura
+```
+
+### Convenções
+
+- **Nomes de testes** (describe/it) em **pt-BR**
+- **Código de teste** (variáveis, funções) em inglês
+- **Queries:** Priorizar `getByRole` > `getByLabelText` > `getByText` > `getByTestId`
+- **User events:** Sempre `@testing-library/user-event` (não `fireEvent`)
+- **Acessibilidade:** Incluir teste com vitest-axe em componentes visuais
+- **Proibido:** Comentários `// Arrange`, `// Act`, `// Assert`
+
+### Exemplo Básico
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { axe } from 'vitest-axe';
+import MyComponent from './MyComponent';
+
+describe('MyComponent', () => {
+    it('deve renderizar corretamente', () => {
+        render(<MyComponent />);
+
+        expect(screen.getByRole('heading')).toBeInTheDocument();
+    });
+
+    it('não deve ter violações de acessibilidade', async () => {
+        const { container } = render(<MyComponent />);
+        const results = await axe(container);
+
+        expect(results).toHaveNoViolations();
+    });
+});
+```
+
+> **Guia completo:** Consulte [subagent_tester.md](./.claude/agents/subagent_tester.md) para templates, mocking, testes parametrizados e FAQ.
+
+---
+
 ## Atualização de Dependências
 
 O projeto usa [Dependabot](https://docs.github.com/pt/code-security/dependabot) para manter dependências atualizadas
@@ -160,3 +261,61 @@ Os PRs gerados pelo Dependabot passam pelo CI (lint, testes, build) antes de ser
 - `pt.ts` é a fonte de verdade — sempre começar por ele
 - Manter a mesma estrutura de chaves nos três locales (`pt.ts`, `en.ts`, `es.ts`)
 - Usar `t('chave.aninhada')` com suporte a `returnObjects`
+
+---
+
+## Checklist de PR
+
+### Código
+
+- [ ] Segue padrões de nomenclatura do projeto
+- [ ] Usa imports absolutos (`@/*`, `@hooks`, `@ui`)
+- [ ] Arrow functions e functional components (não class components, não `function`)
+- [ ] Sem `console.log` ou código de debug
+- [ ] Sem credenciais ou tokens hardcoded
+- [ ] Componentes UI seguem padrão CVA + cn()
+
+### Testes
+
+- [ ] Testes adicionados para novos componentes/hooks
+- [ ] Nomes de testes em pt-BR (describe/it)
+- [ ] Teste de acessibilidade incluído (vitest-axe)
+- [ ] Testes existentes passam (`npm test`)
+- [ ] Cobertura mantida ou melhorada
+
+### Qualidade
+
+- [ ] Linting passa (`npm run lint`)
+- [ ] Build funciona (`npm run build`)
+- [ ] TypeScript sem erros (`npx tsc --noEmit`)
+
+### i18n (se aplicável)
+
+- [ ] Três locales atualizados (`pt.ts`, `en.ts`, `es.ts`)
+- [ ] Mesma estrutura de chaves nos três arquivos
+
+### Git
+
+- [ ] Commits seguem Conventional Commits
+- [ ] Mensagens de commit em pt-BR
+
+### Performance (se aplicável)
+
+- [ ] Seções novas usam `React.lazy()`
+- [ ] Animações usam `viewport={{ once: true }}`
+- [ ] Sem re-renders desnecessários
+
+---
+
+## Links Úteis
+
+- [README.md](./README.md) - Setup e arquitetura
+- [CLAUDE.md](./CLAUDE.md) - Contexto para assistentes de IA
+- [React Docs](https://react.dev)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Vitest](https://vitest.dev)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [motion/react](https://motion.dev)
+- [i18next](https://www.i18next.com)
+- [Conventional Commits](https://www.conventionalcommits.org/pt-br)

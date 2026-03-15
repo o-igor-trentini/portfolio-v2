@@ -1,4 +1,5 @@
 export { useGitHub } from './useGitHub';
+export { useInViewport } from './useInViewport';
 export { useLanguage, type Language } from './useLanguage';
 export { useLastFM } from './useLastFM';
 export { useMusic } from './useMusic';

@@ -66,10 +66,4 @@ Object.defineProperty(window, 'IntersectionObserver', {
 });
 
 // Mock variáveis de ambiente VITE_*
-vi.stubEnv('VITE_GITHUB_TOKEN', '');
 vi.stubEnv('VITE_MUSIC_PROVIDER', 'spotify');
-vi.stubEnv('VITE_SPOTIFY_CLIENT_ID', '');
-vi.stubEnv('VITE_SPOTIFY_CLIENT_SECRET', '');
-vi.stubEnv('VITE_SPOTIFY_REFRESH_TOKEN', '');
-vi.stubEnv('VITE_LASTFM_API_KEY', '');
-vi.stubEnv('VITE_LASTFM_USERNAME', '');

@@ -1,94 +1,81 @@
 # Configuração de Secrets para Deploy
 
-Para que o deploy funcione corretamente com as integrações de música (Spotify e Last.fm), você precisa configurar os seguintes secrets no GitHub.
+As integrações de música (Spotify e Last.fm) e GitHub utilizam credenciais que ficam **server-side** (Netlify Functions). Apenas a escolha do provider de música (`VITE_MUSIC_PROVIDER`) é client-side.
 
-## 📝 Como Adicionar Secrets no GitHub
+## Onde configurar
 
-1. Vá para o repositório no GitHub
-2. Clique em **Settings** (Configurações)
-3. No menu lateral, clique em **Secrets and variables** → **Actions**
-4. Clique em **New repository secret**
-5. Adicione cada secret abaixo
+| Variável                | Onde configurar                                     | Escopo      |
+| ----------------------- | --------------------------------------------------- | ----------- |
+| `SPOTIFY_CLIENT_ID`     | Netlify Environment Variables                       | Server-side |
+| `SPOTIFY_CLIENT_SECRET` | Netlify Environment Variables                       | Server-side |
+| `SPOTIFY_REFRESH_TOKEN` | Netlify Environment Variables                       | Server-side |
+| `LASTFM_API_KEY`        | Netlify Environment Variables                       | Server-side |
+| `LASTFM_USERNAME`       | Netlify Environment Variables                       | Server-side |
+| `GITHUB_TOKEN`          | Netlify Environment Variables                       | Server-side |
+| `VITE_MUSIC_PROVIDER`   | Netlify Environment Variables + GitHub Secrets (CI) | Client-side |
 
-## 🔑 Secrets Necessários
+## Configurar no Netlify
 
-### Music Provider Configuration
-
-**Nome:** `VITE_MUSIC_PROVIDER`  
-**Valor:** `spotify` ou `lastfm`  
-**Descrição:** Define qual provider de música usar como preferência principal
-
-### Spotify API (opcional se usar Last.fm)
-
-**Nome:** `VITE_SPOTIFY_CLIENT_ID`  
-**Valor:** Seu Client ID do Spotify  
-**Como obter:** [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-
-**Nome:** `VITE_SPOTIFY_CLIENT_SECRET`  
-**Valor:** Seu Client Secret do Spotify  
-**Como obter:** [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-
-**Nome:** `VITE_SPOTIFY_REFRESH_TOKEN`  
-**Valor:** Seu Refresh Token do Spotify  
-**Como obter:** Use o fluxo OAuth do Spotify para gerar o token
-
-### Last.fm API (opcional se usar Spotify)
-
-**Nome:** `VITE_LASTFM_API_KEY`  
-**Valor:** Sua API Key do Last.fm  
-**Como obter:** [Last.fm API Account](https://www.last.fm/api/account/create)
-
-**Nome:** `VITE_LASTFM_USERNAME`  
-**Valor:** Seu username do Last.fm  
-**Descrição:** Seu nome de usuário público do Last.fm
-
-## ⚙️ Configuração Mínima
+1. Acesse o painel do Netlify → **Site Settings** → **Environment Variables**
+2. Adicione as variáveis necessárias conforme a opção desejada abaixo
 
 ### Opção 1: Usar apenas Spotify
 
 ```
 VITE_MUSIC_PROVIDER=spotify
-VITE_SPOTIFY_CLIENT_ID=seu_client_id
-VITE_SPOTIFY_CLIENT_SECRET=seu_client_secret
-VITE_SPOTIFY_REFRESH_TOKEN=seu_refresh_token
+SPOTIFY_CLIENT_ID=seu_client_id
+SPOTIFY_CLIENT_SECRET=seu_client_secret
+SPOTIFY_REFRESH_TOKEN=seu_refresh_token
 ```
 
 ### Opção 2: Usar apenas Last.fm
 
 ```
 VITE_MUSIC_PROVIDER=lastfm
-VITE_LASTFM_API_KEY=sua_api_key
-VITE_LASTFM_USERNAME=seu_username
+LASTFM_API_KEY=sua_api_key
+LASTFM_USERNAME=seu_username
 ```
 
 ### Opção 3: Configurar ambos (recomendado para fallback)
 
 ```
 VITE_MUSIC_PROVIDER=spotify
-VITE_SPOTIFY_CLIENT_ID=seu_client_id
-VITE_SPOTIFY_CLIENT_SECRET=seu_client_secret
-VITE_SPOTIFY_REFRESH_TOKEN=seu_refresh_token
-VITE_LASTFM_API_KEY=sua_api_key
-VITE_LASTFM_USERNAME=seu_username
+SPOTIFY_CLIENT_ID=seu_client_id
+SPOTIFY_CLIENT_SECRET=seu_client_secret
+SPOTIFY_REFRESH_TOKEN=seu_refresh_token
+LASTFM_API_KEY=sua_api_key
+LASTFM_USERNAME=seu_username
 ```
 
-## 🚀 Deploy sem Secrets
+## Configurar no GitHub (CI)
 
-Se você não configurar nenhum secret, o widget de música funcionará em **modo demo** com dados mockados. O site continuará funcionando normalmente, mas não mostrará dados reais de música.
+O CI (GitHub Actions) precisa apenas da variável client-side para o build:
 
-## ✅ Verificação
+1. Vá para o repositório no GitHub → **Settings** → **Secrets and variables** → **Actions**
+2. Adicione:
 
-Após adicionar os secrets:
+| Secret                | Valor                 |
+| --------------------- | --------------------- |
+| `VITE_MUSIC_PROVIDER` | `spotify` ou `lastfm` |
+
+As credenciais server-side (Spotify, Last.fm, GitHub) **não** precisam estar no GitHub Secrets — são usadas apenas pelas Netlify Functions em runtime.
+
+## Deploy sem credenciais
+
+Se nenhuma credencial for configurada, o widget de música não exibirá dados reais. O site continuará funcionando normalmente.
+
+## Verificação
+
+Após configurar:
 
 1. Faça um commit e push para a branch `main`
-2. Vá em **Actions** no GitHub
-3. Verifique se o workflow executou com sucesso
-4. Acesse o site e verifique se o widget de música está funcionando
+2. Verifique o deploy no painel do Netlify
+3. Acesse o site e verifique se o widget de música está funcionando
+4. No DevTools (Network), confirme que as chamadas vão para `/.netlify/functions/*`
 
-## 🔒 Segurança
+## Segurança
 
-- ❌ **NUNCA** commite secrets no código
-- ❌ **NUNCA** exponha secrets em logs
-- ✅ Use sempre GitHub Secrets para valores sensíveis
-- ✅ Mantenha o arquivo `.env` no `.gitignore`
-- ✅ Use `.env.example` apenas com valores de exemplo
+- Credenciais de API ficam **exclusivamente server-side** (Netlify Functions)
+- Nenhum secret é exposto no bundle JavaScript do client
+- Mantenha o arquivo `.env` no `.gitignore`
+- Use `.env.example` apenas com valores de exemplo

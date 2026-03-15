@@ -47,12 +47,7 @@ const mockRepos = [
 ];
 
 /** Cria mock de Response REST com headers de rate limit */
-const mockRestResponse = (
-    body: unknown,
-    ok = true,
-    status = 200,
-    rateLimitRemaining = '60',
-) =>
+const mockRestResponse = (body: unknown, ok = true, status = 200, rateLimitRemaining = '60') =>
     ({
         ok,
         status,
@@ -81,7 +76,7 @@ const mockGraphQLContributions = {
     },
 };
 
-/** Helper: mock fetch diferenciando REST vs GraphQL por URL */
+/** Helper: mock fetch diferenciando repos vs contributions via URL */
 const mockFetchForBoth = (
     restBody: unknown = mockRepos,
     restOk = true,
@@ -93,7 +88,7 @@ const mockFetchForBoth = (
     vi.spyOn(globalThis, 'fetch').mockImplementation(async (input: RequestInfo | URL) => {
         const url = typeof input === 'string' ? input : input.toString();
 
-        if (url.includes('graphql')) {
+        if (url.includes('type=contributions')) {
             return {
                 ok: graphqlOk,
                 json: async () => graphqlBody,
@@ -101,7 +96,7 @@ const mockFetchForBoth = (
             } as unknown as Response;
         }
 
-        // REST endpoint
+        // Repos endpoint via BFF
         return mockRestResponse(restBody, restOk, restStatus, rateLimitRemaining);
     });
 };
@@ -222,7 +217,7 @@ describe('useGitHub', () => {
         expect(zigLang?.color).toContain('zinc');
     });
 
-    it('contributionData vazio sem token (GraphQL não é chamado)', async () => {
+    it('contributionData retorna dados do BFF', async () => {
         mockFetchForBoth();
 
         const { result } = renderHook(() => useGitHub());
@@ -231,38 +226,22 @@ describe('useGitHub', () => {
             expect(result.current.isLoading).toBe(false);
         });
 
-        // Sem token, GraphQL retorna null → contributionData = []
+        // BFF retorna contribuições (52 semanas x 7 dias)
         const data = result.current.stats?.contributionData;
-        expect(data).toHaveLength(0);
+        expect(data).toHaveLength(52);
+        expect(data?.[0]).toHaveLength(7);
     });
 
-    it('busca contribuições via GraphQL com token configurado', async () => {
-        vi.stubEnv('VITE_GITHUB_TOKEN', 'ghp_test123');
+    it('contributionData vazio quando BFF retorna data: null', async () => {
+        mockFetchForBoth(mockRepos, true, 200, '60', { data: null }, true);
 
-        // Re-import para pegar novo valor da env
-        vi.resetModules();
-        const { useGitHub: useGitHubWithToken } = await import('./useGitHub');
-
-        mockFetchForBoth();
-
-        const { result } = renderHook(() => useGitHubWithToken());
+        const { result } = renderHook(() => useGitHub());
 
         await waitFor(() => {
             expect(result.current.isLoading).toBe(false);
         });
 
-        // Verifica que GraphQL foi chamado
-        const fetchCalls = vi.mocked(globalThis.fetch).mock.calls;
-        const graphqlCall = fetchCalls.find(
-            ([url]) => typeof url === 'string' && url.includes('graphql'),
-        );
-        expect(graphqlCall).toBeDefined();
-
-        // Contribuições devem ter estrutura 52x7
-        expect(result.current.stats?.contributionData).toHaveLength(52);
-        expect(result.current.stats?.contributionData?.[0]).toHaveLength(7);
-
-        vi.stubEnv('VITE_GITHUB_TOKEN', '');
+        expect(result.current.stats?.contributionData).toHaveLength(0);
     });
 
     it('stats é null quando API falha sem cache', async () => {
@@ -294,10 +273,10 @@ describe('useGitHub', () => {
         const { result } = renderHook(() => useGitHub());
 
         await waitFor(() => {
-            expect(result.current.isLoading).toBe(false);
+            expect(result.current.isRateLimited).toBe(true);
         });
 
-        expect(result.current.isRateLimited).toBe(true);
+        expect(result.current.isLoading).toBe(false);
         expect(result.current.stats).not.toBeNull();
         // Deve usar dados do cache (totalStars = 215 do primeiro fetch)
         expect(result.current.stats?.totalStars).toBe(215);

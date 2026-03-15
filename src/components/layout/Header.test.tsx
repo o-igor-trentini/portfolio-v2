@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@/tests/helpers/render';
+import { axe } from 'vitest-axe';
 import { Header } from './Header';
 
 // Mock motion/react — componentes retornam elementos HTML nativos
@@ -97,5 +98,12 @@ describe('Header', () => {
             await user.click(desktopButtons[2]);
             expect(mockTerminalToggle).toHaveBeenCalledTimes(1);
         }
+    });
+
+    it('não deve ter violações de acessibilidade', async () => {
+        const { container } = render(<Header onTerminalToggle={mockTerminalToggle} />);
+        const results = await axe(container);
+
+        expect(results).toHaveNoViolations();
     });
 });

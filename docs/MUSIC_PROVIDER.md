@@ -42,7 +42,9 @@ Quando múltiplos providers estão disponíveis, botões de alternância aparece
 
 ## Configuração
 
-### 1. Escolher o Provider
+Todas as credenciais de música são **server-side** (Netlify Functions). Apenas a escolha do provider é client-side.
+
+### 1. Escolher o Provider (client-side)
 
 No arquivo `.env`, defina qual plataforma usar:
 
@@ -50,14 +52,14 @@ No arquivo `.env`, defina qual plataforma usar:
 VITE_MUSIC_PROVIDER=spotify  # ou 'lastfm'
 ```
 
-### 2. Configurar Credenciais
+### 2. Configurar Credenciais (server-side)
 
 #### Spotify
 
 ```env
-VITE_SPOTIFY_CLIENT_ID=your_client_id_here
-VITE_SPOTIFY_CLIENT_SECRET=your_client_secret_here
-VITE_SPOTIFY_REFRESH_TOKEN=your_refresh_token_here
+SPOTIFY_CLIENT_ID=your_client_id_here
+SPOTIFY_CLIENT_SECRET=your_client_secret_here
+SPOTIFY_REFRESH_TOKEN=your_refresh_token_here
 ```
 
 **Como obter as credenciais do Spotify:**
@@ -71,8 +73,8 @@ VITE_SPOTIFY_REFRESH_TOKEN=your_refresh_token_here
 #### Last.fm
 
 ```env
-VITE_LASTFM_API_KEY=your_lastfm_api_key_here
-VITE_LASTFM_USERNAME=your_lastfm_username_here
+LASTFM_API_KEY=your_lastfm_api_key_here
+LASTFM_USERNAME=your_lastfm_username_here
 ```
 
 **Como obter as credenciais do Last.fm:**
@@ -182,35 +184,37 @@ interface MusicData {
 
 ```env
 VITE_MUSIC_PROVIDER=lastfm
-VITE_LASTFM_API_KEY=abc123...
-VITE_LASTFM_USERNAME=seu_username
+LASTFM_API_KEY=abc123...
+LASTFM_USERNAME=seu_username
 ```
 
 ### Usar Spotify (padrão)
 
 ```env
 VITE_MUSIC_PROVIDER=spotify
-VITE_SPOTIFY_CLIENT_ID=xyz789...
-VITE_SPOTIFY_CLIENT_SECRET=secret123...
-VITE_SPOTIFY_REFRESH_TOKEN=refresh456...
+SPOTIFY_CLIENT_ID=xyz789...
+SPOTIFY_CLIENT_SECRET=secret123...
+SPOTIFY_REFRESH_TOKEN=refresh456...
 ```
 
 ## Troubleshooting
 
 ### Spotify não está funcionando
 
-- Verifique se todas as credenciais estão corretas
+- Verifique se as credenciais server-side estão corretas (`SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`)
 - Confirme que o Refresh Token é válido
-- Veja o console do navegador para erros de API
+- Verifique os logs da Netlify Function (`/.netlify/functions/spotify`)
 
 ### Last.fm não está funcionando
 
-- Verifique se a API Key está correta
+- Verifique se as credenciais server-side estão corretas (`LASTFM_API_KEY`, `LASTFM_USERNAME`)
 - Confirme que o username existe e é público
 - Certifique-se de ter scrobbles recentes
+- Verifique os logs da Netlify Function (`/.netlify/functions/lastfm`)
 
 ### Modo Demo está ativo
 
 - Nenhuma credencial foi configurada
-- Verifique o arquivo `.env`
+- Verifique o arquivo `.env` (credenciais server-side sem prefixo `VITE_`)
+- No Netlify, verifique as variáveis em **Site Settings → Environment Variables**
 - Reinicie o servidor de desenvolvimento após alterar `.env`

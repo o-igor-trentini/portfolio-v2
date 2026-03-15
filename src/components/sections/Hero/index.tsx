@@ -1,7 +1,7 @@
-import { useLanguage } from '@hooks';
+import { useLanguage, useInViewport } from '@hooks';
 import { Button } from '@ui';
 import { ArrowRight, Mail, Github, Linkedin } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useAnimationControls, type Easing } from 'motion/react';
 import { useEffect, useState, useRef, useCallback, type ReactElement } from 'react';
 import { PriorityImage } from '../../common/OptimizedImage';
 import { SocialLinks } from '../Contact/constants';
@@ -10,6 +10,109 @@ export const Hero = (): ReactElement => {
     const { t } = useLanguage();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const rafId = useRef<number | undefined>(undefined);
+    const { ref: sectionRef, isInViewport } = useInViewport<HTMLElement>({ threshold: 0.05 });
+    const svgRef = useRef<SVGSVGElement | null>(null);
+
+    // Controles de animação para parar/retomar quando fora do viewport
+    const bgGradient1 = useAnimationControls();
+    const bgGradient2 = useAnimationControls();
+    const dotsPattern = useAnimationControls();
+    const floatingShape1 = useAnimationControls();
+    const floatingShape2 = useAnimationControls();
+    const scanLines = useAnimationControls();
+    const orb1 = useAnimationControls();
+    const orb2 = useAnimationControls();
+    const orb3 = useAnimationControls();
+
+    const animationDefs = useRef([
+        {
+            control: bgGradient1,
+            def: {
+                backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+                transition: { duration: 25, repeat: Infinity, ease: 'linear' as Easing },
+            },
+        },
+        {
+            control: bgGradient2,
+            def: {
+                backgroundPosition: ['100% 100%', '0% 0%', '100% 100%'],
+                transition: { duration: 30, repeat: Infinity, ease: 'linear' as Easing },
+            },
+        },
+        {
+            control: dotsPattern,
+            def: {
+                opacity: [0.3, 0.5, 0.3],
+                transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' as Easing },
+            },
+        },
+        {
+            control: floatingShape1,
+            def: {
+                x: [0, 120, 0],
+                y: [0, -80, 0],
+                rotate: [0, 180, 360],
+                borderRadius: ['30% 70% 70% 30%', '70% 30% 30% 70%', '30% 70% 70% 30%'],
+                transition: { duration: 25, repeat: Infinity, ease: 'linear' as Easing },
+            },
+        },
+        {
+            control: floatingShape2,
+            def: {
+                x: [0, -100, 0],
+                y: [0, 100, 0],
+                rotate: [0, -180, -360],
+                borderRadius: ['60% 40% 40% 60%', '40% 60% 60% 40%', '60% 40% 40% 60%'],
+                transition: { duration: 30, repeat: Infinity, ease: 'linear' as Easing },
+            },
+        },
+        {
+            control: scanLines,
+            def: {
+                y: ['0%', '100%'],
+                transition: { duration: 8, repeat: Infinity, ease: 'linear' as Easing },
+            },
+        },
+        {
+            control: orb1,
+            def: {
+                x: [0, 50, 0],
+                y: [0, -30, 0],
+                scale: [1, 1.2, 1],
+                opacity: [0.15, 0.3, 0.15],
+                transition: { duration: 12, repeat: Infinity, ease: 'easeInOut' as Easing },
+            },
+        },
+        {
+            control: orb2,
+            def: {
+                x: [0, -40, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.3, 1],
+                opacity: [0.15, 0.3, 0.15],
+                transition: { duration: 15, repeat: Infinity, ease: 'easeInOut' as Easing },
+            },
+        },
+        {
+            control: orb3,
+            def: {
+                scale: [1, 1.5, 1],
+                opacity: [0.1, 0.2, 0.1],
+                transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' as Easing },
+            },
+        },
+    ]);
+
+    // Pausa/retoma animações baseado na visibilidade do viewport
+    useEffect(() => {
+        if (isInViewport) {
+            animationDefs.current.forEach(({ control, def }) => control.start(def));
+            if (svgRef.current) svgRef.current.style.display = '';
+        } else {
+            animationDefs.current.forEach(({ control }) => control.stop());
+            if (svgRef.current) svgRef.current.style.display = 'none';
+        }
+    }, [isInViewport]);
 
     const scrollToSection = useCallback((id: string) => {
         const element = document.getElementById(id);
@@ -45,6 +148,7 @@ export const Hero = (): ReactElement => {
 
     return (
         <section
+            ref={sectionRef}
             id="home"
             className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white dark:bg-zinc-950"
         >
@@ -52,14 +156,7 @@ export const Hero = (): ReactElement => {
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 {/* Multiple layered animated gradients for depth */}
                 <motion.div
-                    animate={{
-                        backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                    animate={bgGradient1}
                     className="absolute inset-0 opacity-30 md:opacity-50"
                     style={{
                         willChange: 'background-position',
@@ -71,14 +168,7 @@ export const Hero = (): ReactElement => {
 
                 {/* Secondary gradient layer with different timing */}
                 <motion.div
-                    animate={{
-                        backgroundPosition: ['100% 100%', '0% 0%', '100% 100%'],
-                    }}
-                    transition={{
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                    animate={bgGradient2}
                     className="absolute inset-0 opacity-20 md:opacity-40"
                     style={{
                         willChange: 'background-position',
@@ -98,14 +188,7 @@ export const Hero = (): ReactElement => {
 
                 {/* Animated dots pattern - Smaller on mobile */}
                 <motion.div
-                    animate={{
-                        opacity: [0.3, 0.5, 0.3],
-                    }}
-                    transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
+                    animate={dotsPattern}
                     className="absolute inset-0"
                     style={{
                         willChange: 'opacity',
@@ -117,6 +200,7 @@ export const Hero = (): ReactElement => {
 
                 {/* Animated mesh grid with SVG - Reduced opacity on mobile */}
                 <svg
+                    ref={svgRef}
                     className="absolute inset-0 w-full h-full opacity-10 md:opacity-20"
                     xmlns="http://www.w3.org/2000/svg"
                 >
@@ -186,44 +270,17 @@ export const Hero = (): ReactElement => {
 
                 {/* Floating organic shapes */}
                 <motion.div
-                    animate={{
-                        x: [0, 120, 0],
-                        y: [0, -80, 0],
-                        rotate: [0, 180, 360],
-                        borderRadius: ['30% 70% 70% 30%', '70% 30% 30% 70%', '30% 70% 70% 30%'],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                    animate={floatingShape1}
                     className="absolute top-20 left-[15%] w-40 h-40 border border-purple-500/15"
                 />
                 <motion.div
-                    animate={{
-                        x: [0, -100, 0],
-                        y: [0, 100, 0],
-                        rotate: [0, -180, -360],
-                        borderRadius: ['60% 40% 40% 60%', '40% 60% 60% 40%', '60% 40% 40% 60%'],
-                    }}
-                    transition={{
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                    animate={floatingShape2}
                     className="absolute bottom-32 right-[15%] w-32 h-32 border border-pink-500/15"
                 />
 
                 {/* Animated scan lines for tech feel */}
                 <motion.div
-                    animate={{
-                        y: ['0%', '100%'],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: 'linear',
-                    }}
+                    animate={scanLines}
                     className="absolute inset-0 pointer-events-none"
                     style={{
                         background:
@@ -233,45 +290,17 @@ export const Hero = (): ReactElement => {
 
                 {/* Large gradient orbs with complex animation */}
                 <motion.div
-                    animate={{
-                        x: [0, 50, 0],
-                        y: [0, -30, 0],
-                        scale: [1, 1.2, 1],
-                        opacity: [0.15, 0.3, 0.15],
-                    }}
-                    transition={{
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
+                    animate={orb1}
                     className="absolute top-10 right-[10%] w-[500px] h-[500px] bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl"
                 />
                 <motion.div
-                    animate={{
-                        x: [0, -40, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 1.3, 1],
-                        opacity: [0.15, 0.3, 0.15],
-                    }}
-                    transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
+                    animate={orb2}
                     className="absolute bottom-10 left-[10%] w-[500px] h-[500px] bg-gradient-to-tr from-pink-500 via-purple-500 to-pink-600 rounded-full blur-3xl"
                 />
 
                 {/* Additional smaller orbs for depth */}
                 <motion.div
-                    animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.1, 0.2, 0.1],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
+                    animate={orb3}
                     className="absolute top-1/2 left-1/3 w-64 h-64 bg-purple-400 rounded-full blur-3xl"
                 />
 

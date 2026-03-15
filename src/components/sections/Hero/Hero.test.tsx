@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 import { render, screen } from '@/tests/helpers/render';
+import { axe } from 'vitest-axe';
 import { Hero } from './index';
 
 // Mock motion/react
@@ -29,6 +30,11 @@ vi.mock('motion/react', () => ({
         },
     ),
     AnimatePresence: ({ children }: any) => children,
+    useAnimationControls: () => ({
+        start: vi.fn(),
+        stop: vi.fn(),
+        set: vi.fn(),
+    }),
 }));
 
 // Mock PriorityImage
@@ -89,5 +95,12 @@ describe('Hero', () => {
         const img = screen.getByRole('img', { name: 'Igor Trentini' });
         expect(img).toBeInTheDocument();
         expect(img).toHaveAttribute('src', '/images/perfil.webp');
+    });
+
+    it('não deve ter violações de acessibilidade', async () => {
+        const { container } = render(<Hero />);
+        const results = await axe(container);
+
+        expect(results).toHaveNoViolations();
     });
 });

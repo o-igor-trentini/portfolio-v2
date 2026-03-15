@@ -45,7 +45,7 @@ export interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageEle
  * - Responsive images (srcset)
  * - Error handling
  */
-export function OptimizedImage({
+export const OptimizedImage = ({
     src,
     alt,
     width,
@@ -61,7 +61,7 @@ export function OptimizedImage({
     onLoad,
     onError,
     ...rest
-}: OptimizedImageProps) {
+}: OptimizedImageProps) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [blurDataURL, setBlurDataURL] = useState<string | undefined>(undefined);
@@ -156,19 +156,19 @@ export function OptimizedImage({
             />
         </picture>
     );
-}
+};
 
 /**
  * Componente de imagem com prioridade (para hero, LCP)
  */
-export function PriorityImage(props: Omit<OptimizedImageProps, 'priority'>) {
+export const PriorityImage = (props: Omit<OptimizedImageProps, 'priority'>) => {
     return <OptimizedImage {...props} priority />;
-}
+};
 
 /**
  * Componente de imagem simples (sem otimizações)
  */
-export function SimpleImage({ src, alt, className, style, ...rest }: ImgHTMLAttributes<HTMLImageElement>) {
+export const SimpleImage = ({ src, alt, className, style, ...rest }: ImgHTMLAttributes<HTMLImageElement>) => {
     const [hasError, setHasError] = useState(false);
 
     if (hasError) {
@@ -180,6 +180,6 @@ export function SimpleImage({ src, alt, className, style, ...rest }: ImgHTMLAttr
     }
 
     return <img src={src} alt={alt} className={className} style={style} onError={() => setHasError(true)} {...rest} />;
-}
+};
 
 export default OptimizedImage;
