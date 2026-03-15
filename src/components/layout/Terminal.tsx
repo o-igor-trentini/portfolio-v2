@@ -89,6 +89,7 @@ const Terminal: FC<TerminalProps> = ({ isOpen, onClose }): ReactElement => {
                                     className="flex-1 bg-transparent text-green-400 font-mono text-sm outline-none"
                                     autoComplete="off"
                                     spellCheck="false"
+                                    aria-label={t('terminal.inputLabel')}
                                 />
                             </div>
                         </form>

@@ -50,12 +50,16 @@ VITE_MUSIC_PROVIDER=spotify|lastfm
 
 ### Path Alias
 
-`@/*` mapeia para `src/*`.
+| Alias    | Mapeia para                   | Uso                                                |
+| -------- | ----------------------------- | -------------------------------------------------- |
+| `@/*`    | `src/*`                       | Imports gerais: `import { cn } from '@/lib/utils'` |
+| `@hooks` | `src/hooks/` (barrel)         | Hooks: `import { useTheme } from '@hooks'`         |
+| `@ui`    | `src/components/ui/` (barrel) | UI: `import { Button } from '@ui'`                 |
 
 ### Estrutura de Diretórios
 
 - `src/components/ui/` — Primitivos atômicos de UI (Radix UI + CVA, padrão shadcn/ui)
-- `src/components/layout/` — Estrutura da página: Header, Footer, CustomCursor, Terminal, ImageGallery
+- `src/components/layout/` — Estrutura da página: Header, Footer, CustomCursor, Terminal, ScrollToTop, ImageGallery, SkipToContent
 - `src/components/sections/` — Seções (Hero, Projects, About, TechStack, Experience, Contact), cada uma com seu diretório
 - `src/components/common/` — Utilitários compartilhados: SEO, OptimizedImage
 - `src/hooks/` — Hooks customizados (tema, idioma, música, GitHub)

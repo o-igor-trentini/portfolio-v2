@@ -132,6 +132,8 @@ Cenário: Componente Terminal difícil de testar (muitos side effects)
 
 ## Princípios Obrigatórios
 
+Estas convenções também estão documentadas em CLAUDE.md e CONTRIBUTING.md.
+
 ### 1. Idioma e Estilo de Comunicação
 
 **OBRIGATÓRIO - Todo código de teste deve seguir:**
@@ -387,32 +389,16 @@ describe('utilFunction', () => {
 
 ## Comandos Úteis
 
-### Executar Testes
+> Consulte a seção "Comandos Essenciais" do [CLAUDE.md](../../CLAUDE.md) para a lista completa.
+
+Comandos de teste:
 
 ```bash
-# Rodar todos os testes (single run)
-npm test
-
-# Watch mode
-npm run test:watch
-
-# Com cobertura
-npm run test:coverage
-
-# Arquivo específico
-npx vitest src/components/sections/Hero/Hero.test.tsx
-
-# Pattern
-npx vitest --grep="Hero"
-```
-
-### Coverage
-
-```bash
-# Gerar relatório de cobertura
-npm run test:coverage
-
-# Relatório está em src/tests/coverage/
+npm test                 # Roda testes (single run)
+npm run test:watch       # Testes em modo watch
+npm run test:coverage    # Testes com cobertura
+npx vitest src/path/file.test.tsx  # Arquivo específico
+npx vitest --grep="Pattern"        # Por padrão
 ```
 
 ---
@@ -469,21 +455,21 @@ O setup já inclui:
 
 ### Estrutura de Testes
 
-```
-src/
-├── components/
-│   └── sections/
-│       └── Hero/
-│           ├── Hero.tsx
-│           └── Hero.test.tsx    # Co-localizado
-├── hooks/
-│   └── useTheme.test.ts
-└── tests/
-    ├── setup.ts                 # Setup global
-    ├── a11y.test.tsx            # Testes de acessibilidade
-    ├── helpers/                 # Helpers de teste
-    └── coverage/                # Relatórios de cobertura
-```
+> Consulte a seção "Estrutura de Pastas" do [CLAUDE.md](../../CLAUDE.md) para a árvore completa do projeto.
+
+Testes ficam **co-localizados** com seus arquivos-fonte (ex: `Hero.tsx` → `Hero.test.tsx`). Arquivos compartilhados de teste ficam em `src/tests/` (setup global, helpers, coverage).
+
+### Helpers de Teste
+
+O projeto possui helpers customizados em `src/tests/helpers/`:
+
+- **`render.tsx`** — Custom render que envolve componentes com `I18nTestProvider`. Importar `render` e `screen` deste arquivo em vez de `@testing-library/react`:
+
+    ```typescript
+    import { render, screen } from '@/tests/helpers/render';
+    ```
+
+- **`i18n.tsx`** — Provider i18n configurado para testes com os três locales (pt, en, es)
 
 ### Mocking de Hooks Zustand
 

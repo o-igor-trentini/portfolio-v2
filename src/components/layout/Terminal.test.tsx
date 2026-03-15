@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@/tests/helpers/render';
-import { fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/tests/helpers/render';
+import { axe } from 'vitest-axe';
 import Terminal from './Terminal';
 
 // Mock motion/react
@@ -50,12 +50,12 @@ describe('Terminal', () => {
         vi.clearAllMocks();
     });
 
-    // handleSubmit lê o valor do inputRef.current.value — basta setar no DOM e submeter
+    // useTerminal.handleSubmit lê o comando de inputRef.current.value (DOM direto),
+    // por isso setamos o value no DOM e usamos fireEvent.submit (não existe userEvent.submit)
     const submitCommand = (command: string) => {
         const input = screen.getByRole('textbox') as HTMLInputElement;
         const form = input.closest('form')!;
 
-        // Seta o value diretamente no DOM (o ref aponta para este elemento)
         input.value = command;
         fireEvent.submit(form);
     };
@@ -89,7 +89,6 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('projects');
-        // Verifica que lista títulos reais dos projetos via i18n
         expect(screen.getByText(/Chat em Tempo Real/)).toBeInTheDocument();
         expect(screen.getByText(/Projetos \(6\)/)).toBeInTheDocument();
     });
@@ -98,7 +97,6 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('experience');
-        // Verifica dados reais da experiência (company do content.ts + position do i18n pt)
         expect(screen.getByText(/Full Stack Developer @ Logae/)).toBeInTheDocument();
         expect(screen.getByText(/Golang.*React.*TypeScript/)).toBeInTheDocument();
     });
@@ -107,7 +105,6 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('contact');
-        // Verifica URLs reais do SocialLinks enum
         expect(screen.getByText(/github\.com\/o-igor-trentini/)).toBeInTheDocument();
         expect(screen.getByText(/linkedin\.com\/in\/igor-trentini/)).toBeInTheDocument();
     });
@@ -116,7 +113,6 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('skills');
-        // Verifica tech stack real do experience atual
         expect(screen.getByText(/Golang.*React.*TypeScript.*PostgreSQL/)).toBeInTheDocument();
     });
 
@@ -124,7 +120,6 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('anime');
-        // Verifica favoritos reais de about.interests.anime.favorites (pt.ts)
         expect(screen.getByText(/Attack on Titan/)).toBeInTheDocument();
         expect(screen.getByText(/Death Note/)).toBeInTheDocument();
     });
@@ -184,5 +179,12 @@ describe('Terminal', () => {
 
         await user.keyboard('{Escape}');
         expect(mockOnClose).toHaveBeenCalled();
+    });
+
+    it('não deve ter violações de acessibilidade', async () => {
+        const { container } = render(<Terminal isOpen={true} onClose={mockOnClose} />);
+        const results = await axe(container);
+
+        expect(results).toHaveNoViolations();
     });
 });

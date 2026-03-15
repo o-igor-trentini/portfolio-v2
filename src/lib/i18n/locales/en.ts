@@ -333,6 +333,7 @@ const en = {
         themeChanged: 'Theme changed to: {{theme}}',
         clear: 'Terminal cleared',
         unknown: 'Command not found. Type "help" to see available commands.',
+        inputLabel: 'Terminal command',
     },
     accessibility: {
         skipToContent: 'Skip to content',

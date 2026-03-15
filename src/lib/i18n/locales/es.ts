@@ -344,6 +344,7 @@ const es = {
         themeChanged: 'Tema cambiado a: {{theme}}',
         clear: 'Terminal limpiada',
         unknown: 'Comando no encontrado. Escribe "help" para ver comandos disponibles.',
+        inputLabel: 'Comando del terminal',
     },
     accessibility: {
         skipToContent: 'Saltar al contenido',

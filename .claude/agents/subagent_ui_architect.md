@@ -331,22 +331,14 @@ const NewSection = lazy(() => import('@/components/sections/NewSection'));
 
 ## Comandos Úteis
 
-### Análise de Bundle
+> Consulte a seção "Comandos Essenciais" do [CLAUDE.md](../../CLAUDE.md) para a lista completa.
+
+Comandos mais relevantes para decisões arquiteturais:
 
 ```bash
-# Build com análise
-npm run build
-
-# Verificar tipos TypeScript
-npx tsc --noEmit
-```
-
-### Lint e Type Check
-
-```bash
-npm run lint             # ESLint (zero warnings)
-npm run lint:fix         # Auto-fix
-npx tsc --noEmit         # TypeScript check
+npx vite-bundle-visualizer  # Analisa bundles gerados
+npx tsc --noEmit             # Verificação TypeScript
+npm run build                # Build completo (tsc + vite)
 ```
 
 ---
@@ -396,32 +388,14 @@ npx tsc --noEmit         # TypeScript check
 
 ```
 Chunks separados para:
-- react (react, react-dom)
+- vendor (react, react-dom)
 - motion (motion/react)
 - icons (lucide-react)
-- radix-ui (@radix-ui/*)
+- ui (@radix-ui/*)
 - i18n (i18next, react-i18next)
 ```
 
-### Estrutura da Aplicação
-
-```
-src/
-├── App.tsx              # Root + lazy loading de seções
-├── main.tsx             # Entry point
-├── components/
-│   ├── ui/              # shadcn/ui (primitivos)
-│   ├── layout/          # Header, Footer, Terminal
-│   ├── sections/        # Seções lazy-loaded
-│   └── common/          # SEO, OptimizedImage
-├── hooks/               # Custom hooks (Zustand, APIs)
-├── lib/
-│   ├── api.ts           # Cliente BFF
-│   ├── cache.ts         # Cache utility
-│   └── i18n/            # Configuração i18n
-├── config/              # Configurações runtime
-└── tests/               # Setup e helpers de teste
-```
+> Consulte a seção "Estrutura de Pastas" do [CLAUDE.md](../../CLAUDE.md) para a árvore completa.
 
 ### Integrações Críticas
 
@@ -436,13 +410,11 @@ src/
 
 ### 1. Zustand ou Context API para novo estado?
 
-- **Zustand**: Estado global persistido, estado compartilhado complexo
-- **Context API**: Providers de bibliotecas (i18n, motion)
-- **Local state**: Estado exclusivo de um componente
+Zustand para persistido, Context para providers de bibliotecas, local state para o resto. Ver CLAUDE.md para detalhes completos.
 
 ### 2. Quando usar code splitting?
 
-Sempre para seções da página. Para componentes pesados (Terminal, modais complexos).
+Sempre para seções da página e componentes pesados (Terminal, modais). Ver CLAUDE.md para detalhes completos.
 
 ### 3. Como lidar com acessibilidade?
 

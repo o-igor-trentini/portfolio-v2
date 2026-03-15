@@ -112,6 +112,8 @@ src/
 │   │   ├── Footer.tsx
 │   │   ├── CustomCursor.tsx
 │   │   ├── Terminal.tsx         # Terminal interativo
+│   │   ├── ScrollToTop.tsx      # Botão voltar ao topo
+│   │   ├── ImageGallery.tsx     # Galeria de imagens (lightbox)
 │   │   └── SkipToContent.tsx    # Acessibilidade
 │   ├── sections/                # Seções lazy-loaded (cada uma com diretório)
 │   │   ├── Hero/
@@ -128,6 +130,8 @@ src/
 │   ├── useTheme.tsx             # Zustand store (tema)
 │   ├── useLanguage.tsx          # i18next wrapper
 │   ├── useMusic.tsx             # Spotify/Last.fm unificado
+│   ├── useSpotify/              # Hook Spotify (interno do useMusic)
+│   ├── useLastFM/               # Hook Last.fm (interno do useMusic)
 │   ├── useGitHub.tsx            # GitHub API via BFF
 │   ├── useTerminal.ts           # Estado do terminal
 │   ├── useInViewport.ts         # IntersectionObserver
@@ -138,11 +142,12 @@ src/
 │   ├── api.ts                   # Cliente BFF (fetchFunction)
 │   ├── cache.ts                 # Cache utility
 │   └── i18n/
+│       ├── config.ts            # Configuração i18next
 │       ├── locales/
 │       │   ├── pt.ts            # 🇧🇷 Fonte de verdade
 │       │   ├── en.ts            # 🇺🇸
 │       │   └── es.ts            # 🇪🇸
-│       └── index.ts             # Configuração i18next
+│       └── index.ts             # Re-export
 │
 ├── config/
 │   └── musicProvider.ts         # Config runtime do provedor de música
@@ -151,12 +156,16 @@ src/
 │   └── imageUtils.ts            # Helpers de otimização de imagem
 │
 ├── styles/
-│   └── globals.css              # Diretivas Tailwind
+│   ├── globals.css              # Diretivas Tailwind
+│   ├── fonts.css                # @font-face declarations
+│   └── main.css                 # CSS compilado (Tailwind output)
 │
 └── tests/
     ├── setup.ts                 # Setup global (jest-dom, vitest-axe, mocks)
     ├── a11y.test.tsx             # Testes de acessibilidade
     └── helpers/                 # Helpers de teste
+        ├── render.tsx           # Custom render com I18nTestProvider
+        └── i18n.tsx             # Provider i18n para testes
 
 netlify/functions/               # Serverless functions (BFF)
 ├── github.ts                    # GitHub API (repos + contribuições)

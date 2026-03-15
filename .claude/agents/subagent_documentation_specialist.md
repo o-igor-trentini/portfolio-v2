@@ -67,7 +67,7 @@ Você é um **especialista em Documentação Técnica Frontend** com profundo co
 7. **Documentar hooks customizados** em `src/hooks/`
 8. **Atualizar referências** cruzadas entre documentos
 9. **Manter CHANGELOG_AGENTS.md organizado**
-10. **Manter docs/** - Documentação específica (DEPLOY_SECRETS, I18N, MUSIC_PROVIDER, etc.)
+10. **Manter docs/** - Documentação específica: DEPLOY_SECRETS.md, I18N.md, MUSIC_PROVIDER.md, IMAGE_OPTIMIZATION.md, FONT_OPTIMIZATION.md
 11. **⚠️ AO FINAL**: Sempre registrar resumo da interação no CHANGELOG_AGENTS.md
 
 ---
@@ -329,7 +329,7 @@ Chaves em `src/lib/i18n/locales/`:
 
 **Responsabilidades Especiais:**
 
-Este subagente é o **único responsável** pela manutenção e organização do CHANGELOG_AGENTS.md.
+Responsável pela **validação, organização e manutenção** do CHANGELOG_AGENTS.md. Cada subagente registra sua própria entrada ao final da interação; este subagente valida o formato e organiza o histórico.
 
 **Tarefas:**
 
@@ -357,7 +357,7 @@ Este subagente é o **único responsável** pela manutenção e organização do
     - Atualizar docs principais (README, CLAUDE.md, CONTRIBUTING.md)
     - Criar/atualizar JSDoc em código
     - Atualizar i18n docs se necessário
-    - Atualizar docs/ (DEPLOY_SECRETS, I18N, MUSIC_PROVIDER, etc.)
+    - Atualizar docs/ (DEPLOY_SECRETS.md, I18N.md, MUSIC_PROVIDER.md, IMAGE_OPTIMIZATION.md, FONT_OPTIMIZATION.md)
 
 4. **Sincronizar**
     - Garantir consistência entre documentos

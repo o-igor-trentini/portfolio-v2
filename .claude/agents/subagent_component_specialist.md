@@ -144,34 +144,26 @@ Cenário: Criei novo componente ProjectCard
 
 ## Princípios Obrigatórios
 
+> Ver [CLAUDE.md](../../CLAUDE.md) e [CONTRIBUTING.md](../../CONTRIBUTING.md) para regras completas de código.
+
 ### 1. Sempre Usar Arrow Functions e Functional Components
 
-**NUNCA** usar declaração `function` ou class components.
-
-**IMPORTANTE:** Sempre usar importações diretas, **NÃO** usar namespace `React.*`
+Arrow functions com tipagem explícita (`FC`, `ReactElement`), importações diretas (sem `React.*`):
 
 ```typescript
 import { type FC, type ReactElement, useState } from 'react';
 
-// ✅ Correto - Arrow function + tipagem explícita
 const MyComponent: FC<Props> = ({ prop1, prop2 }): ReactElement => {
     const [state, setState] = useState();
     return <div>...</div>;
 };
-
-// ❌ PROIBIDO - Declaração function
-function MyComponent({ prop1, prop2 }) { ... }
-
-// ❌ PROIBIDO - Class component
-class MyComponent extends Component { ... }
 ```
 
 ### 2. TypeScript Strict Obrigatório
 
-Todos os componentes devem ter tipos bem definidos. Sem non-null assertions (`!`).
+Tipos bem definidos, sem non-null assertions (`!`):
 
 ```typescript
-// ✅ Correto
 interface ProjectCardProps {
     project: Project;
     onSelect?: (project: Project) => void;
@@ -185,16 +177,12 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, onSelect, featured = false
 
 ### 3. Imports Absolutos com Path Alias
 
-Usar `@/*`, `@hooks` e `@ui` sempre.
+Usar `@/*`, `@hooks` e `@ui` sempre:
 
 ```typescript
-// ✅ Correto
 import { Button } from '@ui';
 import { useTheme } from '@hooks';
 import { cn } from '@/lib/utils';
-
-// ❌ Evitar
-import { Button } from '../../components/ui/button';
 ```
 
 ### 4. Componentes UI Seguem Padrão shadcn/ui (CVA + cn())
@@ -285,22 +273,7 @@ const MyComponent: FC = (): ReactElement => {
 
 ### 8. Formatação JSX: Espaçamento entre Componentes
 
-**SEMPRE** adicionar linha em branco entre componentes irmãos. Somente wrapper direto pode "encostar" no primeiro filho.
-
-```typescript
-// ✅ Correto
-<>
-    <div>
-        <span>texto 1</span>
-
-        <span>texto 2</span>
-    </div>
-
-    <div>
-        <span>teste</span>
-    </div>
-</>
-```
+Linha em branco entre componentes irmãos. Wrapper direto pode "encostar" no primeiro filho. Ver CLAUDE.md para exemplos.
 
 ---
 
@@ -462,18 +435,13 @@ export { MyComponent, componentVariants };
 
 ## Comandos Úteis
 
-### Comandos Específicos de Componentes
+> Consulte a seção "Comandos Essenciais" do [CLAUDE.md](../../CLAUDE.md) para a lista completa.
+
+Comandos mais relevantes para desenvolvimento de componentes:
 
 ```bash
-# Desenvolvimento
 npm run dev              # Hot reload via Netlify CLI (porta 3000)
-npm run dev:vite         # Hot reload via Vite diretamente
-
-# Verificações de tipo
-npx tsc --noEmit         # TypeScript check sem gerar arquivos
-
-# Linting
-npm run lint             # Verificar lint (zero warnings)
+npx tsc --noEmit         # Verificação TypeScript
 npm run lint:fix         # Auto-fix lint
 ```
 
@@ -519,33 +487,7 @@ npm run lint:fix         # Auto-fix lint
 
 ## Contexto Portfolio
 
-### Estrutura de Componentes
-
-```
-src/components/
-├── ui/                  # shadcn/ui (CVA + Radix UI)
-│   ├── button.tsx
-│   ├── badge.tsx
-│   ├── input.tsx
-│   ├── tooltip.tsx
-│   └── index.ts         # Barrel file (@ui)
-├── layout/              # Estrutura da página
-│   ├── Header.tsx
-│   ├── Footer.tsx
-│   ├── CustomCursor.tsx
-│   ├── Terminal.tsx
-│   └── SkipToContent.tsx
-├── sections/            # Seções lazy-loaded
-│   ├── Hero/
-│   ├── Projects/
-│   ├── About/
-│   ├── TechStack/
-│   ├── Experience/
-│   └── Contact/
-└── common/              # Componentes compartilhados
-    ├── SEO.tsx
-    └── OptimizedImage.tsx
-```
+> Consulte a seção "Estrutura de Pastas" do [CLAUDE.md](../../CLAUDE.md) para a árvore completa.
 
 ### Hooks Disponíveis
 
@@ -598,10 +540,7 @@ Use quando o componente renderiza listas grandes ou recebe props que mudam raram
 
 ### 2. Componentes em /ui/ ou /common/?
 
-- **`/ui/`**: Componentes primitivos shadcn/ui (Button, Badge, Input)
-- **`/common/`**: Componentes compartilhados específicos do projeto (SEO, OptimizedImage)
-- **`/layout/`**: Componentes de estrutura (Header, Footer, Terminal)
-- **`/sections/`**: Seções da página (Hero, Projects, About)
+Consulte "Estrutura de Pastas" no [CLAUDE.md](../../CLAUDE.md). Resumo: `/ui/` para primitivos shadcn/ui, `/common/` para compartilhados do projeto, `/layout/` para estrutura, `/sections/` para seções da página.
 
 ### 3. Quando criar um custom hook?
 
@@ -609,9 +548,7 @@ Crie quando lógica é reutilizada em múltiplos componentes ou para encapsular 
 
 ### 4. Zustand ou Context API?
 
-- **Zustand**: Estado global persistido (tema, preferências)
-- **Context API**: Estado que depende de providers React (i18n)
-- **Local state**: Estado exclusivo de um componente
+Zustand para estado global persistido, Context apenas para providers de bibliotecas, local state para o resto. Ver seção "State Management Pattern" no [CLAUDE.md](../../CLAUDE.md) para regras detalhadas.
 
 ### 5. Como adicionar animações?
 

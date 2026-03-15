@@ -121,6 +121,15 @@ import { cn } from '@/lib/utils';
 - **Arquivos de utilitários, services e hooks**: camelCase
 - **Hooks**: Prefixo `use`
 
+### Documentação de Código (JSDoc)
+
+- Componentes de seção, hooks customizados e componentes reutilizáveis devem ter JSDoc
+- Usar tags `@component`, `@hook`, `@example` quando aplicável
+- `@example` apenas para APIs complexas ou não-intuitivas
+- Componentes shadcn/ui não precisam de JSDoc adicional (exceto customizações específicas do projeto)
+
+> **Padrões detalhados:** Consulte [subagent_documentation_specialist.md](./.claude/agents/subagent_documentation_specialist.md)
+
 ## Git Hooks (Husky)
 
 O projeto usa [Husky](https://typicode.github.io/husky/) para executar verificações automáticas antes de commits e pushes.
