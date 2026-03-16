@@ -60,73 +60,133 @@ const pt = {
             'risk-platform': {
                 title: 'Plataforma de Análise de Risco',
                 description:
-                    'Maior e melhor plataforma de análise de risco do segmento logístico. Solução fullstack com múltiplas aplicações, dezenas de integrações, validação facial com IA e chat em tempo real. Processos inteligentes com IA para extração e cadastro automatizado de dados a partir de documentos, reduzindo intervenção humana. Entrega velocidade e segurança para transportadoras, seguradoras e embarcadores realizarem suas viagens com confiança na qualidade da análise',
+                    'Plataforma SaaS voltada à análise e validação de risco no setor logístico, utilizada por transportadoras, seguradoras e embarcadores para apoiar processos críticos de cadastro e verificação operacional. Integra diferentes fontes de dados e automatiza etapas de validação que tradicionalmente dependiam de processos manuais, permitindo análises rápidas e confiáveis em escala. A solução nasceu a partir da evolução de um módulo interno legado, transformado em um produto independente dentro de um ecossistema maior de gestão logística',
                 descriptionSimple:
-                    'Líder de mercado em análise de risco para logística. Automatiza a verificação de documentos e dados de motoristas, veículos e empresas, otimizando mão de obra e proporcionando segurança para transportadoras, seguradoras e embarcadores',
+                    'Plataforma SaaS de análise de risco para o setor logístico. Automatiza processos de cadastro e verificação operacional para transportadoras, seguradoras e embarcadores, integrando múltiplas fontes de dados e substituindo fluxos manuais por análises rápidas e confiáveis em escala',
                 problem:
-                    'Empresas de logística precisavam analisar manualmente dados de motoristas, veículos e empresas para gerenciamento de risco, um processo lento e sujeito a erros',
+                    'O processo de análise de risco era originalmente implementado como um módulo fortemente acoplado a um sistema monolítico, gerando dificuldades de evolução, manutenção complexa e alto custo operacional. Grande parte das análises dependia de atividades manuais — digitação de dados de documentos, verificação manual de informações e validações repetitivas realizadas por operadores — aumentando o tempo de resposta e elevando o risco de inconsistências',
                 solution:
-                    'Monorepo fullstack com dezenas de milhares de linhas em Go e React, com integrações extensíveis via interface — adicionar novo fornecedor exige apenas implementar uma interface. Processamento assíncrono via mensageria, OCR com IA e chat em tempo real',
+                    'Participei da evolução da plataforma para uma arquitetura de serviços, separando o módulo legado e transformando-o em um produto independente e escalável. A nova solução foi construída com serviços backend em Go e interfaces web em React, com foco em automação e processamento inteligente de dados. Entre os principais avanços: extração automatizada de dados a partir de documentos utilizando IA, validação facial com prova de vida, cruzamento automatizado de múltiplas fontes de informação e workflows operacionais automatizados — transformando um fluxo intensivo em mão de obra em uma plataforma digital escalável com maior velocidade, precisão e rastreabilidade',
                 architecture: [
-                    [
-                        {
-                            label: 'Frontend Principal',
-                            detail: 'React SPA',
-                            items: ['Gestão de análises e operações', 'Chat em tempo real', 'Dashboards e relatórios'],
-                        },
-                        {
-                            label: 'Frontend Verificação Facial',
-                            detail: 'React SPA',
-                            items: ['Captura via webcam', 'Detecção facial', 'Prova de vida (liveness)'],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Backend Principal',
-                            detail: 'Go/Gin',
-                            items: [
-                                'Server HTTP (API REST)',
-                                'Consumers RabbitMQ',
-                                'Integrações com dezenas de fornecedores',
-                                'OCR com Document AI',
-                            ],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Backend Automação',
-                            detail: 'Go',
-                            items: ['Cron jobs', 'Publisher RabbitMQ', 'Execuções automáticas'],
-                        },
-                        {
-                            label: 'Backend Integração Cadastros',
-                            detail: 'Go',
-                            items: [
-                                'Interface para sistema legado',
-                                'Sincronização bilateral de dados',
-                                'Integrador legado em processo de migração',
-                            ],
-                        },
-                    ],
-                    [
-                        { label: 'PostgreSQL' },
-                        { label: 'RabbitMQ' },
-                        { label: 'Firebase', detail: 'Chat' },
-                        { label: 'AWS S3', detail: 'Storage' },
-                        { label: 'Keycloak', detail: 'SSO' },
-                        { label: 'APIs Internas' },
-                        { label: 'APIs Externas' },
-                        { label: 'Webhooks', detail: 'Entrada/Saída' },
-                    ],
+                    {
+                        title: 'Aplicações Web',
+                        nodes: [
+                            {
+                                label: 'Frontend Principal',
+                                detail: 'React SPA',
+                                icon: 'Monitor',
+                                items: [
+                                    'Workflows multi-etapa de execução',
+                                    'Chat em tempo real (Firebase)',
+                                    'Dashboards com gráficos interativos',
+                                    'Geração e visualização de PDFs',
+                                    'RBAC com permissionamento granular',
+                                ],
+                            },
+                            {
+                                label: 'Frontend Verificação Facial',
+                                detail: 'React SPA',
+                                icon: 'Shield',
+                                items: [
+                                    'Captura via webcam com canvas overlay',
+                                    'Detecção facial em tempo real',
+                                    'Níveis de segurança configuráveis',
+                                    'Prova de vida (liveness detection)',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Serviços Backend',
+                        nodes: [
+                            {
+                                label: 'API Principal',
+                                detail: 'Go/Gin',
+                                icon: 'Server',
+                                items: [
+                                    'REST API + Swagger',
+                                    'Integrações com dezenas de fornecedores',
+                                    'Extração de dados com IA',
+                                    'PostgreSQL',
+                                ],
+                            },
+                            {
+                                label: 'Worker de Integração',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: [
+                                    'Consumer RabbitMQ',
+                                    'Integração com sistemas internos',
+                                    'Processamento assíncrono',
+                                ],
+                            },
+                            {
+                                label: 'Worker de Processamento',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: [
+                                    'Consumer RabbitMQ',
+                                    'Controle de idempotência',
+                                    'Processamento automatizado de análises',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Serviços Auxiliares',
+                        nodes: [
+                            {
+                                label: 'Automação',
+                                detail: 'Go + gocron',
+                                icon: 'Server',
+                                items: ['Cron jobs', 'Publisher RabbitMQ', 'Execuções automáticas', 'PostgreSQL'],
+                            },
+                            {
+                                label: 'API Sistema Legado',
+                                detail: 'Go/Gin',
+                                icon: 'Database',
+                                items: [
+                                    'Interface para banco de dados legado',
+                                    'Sincronização bilateral de cadastros',
+                                    'Procedures de negócio',
+                                    'MS SQL Server',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Infraestrutura & Serviços',
+                        nodes: [
+                            {
+                                label: 'PostgreSQL',
+                                icon: 'Database',
+                                items: ['Schema dedicado', 'Migrations automáticas (GORM)', 'ENUMs customizados'],
+                            },
+                            {
+                                label: 'RabbitMQ',
+                                icon: 'MessageSquare',
+                                items: ['Filas de processamento', 'Management UI'],
+                            },
+                            { label: 'Redis', detail: 'Idempotência', icon: 'Database' },
+                            { label: 'Firebase', detail: 'Chat + Firestore', icon: 'MessageSquare' },
+                            { label: 'AWS S3', detail: 'Storage', icon: 'HardDrive' },
+                            { label: 'Keycloak', detail: 'SSO + JWT', icon: 'Shield' },
+                            { label: 'New Relic', detail: 'Observabilidade', icon: 'Globe' },
+                            { label: 'Extração de Entidades', detail: 'OCR + IA', icon: 'Globe' },
+                            { label: 'APIs Externas', detail: 'Dezenas de fornecedores', icon: 'Globe' },
+                            { label: 'Webhooks', detail: 'Entrada/Saída', icon: 'Webhook' },
+                        ],
+                    },
                 ],
                 highlights: [
-                    'Mais de mil empresas atendidas com centenas de milhares de operações mensais',
-                    'Milhares de usuários ativos entre webservice e plataforma web',
-                    'Integrações com dezenas de fornecedores (APIs governamentais, OCR, validação facial)',
-                    'Chat em tempo real e processamento assíncrono via mensageria',
-                    'Multi-tenancy com RBAC customizado e permissionamento granular',
-                    'Atuação como único desenvolvedor por 2+ anos em sistema de missão crítica',
-                    'Integrações com APIs internas e externas com webhooks bidirecionais',
+                    'Evolução de módulo monolítico legado para produto SaaS independente e escalável',
+                    'Centenas de empresas atendidas com alto volume de operações mensais',
+                    'Atuação como único desenvolvedor por mais de 2 anos em sistema de missão crítica',
+                    'Automação de processos operacionais que reduziu significativamente a intervenção manual',
+                    'Extração inteligente de documentos com IA substituindo digitação manual de dados',
+                    'Validação facial com prova de vida e múltiplos níveis de segurança',
+                    'Arquitetura multi-tenant com RBAC customizado e permissionamento granular',
+                    'Integração com dezenas de fornecedores externos via arquitetura extensível',
                 ],
             },
         },

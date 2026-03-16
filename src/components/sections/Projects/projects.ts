@@ -27,6 +27,7 @@ export const projects: Project[] = [
             TECHNOLOGIES.GCP,
             TECHNOLOGIES.FIREBASE,
             TECHNOLOGIES.KEYCLOAK,
+            TECHNOLOGIES.REDIS,
             TECHNOLOGIES.NEW_RELIC,
         ],
     },

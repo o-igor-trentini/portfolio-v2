@@ -60,73 +60,125 @@ const en = {
             'risk-platform': {
                 title: 'Risk Analysis Platform',
                 description:
-                    'The largest and best risk analysis platform in the logistics segment. Fullstack solution with multiple applications, dozens of integrations, AI-powered facial validation and real-time chat. AI-driven processes for automated data extraction and registration from documents, reducing human intervention. Delivers speed and security for carriers, insurers and shippers to carry out their trips with confidence in the analysis quality',
+                    'SaaS platform for risk analysis and validation in the logistics sector, used by carriers, insurers and shippers to support critical registration and operational verification processes. Integrates different data sources and automates validation steps that traditionally relied on manual processes, enabling fast and reliable analyses at scale. The solution was born from evolving an internal legacy module into a standalone product within a larger logistics management ecosystem',
                 descriptionSimple:
-                    'Market leader in risk analysis for logistics. Automates document and data verification for drivers, vehicles and companies, optimizing workforce and providing security for carriers, insurers and shippers',
+                    'SaaS risk analysis platform for the logistics sector. Automates registration and operational verification processes for carriers, insurers and shippers, integrating multiple data sources and replacing manual workflows with fast and reliable analyses at scale',
                 problem:
-                    'Logistics companies needed to manually analyze driver, vehicle and company data for risk management — a slow and error-prone process',
+                    'The risk analysis process was originally implemented as a tightly coupled module within a monolithic system, causing evolution difficulties, complex maintenance and high operational costs. Most analyses relied on manual activities — document data entry, manual information verification and repetitive validations performed by operators — increasing response times and raising the risk of inconsistencies',
                 solution:
-                    'Fullstack monorepo with tens of thousands of lines in Go and React, with extensible integrations via interface — adding a new vendor only requires implementing an interface. Async processing via message broker, AI-powered OCR and real-time chat',
+                    'I participated in evolving the platform into a service-oriented architecture, separating the legacy module and transforming it into a standalone, scalable product. The new solution was built with Go backend services and React web interfaces, focused on automation and intelligent data processing. Key advances include: AI-powered automated document data extraction, facial validation with liveness proof, automated cross-referencing of multiple information sources and automated operational workflows — transforming a labor-intensive flow into a scalable digital platform with greater speed, accuracy and traceability',
                 architecture: [
-                    [
-                        {
-                            label: 'Main Frontend',
-                            detail: 'React SPA',
-                            items: ['Analysis & operations management', 'Real-time chat', 'Dashboards & reports'],
-                        },
-                        {
-                            label: 'Facial Verification Frontend',
-                            detail: 'React SPA',
-                            items: ['Webcam capture', 'Facial detection', 'Liveness proof'],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Main Backend',
-                            detail: 'Go/Gin',
-                            items: [
-                                'HTTP Server (REST API)',
-                                'RabbitMQ Consumers',
-                                'Dozens of vendor integrations',
-                                'OCR with Document AI',
-                            ],
-                        },
-                    ],
-                    [
-                        {
-                            label: 'Automation Backend',
-                            detail: 'Go',
-                            items: ['Cron jobs', 'RabbitMQ Publisher', 'Automated executions'],
-                        },
-                        {
-                            label: 'Registry Integration Backend',
-                            detail: 'Go',
-                            items: [
-                                'Legacy system interface',
-                                'Bilateral data synchronization',
-                                'Legacy integrator being migrated',
-                            ],
-                        },
-                    ],
-                    [
-                        { label: 'PostgreSQL' },
-                        { label: 'RabbitMQ' },
-                        { label: 'Firebase', detail: 'Chat' },
-                        { label: 'AWS S3', detail: 'Storage' },
-                        { label: 'Keycloak', detail: 'SSO' },
-                        { label: 'Internal APIs' },
-                        { label: 'External APIs' },
-                        { label: 'Webhooks', detail: 'Inbound/Outbound' },
-                    ],
+                    {
+                        title: 'Web Applications',
+                        nodes: [
+                            {
+                                label: 'Main Frontend',
+                                detail: 'React SPA',
+                                icon: 'Monitor',
+                                items: [
+                                    'Multi-step execution workflows',
+                                    'Real-time chat (Firebase)',
+                                    'Dashboards with interactive charts',
+                                    'PDF generation and viewing',
+                                    'RBAC with granular permissions',
+                                ],
+                            },
+                            {
+                                label: 'Facial Verification Frontend',
+                                detail: 'React SPA',
+                                icon: 'Shield',
+                                items: [
+                                    'Webcam capture with canvas overlay',
+                                    'Real-time facial detection',
+                                    'Configurable security levels',
+                                    'Liveness detection',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Backend Services',
+                        nodes: [
+                            {
+                                label: 'Main API',
+                                detail: 'Go/Gin',
+                                icon: 'Server',
+                                items: [
+                                    'REST API + Swagger',
+                                    'Dozens of vendor integrations',
+                                    'AI-powered data extraction',
+                                    'PostgreSQL',
+                                ],
+                            },
+                            {
+                                label: 'Integration Worker',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: ['RabbitMQ Consumer', 'Internal systems integration', 'Async processing'],
+                            },
+                            {
+                                label: 'Processing Worker',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: ['RabbitMQ Consumer', 'Idempotency control', 'Automated analysis processing'],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Auxiliary Services',
+                        nodes: [
+                            {
+                                label: 'Automation',
+                                detail: 'Go + gocron',
+                                icon: 'Server',
+                                items: ['Cron jobs', 'RabbitMQ Publisher', 'Automated executions', 'PostgreSQL'],
+                            },
+                            {
+                                label: 'Legacy System API',
+                                detail: 'Go/Gin',
+                                icon: 'Database',
+                                items: [
+                                    'Legacy database interface',
+                                    'Bilateral registry synchronization',
+                                    'Business stored procedures',
+                                    'MS SQL Server',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Infrastructure & Services',
+                        nodes: [
+                            {
+                                label: 'PostgreSQL',
+                                icon: 'Database',
+                                items: ['Dedicated schema', 'Auto migrations (GORM)', 'Custom ENUMs'],
+                            },
+                            {
+                                label: 'RabbitMQ',
+                                icon: 'MessageSquare',
+                                items: ['Processing queues', 'Management UI'],
+                            },
+                            { label: 'Redis', detail: 'Idempotency', icon: 'Database' },
+                            { label: 'Firebase', detail: 'Chat + Firestore', icon: 'MessageSquare' },
+                            { label: 'AWS S3', detail: 'Storage', icon: 'HardDrive' },
+                            { label: 'Keycloak', detail: 'SSO + JWT', icon: 'Shield' },
+                            { label: 'New Relic', detail: 'Observability', icon: 'Globe' },
+                            { label: 'Entity Extraction', detail: 'OCR + AI', icon: 'Globe' },
+                            { label: 'External APIs', detail: 'Dozens of vendors', icon: 'Globe' },
+                            { label: 'Webhooks', detail: 'Inbound/Outbound', icon: 'Webhook' },
+                        ],
+                    },
                 ],
                 highlights: [
-                    'Over a thousand companies served with hundreds of thousands of monthly operations',
-                    'Thousands of active users across webservice and web platform',
-                    'Integrations with dozens of vendors (government APIs, OCR, facial validation)',
-                    'Real-time chat and async processing via message broker',
-                    'Multi-tenancy with custom RBAC and granular permissions',
-                    'Sole developer for 2+ years on a mission-critical system',
-                    'Internal and external API integrations with bidirectional webhooks',
+                    'Evolution from legacy monolithic module to standalone, scalable SaaS product',
+                    'Hundreds of companies served with high volume of monthly operations',
+                    'Sole developer for over 2 years on a mission-critical system',
+                    'Operational process automation that significantly reduced manual intervention',
+                    'AI-powered intelligent document extraction replacing manual data entry',
+                    'Facial validation with liveness proof and multiple security levels',
+                    'Multi-tenant architecture with custom RBAC and granular permissions',
+                    'Integration with dozens of external vendors via extensible architecture',
                 ],
             },
         },

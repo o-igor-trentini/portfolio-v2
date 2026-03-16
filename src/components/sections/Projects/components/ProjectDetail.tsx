@@ -3,7 +3,7 @@ import { Badge, Button } from '@ui';
 import { ArrowLeft, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
-import ArchitectureFlow, { type ArchitectureNode } from './ArchitectureFlow';
+import ArchitectureFlow, { type ArchitectureNode, type ArchitectureLayer } from './ArchitectureFlow';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import type { Project } from '../projects';
 
@@ -191,7 +191,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                                         layers={
                                                             t(`projects.items.${project.id}.architecture`, {
                                                                 returnObjects: true,
-                                                            }) as ArchitectureNode[][]
+                                                            }) as (ArchitectureNode[] | ArchitectureLayer)[]
                                                         }
                                                     />
                                                 </div>
