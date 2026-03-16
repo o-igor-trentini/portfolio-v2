@@ -44,8 +44,9 @@ const en = {
             viewMore: 'View Details',
         },
         detail: {
-            technicalView: 'Technical View',
-            simpleView: 'Simple View',
+            technicalView: 'Technical Details',
+            simpleView: 'Overview',
+            viewTechnicalDetails: 'View technical details',
             problem: 'Problem',
             solution: 'Solution',
             stack: 'Tech Stack',
@@ -59,6 +60,8 @@ const en = {
         items: {
             'risk-platform': {
                 title: 'Risk Analysis Platform',
+                cardSummary:
+                    'SaaS risk analysis platform for logistics. Automates operational verifications with AI, serving hundreds of companies at scale.',
                 description:
                     'SaaS platform for risk analysis and validation in the logistics sector, used by carriers, insurers and shippers to support critical registration and operational verification processes. Integrates different data sources and automates validation steps that traditionally relied on manual processes, enabling fast and reliable analyses at scale. The solution was born from evolving an internal legacy module into a standalone product within a larger logistics management ecosystem',
                 descriptionSimple:

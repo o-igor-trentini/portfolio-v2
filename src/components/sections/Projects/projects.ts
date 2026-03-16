@@ -3,6 +3,7 @@ import { TECHNOLOGIES } from '../TechStack/constants';
 export interface Project {
     id: string;
     image: string;
+    imageType: 'screenshot' | 'illustration' | 'generated';
     tags: string[];
     type: 'professional' | 'study';
     stack: string[];
@@ -13,6 +14,7 @@ export const projects: Project[] = [
     {
         id: 'risk-platform',
         image: '/images/projects/tower.webp',
+        imageType: 'generated',
         tags: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.REACT, TECHNOLOGIES.POSTGRESQL, TECHNOLOGIES.RABBITMQ],
         type: 'professional',
         stack: [

@@ -66,7 +66,12 @@ const NodeIcon: FC<{ name: string; color: string }> = ({ name, color }) => {
     return <Icon className="relative shrink-0" size={14} style={{ color }} />;
 };
 
-const NodeCard: FC<{ node: ArchitectureNode; themeIndex: number; delay: number }> = ({ node, themeIndex, delay }) => {
+const NodeCard: FC<{ node: ArchitectureNode; themeIndex: number; delay: number; compact?: boolean }> = ({
+    node,
+    themeIndex,
+    delay,
+    compact = false,
+}) => {
     const theme = LAYER_THEMES[themeIndex % LAYER_THEMES.length];
 
     const hasItems = node.items && node.items.length > 0;
@@ -77,7 +82,7 @@ const NodeCard: FC<{ node: ArchitectureNode; themeIndex: number; delay: number }
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ delay, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
             whileHover={{ scale: 1.04 }}
-            className={`relative rounded-xl cursor-default ${hasItems ? 'px-4 py-3 text-left' : 'flex flex-col items-center justify-center px-4 py-2.5 text-center'}`}
+            className={`relative rounded-xl cursor-default min-w-0 overflow-hidden ${hasItems ? `${compact ? 'px-2.5 py-2' : 'px-4 py-3'} text-left` : `flex flex-col items-center justify-center ${compact ? 'px-2.5 py-2' : 'px-4 py-2.5'} text-center`}`}
             style={{
                 backgroundColor: '#1c1c22',
                 border: `1px solid ${theme.border}`,
@@ -93,23 +98,23 @@ const NodeCard: FC<{ node: ArchitectureNode; themeIndex: number; delay: number }
             />
 
             <span
-                className="relative flex items-center gap-1.5 text-sm font-semibold tracking-wide"
+                className={`relative flex items-center gap-1.5 font-semibold tracking-wide break-words ${compact ? 'text-xs' : 'text-sm'}`}
                 style={{ color: '#f4f4f5' }}
             >
                 {node.icon && <NodeIcon name={node.icon} color={theme.accent} />}
-                {node.label}
+                <span className="min-w-0 break-words">{node.label}</span>
             </span>
 
             {node.detail && (
                 <span
-                    className="relative mt-0.5 block text-[11px] font-bold tracking-wider uppercase"
+                    className={`relative mt-0.5 block font-bold tracking-wider uppercase break-words ${compact ? 'text-[10px]' : 'text-[11px]'}`}
                     style={{ color: theme.accent }}
                 >
                     {node.detail}
                 </span>
             )}
 
-            {hasItems && (
+            {hasItems && !compact && (
                 <ul className="relative mt-2 space-y-1">
                     {node.items?.map((item, i) => (
                         <li
@@ -212,12 +217,16 @@ const LayerGroup: FC<{
         background: `radial-gradient(ellipse at 50% 0%, ${theme.glow} 0%, transparent 70%)`,
     };
 
+    const hasDetailedNodes = nodes.some((n) => n.items && n.items.length > 0);
+    const useCompactGrid = isMobile && nodes.length > 4;
+    const useMobileStack = isMobile && hasDetailedNodes;
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="relative w-full rounded-2xl p-4 backdrop-blur-sm overflow-hidden"
+            className={`relative w-full rounded-2xl backdrop-blur-sm overflow-hidden ${isMobile ? 'p-2.5' : 'p-4'}`}
             style={containerStyle}
         >
             {/* Dot grid pattern */}
@@ -231,16 +240,32 @@ const LayerGroup: FC<{
 
             {title && <LayerTitle title={title} color={theme.accent} delay={delay} />}
 
-            <div className={`relative flex flex-wrap items-stretch justify-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
+            <div
+                className={
+                    useCompactGrid
+                        ? 'relative grid grid-cols-2 gap-1.5'
+                        : useMobileStack
+                          ? 'relative flex flex-col gap-2'
+                          : `relative flex flex-wrap items-stretch justify-center ${isMobile ? 'gap-2' : 'gap-3'}`
+                }
+            >
                 {nodes.map((node, nodeIndex) => {
                     const showConnector = nodeIndex > 0 && !isMobile;
                     return (
-                        <div key={nodeIndex} className="flex items-stretch">
+                        <div
+                            key={nodeIndex}
+                            className={useCompactGrid || useMobileStack ? 'min-w-0' : 'flex items-stretch min-w-0'}
+                        >
                             {showConnector && (
                                 <HorizontalConnector color={theme.border} delay={delay + nodeIndex * 0.07 + 0.15} />
                             )}
 
-                            <NodeCard node={node} themeIndex={layerIndex} delay={delay + nodeIndex * 0.07 + 0.1} />
+                            <NodeCard
+                                node={node}
+                                themeIndex={layerIndex}
+                                delay={delay + nodeIndex * 0.07 + 0.1}
+                                compact={useCompactGrid}
+                            />
                         </div>
                     );
                 })}

@@ -3,6 +3,7 @@ import { Badge, Button } from '@ui';
 import { Briefcase, ChevronRight, ExternalLink, Filter, GraduationCap } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useMemo, useState, type FC, type ReactElement } from 'react';
+import ProjectHeroPlaceholder from './components/ProjectHeroPlaceholder';
 import type { Project } from './projects';
 import { projects } from './projects';
 import { OptimizedImage } from '../../common/OptimizedImage';
@@ -78,7 +79,16 @@ const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
                     </motion.p>
                 </motion.div>
 
-                <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.div
+                    layout
+                    className={
+                        filteredProjects.length === 1
+                            ? 'max-w-lg mx-auto'
+                            : filteredProjects.length === 2
+                              ? 'grid md:grid-cols-2 max-w-3xl mx-auto gap-8'
+                              : 'grid md:grid-cols-2 lg:grid-cols-3 gap-8'
+                    }
+                >
                     {filteredProjects.map((project, index) => (
                         <motion.div
                             key={project.id}
@@ -92,12 +102,19 @@ const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
                         >
                             <div className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-purple-500/50 transition-all duration-300 h-full flex flex-col">
                                 <div className="relative aspect-video overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                                    <OptimizedImage
-                                        src={project.image}
-                                        alt={project.id}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                        size="medium"
-                                    />
+                                    {project.imageType === 'generated' ? (
+                                        <ProjectHeroPlaceholder
+                                            stack={project.stack}
+                                            className="transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    ) : (
+                                        <OptimizedImage
+                                            src={project.image}
+                                            alt={project.id}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            size="medium"
+                                        />
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                     {/* Badge de Tipo */}
@@ -118,8 +135,8 @@ const Projects: FC<ProjectsProps> = ({ onProjectClick }): ReactElement => {
 
                                 <div className="p-6 flex-1 flex flex-col">
                                     <h3 className="mb-3">{t(`projects.items.${project.id}.title`)}</h3>
-                                    <p className="text-zinc-600 dark:text-zinc-400 mb-4 flex-1">
-                                        {t(`projects.items.${project.id}.description`)}
+                                    <p className="text-zinc-600 dark:text-zinc-400 mb-4 flex-1 line-clamp-3">
+                                        {t(`projects.items.${project.id}.cardSummary`)}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2 mb-4">

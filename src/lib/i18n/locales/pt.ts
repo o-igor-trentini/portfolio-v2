@@ -44,8 +44,9 @@ const pt = {
             viewMore: 'Ver Detalhes',
         },
         detail: {
-            technicalView: 'Visão Técnica',
-            simpleView: 'Visão Simples',
+            technicalView: 'Detalhes Técnicos',
+            simpleView: 'Visão Geral',
+            viewTechnicalDetails: 'Ver detalhes técnicos',
             problem: 'Problema',
             solution: 'Solução',
             stack: 'Stack Tecnológica',
@@ -59,6 +60,8 @@ const pt = {
         items: {
             'risk-platform': {
                 title: 'Plataforma de Análise de Risco',
+                cardSummary:
+                    'Plataforma SaaS de análise de risco para logística. Automatiza verificações operacionais com IA, atendendo centenas de empresas em escala.',
                 description:
                     'Plataforma SaaS voltada à análise e validação de risco no setor logístico, utilizada por transportadoras, seguradoras e embarcadores para apoiar processos críticos de cadastro e verificação operacional. Integra diferentes fontes de dados e automatiza etapas de validação que tradicionalmente dependiam de processos manuais, permitindo análises rápidas e confiáveis em escala. A solução nasceu a partir da evolução de um módulo interno legado, transformado em um produto independente dentro de um ecossistema maior de gestão logística',
                 descriptionSimple:

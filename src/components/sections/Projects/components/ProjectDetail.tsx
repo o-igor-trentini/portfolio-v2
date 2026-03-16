@@ -1,9 +1,10 @@
 import { useLanguage } from '@hooks';
 import { Badge, Button } from '@ui';
-import { ArrowLeft, ExternalLink, X } from 'lucide-react';
+import { ArrowLeft, ChevronRight, ExternalLink, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState, type FC, type ReactElement } from 'react';
 import ArchitectureFlow, { type ArchitectureNode, type ArchitectureLayer } from './ArchitectureFlow';
+import ProjectHeroPlaceholder from './ProjectHeroPlaceholder';
 import { OptimizedImage } from '../../../common/OptimizedImage';
 import type { Project } from '../projects';
 
@@ -14,7 +15,7 @@ interface ProjectDetailProps {
 
 const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactElement => {
     const { t } = useLanguage();
-    const [viewMode, setViewMode] = useState<'technical' | 'simple'>('technical');
+    const [viewMode, setViewMode] = useState<'technical' | 'simple'>('simple');
 
     useEffect(() => {
         if (!project) return;
@@ -48,23 +49,29 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                         >
                             {/* Header */}
                             <div className="relative">
-                                <div className="aspect-video bg-zinc-100 dark:bg-zinc-800 relative">
-                                    <OptimizedImage
-                                        src={project.image}
-                                        alt={project.id}
-                                        className="w-full h-full object-cover"
-                                        size="large"
-                                    />
+                                <div className="aspect-[2.5/1] sm:aspect-video bg-zinc-100 dark:bg-zinc-800 relative">
+                                    {project.imageType === 'generated' ? (
+                                        <ProjectHeroPlaceholder stack={project.stack} />
+                                    ) : (
+                                        <OptimizedImage
+                                            src={project.image}
+                                            alt={project.id}
+                                            className="w-full h-full object-cover"
+                                            size="large"
+                                        />
+                                    )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-                                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 text-white">
-                                        <h2 className="mb-2 text-white">{t(`projects.items.${project.id}.title`)}</h2>
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-8 text-white">
+                                        <h2 className="mb-1 sm:mb-2 text-base sm:text-xl text-white">
+                                            {t(`projects.items.${project.id}.title`)}
+                                        </h2>
 
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                             {project.tags.map((tag) => (
                                                 <Badge
                                                     key={tag}
-                                                    className="bg-white/20 text-white backdrop-blur-sm border-white/30"
+                                                    className="bg-white/20 text-white backdrop-blur-sm border-white/30 text-[10px] sm:text-xs"
                                                 >
                                                     {tag}
                                                 </Badge>
@@ -77,7 +84,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                     variant="ghost"
                                     size="icon"
                                     onClick={onClose}
-                                    className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white"
+                                    className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white"
                                     aria-label={t('accessibility.close')}
                                 >
                                     <X className="w-5 h-5" />
@@ -85,7 +92,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                             </div>
 
                             {/* Content */}
-                            <div className="p-4 sm:p-8">
+                            <div className="p-4 sm:p-8 overflow-x-hidden">
                                 {/* Toggle View Mode */}
                                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-8 pb-6 border-b border-zinc-200 dark:border-zinc-800">
                                     <Button variant="ghost" onClick={onClose} className="gap-2">
@@ -123,12 +130,61 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, x: 20 }}
+                                            className="space-y-8"
                                         >
-                                            <div className="prose dark:prose-invert max-w-none">
-                                                <p className="text-zinc-600 dark:text-zinc-400">
-                                                    {t(`projects.items.${project.id}.descriptionSimple`)}
-                                                </p>
+                                            <p className="text-zinc-600 dark:text-zinc-400 text-lg leading-relaxed">
+                                                {t(`projects.items.${project.id}.descriptionSimple`)}
+                                            </p>
+
+                                            {/* Principais Resultados (subset dos highlights) */}
+                                            <div>
+                                                <h3 className="mb-3 text-purple-500">
+                                                    {t('projects.detail.highlights')}
+                                                </h3>
+
+                                                <ul className="space-y-2">
+                                                    {(
+                                                        t(`projects.items.${project.id}.highlights`, {
+                                                            returnObjects: true,
+                                                        }) as string[]
+                                                    ).map((result, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400"
+                                                        >
+                                                            <span className="text-purple-500 mt-1">→</span>
+                                                            {result}
+                                                        </li>
+                                                    ))}
+                                                </ul>
                                             </div>
+
+                                            {/* Tech Stack */}
+                                            <div>
+                                                <h3 className="mb-3 text-purple-500">{t('projects.detail.stack')}</h3>
+
+                                                <div className="flex flex-wrap gap-2">
+                                                    {project.stack.map((tech) => (
+                                                        <Badge
+                                                            key={tech}
+                                                            variant="outline"
+                                                            className="border-purple-500/30"
+                                                        >
+                                                            {tech}
+                                                        </Badge>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* CTA para visão técnica */}
+                                            <Button
+                                                variant="outline"
+                                                onClick={() => setViewMode('technical')}
+                                                className="gap-2 border-purple-500/30 text-purple-500 hover:bg-purple-500/10"
+                                            >
+                                                {t('projects.detail.viewTechnicalDetails')}
+                                                <ChevronRight className="w-4 h-4" />
+                                            </Button>
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -186,7 +242,7 @@ const ProjectDetail: FC<ProjectDetailProps> = ({ project, onClose }): ReactEleme
                                                     {t('projects.detail.architecture')}
                                                 </h3>
 
-                                                <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-3 sm:p-6 overflow-x-auto">
+                                                <div className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-2 sm:p-6 overflow-hidden">
                                                     <ArchitectureFlow
                                                         layers={
                                                             t(`projects.items.${project.id}.architecture`, {

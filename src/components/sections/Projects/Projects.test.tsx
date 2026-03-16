@@ -38,6 +38,11 @@ vi.mock('../../common/OptimizedImage', () => ({
     PriorityImage: (props: any) => createElement('img', { src: props.src, alt: props.alt }),
 }));
 
+vi.mock('./components/ProjectHeroPlaceholder', () => ({
+    default: ({ stack }: any) =>
+        createElement('div', { 'data-testid': 'hero-placeholder' }, `Placeholder: ${stack.length} techs`),
+}));
+
 describe('Projects', () => {
     const mockProjectClick = vi.fn();
 
@@ -105,5 +110,56 @@ describe('Projects', () => {
                 type: expect.any(String),
             }),
         );
+    });
+
+    describe('card: cardSummary', () => {
+        it('deve exibir cardSummary no card', () => {
+            render(<Projects onProjectClick={mockProjectClick} />);
+
+            expect(
+                screen.getByText(
+                    'Plataforma SaaS de análise de risco para logística. Automatiza verificações operacionais com IA, atendendo centenas de empresas em escala.',
+                ),
+            ).toBeInTheDocument();
+        });
+
+        it('não deve exibir a description completa no card', () => {
+            render(<Projects onProjectClick={mockProjectClick} />);
+
+            expect(screen.queryByText(/Plataforma SaaS voltada à análise e validação/)).not.toBeInTheDocument();
+        });
+
+        it('deve ter line-clamp-3 no container de texto do cardSummary', () => {
+            render(<Projects onProjectClick={mockProjectClick} />);
+
+            const summaryElement = screen.getByText(
+                'Plataforma SaaS de análise de risco para logística. Automatiza verificações operacionais com IA, atendendo centenas de empresas em escala.',
+            );
+            expect(summaryElement).toHaveClass('line-clamp-3');
+        });
+    });
+
+    describe('card: imagem condicional', () => {
+        it('deve renderizar ProjectHeroPlaceholder quando imageType é generated', () => {
+            render(<Projects onProjectClick={mockProjectClick} />);
+
+            expect(screen.getByTestId('hero-placeholder')).toBeInTheDocument();
+        });
+
+        it('não deve renderizar tag img no card com imageType generated', () => {
+            render(<Projects onProjectClick={mockProjectClick} />);
+
+            expect(screen.queryByRole('img')).not.toBeInTheDocument();
+        });
+    });
+
+    describe('grid dinamico', () => {
+        it('deve usar max-w-lg mx-auto sem classe grid para 1 projeto', () => {
+            const { container } = render(<Projects onProjectClick={mockProjectClick} />);
+
+            const gridContainer = container.querySelector('.max-w-lg.mx-auto');
+            expect(gridContainer).toBeInTheDocument();
+            expect(gridContainer).not.toHaveClass('grid');
+        });
     });
 });

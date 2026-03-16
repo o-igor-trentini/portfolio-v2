@@ -259,6 +259,155 @@ describe('ArchitectureFlow', () => {
         });
     });
 
+    describe('layout mobile: compact grid para nodes densos', () => {
+        const denseLayer: (ArchitectureNode[] | ArchitectureLayer)[] = [
+            {
+                title: 'Infraestrutura',
+                nodes: [
+                    { label: 'PostgreSQL', icon: 'Database' },
+                    { label: 'RabbitMQ', icon: 'MessageSquare' },
+                    { label: 'Redis', detail: 'Cache', icon: 'Database' },
+                    { label: 'Firebase', detail: 'Chat', icon: 'MessageSquare' },
+                    { label: 'AWS S3', detail: 'Storage', icon: 'HardDrive' },
+                    { label: 'Keycloak', detail: 'SSO', icon: 'Shield' },
+                ],
+            },
+        ];
+
+        it('deve usar grid de 2 colunas quando mobile e layer tem mais de 4 nodes', () => {
+            mockIsMobile = true;
+            const { container } = render(<ArchitectureFlow layers={denseLayer} />);
+
+            const gridContainer = container.querySelector('.grid.grid-cols-2.gap-1\\.5');
+            expect(gridContainer).toBeInTheDocument();
+        });
+
+        it('nao deve renderizar items list em nodes compactos', () => {
+            const denseWithItems: (ArchitectureNode[] | ArchitectureLayer)[] = [
+                {
+                    title: 'Infra',
+                    nodes: [
+                        { label: 'Node1', icon: 'Database', items: ['Item A', 'Item B'] },
+                        { label: 'Node2', icon: 'Server' },
+                        { label: 'Node3', icon: 'Globe' },
+                        { label: 'Node4', icon: 'Shield' },
+                        { label: 'Node5', icon: 'Layers' },
+                    ],
+                },
+            ];
+
+            mockIsMobile = true;
+            render(<ArchitectureFlow layers={denseWithItems} />);
+
+            expect(screen.queryByText('Item A')).not.toBeInTheDocument();
+            expect(screen.queryByText('Item B')).not.toBeInTheDocument();
+        });
+
+        it('deve usar flex layout em desktop para a mesma layer densa', () => {
+            mockIsMobile = false;
+            const { container } = render(<ArchitectureFlow layers={denseLayer} />);
+
+            const gridContainer = container.querySelector('.grid.grid-cols-2');
+            expect(gridContainer).not.toBeInTheDocument();
+
+            const flexContainer = container.querySelector('.flex.flex-wrap');
+            expect(flexContainer).toBeInTheDocument();
+        });
+    });
+
+    describe('layout mobile: stack vertical para nodes detalhados', () => {
+        const layerWithDetailedNodes: (ArchitectureNode[] | ArchitectureLayer)[] = [
+            {
+                title: 'Backend Services',
+                nodes: [
+                    {
+                        label: 'API Principal',
+                        detail: 'Go/Gin',
+                        icon: 'Server',
+                        items: ['REST API', 'Swagger', 'PostgreSQL'],
+                    },
+                    { label: 'Worker', detail: 'Go', icon: 'Layers', items: ['RabbitMQ Consumer', 'Async processing'] },
+                ],
+            },
+        ];
+
+        it('deve usar flex-col quando mobile e nodes possuem items', () => {
+            mockIsMobile = true;
+            const { container } = render(<ArchitectureFlow layers={layerWithDetailedNodes} />);
+
+            const stackContainer = container.querySelector('.flex.flex-col.gap-2');
+            expect(stackContainer).toBeInTheDocument();
+        });
+
+        it('deve renderizar items list quando nao esta em modo compacto', () => {
+            mockIsMobile = true;
+            render(<ArchitectureFlow layers={layerWithDetailedNodes} />);
+
+            expect(screen.getByText('REST API')).toBeInTheDocument();
+            expect(screen.getByText('Swagger')).toBeInTheDocument();
+            expect(screen.getByText('RabbitMQ Consumer')).toBeInTheDocument();
+        });
+
+        it('nao deve renderizar conectores horizontais em stack mobile', () => {
+            mockIsMobile = true;
+            const { container } = render(<ArchitectureFlow layers={layerWithDetailedNodes} />);
+
+            const horizontalConnectors = container.querySelectorAll('[aria-hidden="true"] .h-px');
+            expect(horizontalConnectors.length).toBe(0);
+        });
+    });
+
+    describe('NodeCard: overflow prevention', () => {
+        it('deve ter classes de overflow prevention em todos os NodeCards', () => {
+            const { container } = render(<ArchitectureFlow layers={multiNodeLayer} />);
+
+            const nodeCards = container.querySelectorAll('.rounded-xl.min-w-0.overflow-hidden');
+            expect(nodeCards.length).toBe(3);
+        });
+
+        it('deve ter break-words no label span', () => {
+            const { container } = render(
+                <ArchitectureFlow layers={[[{ label: 'Extração Automatizada de Entidades' }]]} />,
+            );
+
+            const labelSpan = screen.getByText('Extração Automatizada de Entidades');
+            expect(labelSpan).toHaveClass('break-words');
+        });
+
+        it('deve renderizar corretamente com label muito longo sem quebrar', () => {
+            const longLabelLayer: ArchitectureNode[][] = [
+                [{ label: 'Extração Automatizada de Entidades com Processamento de Linguagem Natural' }],
+            ];
+
+            const { container } = render(<ArchitectureFlow layers={longLabelLayer} />);
+
+            expect(
+                screen.getByText('Extração Automatizada de Entidades com Processamento de Linguagem Natural'),
+            ).toBeInTheDocument();
+
+            const nodeCard = container.querySelector('.rounded-xl.min-w-0.overflow-hidden');
+            expect(nodeCard).toBeInTheDocument();
+        });
+    });
+
+    describe('responsividade: padding de LayerGroup', () => {
+        it('deve usar padding reduzido em mobile', () => {
+            mockIsMobile = true;
+            const { container } = render(<ArchitectureFlow layers={multiNodeLayer} />);
+
+            const layerGroup = container.querySelector('.rounded-2xl');
+            expect(layerGroup).toHaveClass('p-2.5');
+        });
+
+        it('deve usar padding padrao em desktop', () => {
+            mockIsMobile = false;
+            const { container } = render(<ArchitectureFlow layers={multiNodeLayer} />);
+
+            const layerGroup = container.querySelector('.rounded-2xl');
+            expect(layerGroup).toHaveClass('p-4');
+        });
+    });
+
     describe('acessibilidade', () => {
         it('nao deve ter violacoes de acessibilidade com layers simples', async () => {
             const { container } = render(<ArchitectureFlow layers={singleNodeLayers} />);
