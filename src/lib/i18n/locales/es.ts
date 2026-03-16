@@ -28,7 +28,6 @@ const es = {
         },
         connect: 'Conecta conmigo',
         scrollToExplore: 'Desplázate para explorar',
-        available: 'Disponible para proyectos',
         specialist: 'Especialista en',
     },
     projects: {

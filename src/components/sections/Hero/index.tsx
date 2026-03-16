@@ -351,7 +351,7 @@ export const Hero = (): ReactElement => {
                             transition={{ delay: 0.2, type: 'spring' }}
                             className="relative order-2 lg:order-1"
                         >
-                            <div className="relative w-full max-w-md mx-auto aspect-square overflow-hidden">
+                            <div className="relative w-full max-w-md mx-auto aspect-square">
                                 {/* Animated blob shape background */}
                                 <motion.div
                                     animate={{
@@ -370,7 +370,7 @@ export const Hero = (): ReactElement => {
                                 />
 
                                 {/* Main image container with morphing border */}
-                                <div className="relative w-full h-full">
+                                <div className="relative w-full h-full overflow-hidden">
                                     {/* Gradient border with morphing */}
                                     <motion.div
                                         animate={{
@@ -457,22 +457,7 @@ export const Hero = (): ReactElement => {
                                     ))}
                                 </div>
 
-                                {/* Floating info cards */}
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.8 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    className="absolute -top-4 -right-2 md:-top-6 md:-right-6 bg-white dark:bg-zinc-900 rounded-xl md:rounded-2xl px-3 py-2 md:px-4 md:py-3 shadow-xl border border-zinc-200 dark:border-zinc-800 backdrop-blur-sm"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                                        <span className="text-xs md:text-sm whitespace-nowrap">
-                                            {t('hero.available')}
-                                        </span>
-                                    </div>
-                                </motion.div>
-
+                                {/* Floating info card */}
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0 }}
                                     animate={{ opacity: 1, scale: 1 }}
