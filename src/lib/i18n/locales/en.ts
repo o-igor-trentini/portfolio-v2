@@ -28,7 +28,6 @@ const en = {
         },
         connect: 'Connect with me',
         scrollToExplore: 'Scroll to explore',
-        available: 'Available for projects',
         specialist: 'Specialist in',
     },
     projects: {

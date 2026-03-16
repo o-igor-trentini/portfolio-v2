@@ -28,7 +28,6 @@ const pt = {
         },
         connect: 'Conecte-se comigo',
         scrollToExplore: 'Scroll para explorar',
-        available: 'Disponível para projetos',
         specialist: 'Especialista em',
     },
     projects: {
