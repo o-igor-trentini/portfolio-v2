@@ -44,8 +44,9 @@ const pt = {
             viewMore: 'Ver Detalhes',
         },
         detail: {
-            technicalView: 'Visão Técnica',
-            simpleView: 'Visão Simples',
+            technicalView: 'Detalhes Técnicos',
+            simpleView: 'Visão Geral',
+            viewTechnicalDetails: 'Ver detalhes técnicos',
             problem: 'Problema',
             solution: 'Solução',
             stack: 'Stack Tecnológica',
@@ -57,111 +58,138 @@ const pt = {
         projectCount: 'projeto',
         projectsCount: 'projetos',
         items: {
-            'realtime-chat': {
-                title: 'Chat em Tempo Real',
+            'risk-platform': {
+                title: 'Plataforma de Análise de Risco',
+                cardSummary:
+                    'Plataforma SaaS de análise de risco para logística. Automatiza verificações operacionais com IA, atendendo centenas de empresas em escala.',
                 description:
-                    'Sistema de chat em tempo real com WebSockets, autenticação JWT, e arquitetura de microserviços',
+                    'Plataforma SaaS voltada à análise e validação de risco no setor logístico, utilizada por transportadoras, seguradoras e embarcadores para apoiar processos críticos de cadastro e verificação operacional. Integra diferentes fontes de dados e automatiza etapas de validação que tradicionalmente dependiam de processos manuais, permitindo análises rápidas e confiáveis em escala. A solução nasceu a partir da evolução de um módulo interno legado, transformado em um produto independente dentro de um ecossistema maior de gestão logística',
                 descriptionSimple:
-                    'Um aplicativo de mensagens instantâneas onde você pode conversar em tempo real com outras pessoas',
+                    'Plataforma SaaS de análise de risco para o setor logístico. Automatiza processos de cadastro e verificação operacional para transportadoras, seguradoras e embarcadores, integrando múltiplas fontes de dados e substituindo fluxos manuais por análises rápidas e confiáveis em escala',
                 problem:
-                    'Empresas precisam de sistemas de comunicação interna escaláveis e seguros que suportem milhares de usuários simultâneos',
+                    'O processo de análise de risco era originalmente implementado como um módulo fortemente acoplado a um sistema monolítico, gerando dificuldades de evolução, manutenção complexa e alto custo operacional. Grande parte das análises dependia de atividades manuais — digitação de dados de documentos, verificação manual de informações e validações repetitivas realizadas por operadores — aumentando o tempo de resposta e elevando o risco de inconsistências',
                 solution:
-                    'Implementação de WebSockets com Go para comunicação bidirecional, Redis para pub/sub, e PostgreSQL para persistência. Arquitetura de microserviços permite escalar horizontalmente',
-                architecture:
-                    'API Gateway → Serviço de Auth → Serviço de Chat (WebSocket) → Redis Pub/Sub → PostgreSQL',
-                highlights: [
-                    'Suporta 10.000+ conexões simultâneas',
-                    'Latência média de 50ms',
-                    'Sistema de presença online em tempo real',
-                    'Histórico de mensagens com busca full-text',
+                    'Participei da evolução da plataforma para uma arquitetura de serviços, separando o módulo legado e transformando-o em um produto independente e escalável. A nova solução foi construída com serviços backend em Go e interfaces web em React, com foco em automação e processamento inteligente de dados. Entre os principais avanços: extração automatizada de dados a partir de documentos utilizando IA, validação facial com prova de vida, cruzamento automatizado de múltiplas fontes de informação e workflows operacionais automatizados — transformando um fluxo intensivo em mão de obra em uma plataforma digital escalável com maior velocidade, precisão e rastreabilidade',
+                architecture: [
+                    {
+                        title: 'Aplicações Web',
+                        nodes: [
+                            {
+                                label: 'Frontend Principal',
+                                detail: 'React SPA',
+                                icon: 'Monitor',
+                                items: [
+                                    'Workflows multi-etapa de execução',
+                                    'Chat em tempo real (Firebase)',
+                                    'Dashboards com gráficos interativos',
+                                    'Geração e visualização de PDFs',
+                                    'RBAC com permissionamento granular',
+                                ],
+                            },
+                            {
+                                label: 'Frontend Verificação Facial',
+                                detail: 'React SPA',
+                                icon: 'Shield',
+                                items: [
+                                    'Captura via webcam com canvas overlay',
+                                    'Detecção facial em tempo real',
+                                    'Níveis de segurança configuráveis',
+                                    'Prova de vida (liveness detection)',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Serviços Backend',
+                        nodes: [
+                            {
+                                label: 'API Principal',
+                                detail: 'Go/Gin',
+                                icon: 'Server',
+                                items: [
+                                    'REST API + Swagger',
+                                    'Integrações com dezenas de fornecedores',
+                                    'Extração de dados com IA',
+                                    'PostgreSQL',
+                                ],
+                            },
+                            {
+                                label: 'Worker de Integração',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: [
+                                    'Consumer RabbitMQ',
+                                    'Integração com sistemas internos',
+                                    'Processamento assíncrono',
+                                ],
+                            },
+                            {
+                                label: 'Worker de Processamento',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: [
+                                    'Consumer RabbitMQ',
+                                    'Controle de idempotência',
+                                    'Processamento automatizado de análises',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Serviços Auxiliares',
+                        nodes: [
+                            {
+                                label: 'Automação',
+                                detail: 'Go + gocron',
+                                icon: 'Server',
+                                items: ['Cron jobs', 'Publisher RabbitMQ', 'Execuções automáticas', 'PostgreSQL'],
+                            },
+                            {
+                                label: 'API Sistema Legado',
+                                detail: 'Go/Gin',
+                                icon: 'Database',
+                                items: [
+                                    'Interface para banco de dados legado',
+                                    'Sincronização bilateral de cadastros',
+                                    'Procedures de negócio',
+                                    'MS SQL Server',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Infraestrutura & Serviços',
+                        nodes: [
+                            {
+                                label: 'PostgreSQL',
+                                icon: 'Database',
+                                items: ['Schema dedicado', 'Migrations automáticas (GORM)', 'ENUMs customizados'],
+                            },
+                            {
+                                label: 'RabbitMQ',
+                                icon: 'MessageSquare',
+                                items: ['Filas de processamento', 'Management UI'],
+                            },
+                            { label: 'Redis', detail: 'Idempotência', icon: 'Database' },
+                            { label: 'Firebase', detail: 'Chat + Firestore', icon: 'MessageSquare' },
+                            { label: 'AWS S3', detail: 'Storage', icon: 'HardDrive' },
+                            { label: 'Keycloak', detail: 'SSO + JWT', icon: 'Shield' },
+                            { label: 'New Relic', detail: 'Observabilidade', icon: 'Globe' },
+                            { label: 'Extração de Entidades', detail: 'OCR + IA', icon: 'Globe' },
+                            { label: 'APIs Externas', detail: 'Dezenas de fornecedores', icon: 'Globe' },
+                            { label: 'Webhooks', detail: 'Entrada/Saída', icon: 'Webhook' },
+                        ],
+                    },
                 ],
-            },
-            'api-analytics': {
-                title: 'Analytics Dashboard',
-                description:
-                    'Dashboard de analytics em tempo real com processamento de eventos e visualizações interativas',
-                descriptionSimple:
-                    'Um painel que mostra gráficos e estatísticas em tempo real sobre o uso do seu aplicativo',
-                problem:
-                    'Necessidade de processar milhões de eventos por dia e apresentar insights em tempo real para tomada de decisões',
-                solution:
-                    'Pipeline de dados usando Kafka para ingestão, ClickHouse para armazenamento analítico, e React com WebSockets para visualização em tempo real',
-                architecture: 'Kafka → Stream Processing → ClickHouse → API GraphQL → React Dashboard',
                 highlights: [
-                    'Processa 1M+ eventos/dia',
-                    'Queries sub-segundo em bilhões de registros',
-                    'Dashboards customizáveis e interativos',
-                    'Alertas em tempo real via WebSocket',
-                ],
-            },
-            'task-automation': {
-                title: 'Task Automation Platform',
-                description:
-                    'Plataforma de automação de tarefas com interface visual drag-and-drop e integrações com APIs externas',
-                descriptionSimple:
-                    'Uma ferramenta que conecta diferentes aplicativos e automatiza tarefas repetitivas sem precisar programar',
-                problem:
-                    'Usuários não-técnicos precisam automatizar workflows complexos entre diferentes serviços sem conhecimento de código',
-                solution:
-                    'Editor visual drag-and-drop com React Flow, engine de execução em Go com workers paralelos, e sistema de plugins para integrações',
-                architecture:
-                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
-                highlights: [
-                    '50+ integrações prontas para uso',
-                    'Execuções paralelas com retry automático',
-                    'Logs detalhados e debugging visual',
-                    'Webhooks e triggers customizados',
-                ],
-            },
-            'social-connect': {
-                title: 'Social Connect',
-                description: 'Clone de rede social com feed em tempo real, sistema de posts, likes e comentários',
-                descriptionSimple:
-                    'Uma rede social onde você pode postar fotos, curtir e comentar nas publicações de outros usuários',
-                problem: 'Aprender sobre otimização de feeds, scroll infinito e interações em tempo real',
-                solution:
-                    'Implementação de virtual scrolling para performance, WebSocket para atualizações em tempo real, e sistema de cache com Redis',
-                architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
-                highlights: [
-                    'Feed com scroll infinito otimizado',
-                    'Atualizações em tempo real de likes/comentários',
-                    'Upload de imagens com preview',
-                    'Sistema de seguir/deixar de seguir usuários',
-                ],
-            },
-            'crypto-tracker': {
-                title: 'Crypto Tracker',
-                description:
-                    'Aplicativo de acompanhamento de criptomoedas com gráficos em tempo real e alertas de preço',
-                descriptionSimple:
-                    'Um app que mostra os preços de criptomoedas e envia notificações quando o preço muda',
-                problem: 'Praticar integração com APIs externas e visualização de dados em tempo real',
-                solution:
-                    'Integração com CoinGecko API, gráficos interativos com Recharts, e sistema de notificações push',
-                architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
-                highlights: [
-                    'Gráficos de preços com múltiplos timeframes',
-                    'Lista de favoritos persistente',
-                    'Alertas customizados de preço',
-                    'Dark mode automático',
-                ],
-            },
-            'ecommerce-api': {
-                title: 'E-Commerce API',
-                description: 'API RESTful completa para e-commerce com carrinho, checkout e gestão de pedidos',
-                descriptionSimple:
-                    'Backend de uma loja online com sistema de carrinho de compras e processamento de pedidos',
-                problem:
-                    'E-commerces precisam de sistemas robustos de processamento de pagamentos e gestão de inventário',
-                solution:
-                    'API RESTful em Go com integração Stripe, sistema de cache em Redis, e transações ACID no PostgreSQL',
-                architecture:
-                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
-                highlights: [
-                    'Processamento de pagamentos com Stripe',
-                    'Sistema de inventário com controle de estoque',
-                    'Carrinho de compras com sessão persistente',
-                    'Histórico completo de pedidos',
+                    'Evolução de módulo monolítico legado para produto SaaS independente e escalável',
+                    'Centenas de empresas atendidas com alto volume de operações mensais',
+                    'Atuação como único desenvolvedor por mais de 2 anos em sistema de missão crítica',
+                    'Automação de processos operacionais que reduziu significativamente a intervenção manual',
+                    'Extração inteligente de documentos com IA substituindo digitação manual de dados',
+                    'Validação facial com prova de vida e múltiplos níveis de segurança',
+                    'Arquitetura multi-tenant com RBAC customizado e permissionamento granular',
+                    'Integração com dezenas de fornecedores externos via arquitetura extensível',
                 ],
             },
         },
@@ -281,16 +309,17 @@ const pt = {
         viewDetails: 'Ver Detalhes',
         items: {
             logae: {
-                position: 'Full Stack Developer',
+                position: 'Desenvolvedor Backend Go / Full Stack',
                 period: '2021 - Presente',
-                location: 'Híbrido',
+                location: 'Concórdia, SC — Híbrido',
                 description:
-                    'Desenvolvimento de sistemas escaláveis com Golang e React. Implementação de microserviços, APIs RESTful e interfaces modernas.',
+                    'Desenvolvedor backend na Logae (Grupo Raster, 500+ funcionários), empresa de software focada em logística e gerenciamento de risco. Referência técnica do time (~30 devs) há 3 anos, responsável por decisões de arquitetura, code reviews e mentoria.',
                 achievements: [
-                    'Reduziu latência de APIs em 40% através de otimizações',
-                    'Implementou sistema de cache com Redis',
-                    'Desenvolveu dashboard analytics com 100k+ eventos/dia',
-                    'Migrou monolito para arquitetura de microserviços',
+                    'Conduziu múltiplos projetos do zero à produção, atendendo mais de mil empresas com centenas de milhares de operações mensais',
+                    'Diversos sistemas e quase 20 bibliotecas/SDKs em Go em produção com arquitetura limpa',
+                    'Cache de OCR reduziu custos com APIs de IA em 70-80%',
+                    'Sistema multi-tenant white label com RBAC granular próprio',
+                    'Atuou 2+ anos como único desenvolvedor de projetos em produção de missão crítica',
                 ],
             },
         },

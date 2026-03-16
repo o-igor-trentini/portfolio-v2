@@ -89,15 +89,17 @@ describe('Terminal', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('projects');
-        expect(screen.getByText(/Chat em Tempo Real/)).toBeInTheDocument();
-        expect(screen.getByText(/Projetos \(6\)/)).toBeInTheDocument();
+        // Verifica que lista títulos reais dos projetos via i18n
+        expect(screen.getByText(/Plataforma de Análise de Risco/)).toBeInTheDocument();
+        expect(screen.getByText(/Projetos \(1\)/)).toBeInTheDocument();
     });
 
     it('executa comando "experience" com dados dinâmicos', () => {
         render(<Terminal isOpen={true} onClose={mockOnClose} />);
 
         submitCommand('experience');
-        expect(screen.getByText(/Full Stack Developer @ Logae/)).toBeInTheDocument();
+        // Verifica dados reais da experiência (company do content.ts + position do i18n pt)
+        expect(screen.getByText(/Desenvolvedor Backend Go \/ Full Stack @ Logae/)).toBeInTheDocument();
         expect(screen.getByText(/Golang.*React.*TypeScript/)).toBeInTheDocument();
     });
 

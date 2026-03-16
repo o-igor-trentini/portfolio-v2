@@ -1,9 +1,9 @@
 import { TECHNOLOGIES } from '../TechStack/constants';
-import { SocialLinks } from '@/components/sections/Contact/constants';
 
 export interface Project {
     id: string;
     image: string;
+    imageType: 'screenshot' | 'illustration' | 'generated';
     tags: string[];
     type: 'professional' | 'study';
     stack: string[];
@@ -12,70 +12,25 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        id: 'realtime-chat',
+        id: 'risk-platform',
         image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.REACT, TECHNOLOGIES.REDIS, TECHNOLOGIES.POSTGRESQL],
+        imageType: 'generated',
+        tags: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.REACT, TECHNOLOGIES.POSTGRESQL, TECHNOLOGIES.RABBITMQ],
         type: 'professional',
         stack: [
             TECHNOLOGIES.GOLANG,
+            TECHNOLOGIES.GIN,
             TECHNOLOGIES.REACT,
             TECHNOLOGIES.TYPESCRIPT,
-            TECHNOLOGIES.REDIS,
             TECHNOLOGIES.POSTGRESQL,
+            TECHNOLOGIES.RABBITMQ,
             TECHNOLOGIES.DOCKER,
-        ],
-        github: SocialLinks.Github + '/realtime-chat',
-    },
-    {
-        id: 'api-analytics',
-        image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.REACT, TECHNOLOGIES.GOLANG, 'TimescaleDB', 'Chart.js'],
-        type: 'professional',
-        stack: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.REACT, TECHNOLOGIES.TYPESCRIPT, TECHNOLOGIES.REDIS],
-        github: SocialLinks.Github + '/analytics-dashboard',
-    },
-    {
-        id: 'task-automation',
-        image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.REACT, TECHNOLOGIES.GOLANG, TECHNOLOGIES.POSTGRESQL, TECHNOLOGIES.DOCKER],
-        type: 'study',
-        stack: [
-            TECHNOLOGIES.GOLANG,
-            TECHNOLOGIES.REACT,
-            TECHNOLOGIES.TYPESCRIPT,
-            TECHNOLOGIES.POSTGRESQL,
-            TECHNOLOGIES.DOCKER,
-        ],
-        github: SocialLinks.Github + '/task-automation',
-    },
-    {
-        id: 'social-connect',
-        image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.REACT, TECHNOLOGIES.TYPESCRIPT, TECHNOLOGIES.NODEJS, 'Socket.io'],
-        type: 'study',
-        stack: [
-            TECHNOLOGIES.REACT,
-            TECHNOLOGIES.TYPESCRIPT,
-            TECHNOLOGIES.NODEJS,
-            TECHNOLOGIES.POSTGRESQL,
+            TECHNOLOGIES.AWS,
+            TECHNOLOGIES.GCP,
+            TECHNOLOGIES.FIREBASE,
+            TECHNOLOGIES.KEYCLOAK,
             TECHNOLOGIES.REDIS,
+            TECHNOLOGIES.NEW_RELIC,
         ],
-        github: SocialLinks.Github + '/social-connect',
-    },
-    {
-        id: 'crypto-tracker',
-        image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.REACT, TECHNOLOGIES.TYPESCRIPT, 'CoinGecko API', 'Recharts'],
-        type: 'study',
-        stack: [TECHNOLOGIES.REACT, TECHNOLOGIES.TYPESCRIPT, 'CoinGecko API', 'Recharts', 'LocalStorage'],
-        github: SocialLinks.Github + '/crypto-tracker',
-    },
-    {
-        id: 'ecommerce-api',
-        image: '/images/projects/tower.webp',
-        tags: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.POSTGRESQL, TECHNOLOGIES.REDIS, 'Stripe API'],
-        type: 'professional',
-        stack: [TECHNOLOGIES.GOLANG, TECHNOLOGIES.POSTGRESQL, TECHNOLOGIES.REDIS, TECHNOLOGIES.DOCKER],
-        github: SocialLinks.Github + '/ecommerce-api',
     },
 ];

@@ -44,8 +44,9 @@ const en = {
             viewMore: 'View Details',
         },
         detail: {
-            technicalView: 'Technical View',
-            simpleView: 'Simple View',
+            technicalView: 'Technical Details',
+            simpleView: 'Overview',
+            viewTechnicalDetails: 'View technical details',
             problem: 'Problem',
             solution: 'Solution',
             stack: 'Tech Stack',
@@ -57,100 +58,130 @@ const en = {
         projectCount: 'project',
         projectsCount: 'projects',
         items: {
-            'realtime-chat': {
-                title: 'Real-time Chat',
+            'risk-platform': {
+                title: 'Risk Analysis Platform',
+                cardSummary:
+                    'SaaS risk analysis platform for logistics. Automates operational verifications with AI, serving hundreds of companies at scale.',
                 description:
-                    'Real-time chat system with WebSockets, JWT authentication, and microservices architecture',
-                descriptionSimple: 'An instant messaging app where you can chat in real-time with other people',
+                    'SaaS platform for risk analysis and validation in the logistics sector, used by carriers, insurers and shippers to support critical registration and operational verification processes. Integrates different data sources and automates validation steps that traditionally relied on manual processes, enabling fast and reliable analyses at scale. The solution was born from evolving an internal legacy module into a standalone product within a larger logistics management ecosystem',
+                descriptionSimple:
+                    'SaaS risk analysis platform for the logistics sector. Automates registration and operational verification processes for carriers, insurers and shippers, integrating multiple data sources and replacing manual workflows with fast and reliable analyses at scale',
                 problem:
-                    'Companies need scalable and secure internal communication systems that support thousands of simultaneous users',
+                    'The risk analysis process was originally implemented as a tightly coupled module within a monolithic system, causing evolution difficulties, complex maintenance and high operational costs. Most analyses relied on manual activities — document data entry, manual information verification and repetitive validations performed by operators — increasing response times and raising the risk of inconsistencies',
                 solution:
-                    'Implementation of WebSockets with Go for bidirectional communication, Redis for pub/sub, and PostgreSQL for persistence. Microservices architecture allows horizontal scaling',
-                architecture: 'API Gateway → Auth Service → Chat Service (WebSocket) → Redis Pub/Sub → PostgreSQL',
-                highlights: [
-                    'Supports 10,000+ simultaneous connections',
-                    'Average latency of 50ms',
-                    'Real-time online presence system',
-                    'Message history with full-text search',
+                    'I participated in evolving the platform into a service-oriented architecture, separating the legacy module and transforming it into a standalone, scalable product. The new solution was built with Go backend services and React web interfaces, focused on automation and intelligent data processing. Key advances include: AI-powered automated document data extraction, facial validation with liveness proof, automated cross-referencing of multiple information sources and automated operational workflows — transforming a labor-intensive flow into a scalable digital platform with greater speed, accuracy and traceability',
+                architecture: [
+                    {
+                        title: 'Web Applications',
+                        nodes: [
+                            {
+                                label: 'Main Frontend',
+                                detail: 'React SPA',
+                                icon: 'Monitor',
+                                items: [
+                                    'Multi-step execution workflows',
+                                    'Real-time chat (Firebase)',
+                                    'Dashboards with interactive charts',
+                                    'PDF generation and viewing',
+                                    'RBAC with granular permissions',
+                                ],
+                            },
+                            {
+                                label: 'Facial Verification Frontend',
+                                detail: 'React SPA',
+                                icon: 'Shield',
+                                items: [
+                                    'Webcam capture with canvas overlay',
+                                    'Real-time facial detection',
+                                    'Configurable security levels',
+                                    'Liveness detection',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Backend Services',
+                        nodes: [
+                            {
+                                label: 'Main API',
+                                detail: 'Go/Gin',
+                                icon: 'Server',
+                                items: [
+                                    'REST API + Swagger',
+                                    'Dozens of vendor integrations',
+                                    'AI-powered data extraction',
+                                    'PostgreSQL',
+                                ],
+                            },
+                            {
+                                label: 'Integration Worker',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: ['RabbitMQ Consumer', 'Internal systems integration', 'Async processing'],
+                            },
+                            {
+                                label: 'Processing Worker',
+                                detail: 'Go',
+                                icon: 'Layers',
+                                items: ['RabbitMQ Consumer', 'Idempotency control', 'Automated analysis processing'],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Auxiliary Services',
+                        nodes: [
+                            {
+                                label: 'Automation',
+                                detail: 'Go + gocron',
+                                icon: 'Server',
+                                items: ['Cron jobs', 'RabbitMQ Publisher', 'Automated executions', 'PostgreSQL'],
+                            },
+                            {
+                                label: 'Legacy System API',
+                                detail: 'Go/Gin',
+                                icon: 'Database',
+                                items: [
+                                    'Legacy database interface',
+                                    'Bilateral registry synchronization',
+                                    'Business stored procedures',
+                                    'MS SQL Server',
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        title: 'Infrastructure & Services',
+                        nodes: [
+                            {
+                                label: 'PostgreSQL',
+                                icon: 'Database',
+                                items: ['Dedicated schema', 'Auto migrations (GORM)', 'Custom ENUMs'],
+                            },
+                            {
+                                label: 'RabbitMQ',
+                                icon: 'MessageSquare',
+                                items: ['Processing queues', 'Management UI'],
+                            },
+                            { label: 'Redis', detail: 'Idempotency', icon: 'Database' },
+                            { label: 'Firebase', detail: 'Chat + Firestore', icon: 'MessageSquare' },
+                            { label: 'AWS S3', detail: 'Storage', icon: 'HardDrive' },
+                            { label: 'Keycloak', detail: 'SSO + JWT', icon: 'Shield' },
+                            { label: 'New Relic', detail: 'Observability', icon: 'Globe' },
+                            { label: 'Entity Extraction', detail: 'OCR + AI', icon: 'Globe' },
+                            { label: 'External APIs', detail: 'Dozens of vendors', icon: 'Globe' },
+                            { label: 'Webhooks', detail: 'Inbound/Outbound', icon: 'Webhook' },
+                        ],
+                    },
                 ],
-            },
-            'api-analytics': {
-                title: 'Analytics Dashboard',
-                description: 'Real-time analytics dashboard with event processing and interactive visualizations',
-                descriptionSimple: 'A tool that shows graphs and statistics about app and website usage',
-                problem: 'Need to process and visualize millions of analytics events with low latency',
-                solution:
-                    'Batch data ingestion system with Go, TimescaleDB for time series, and pre-computed aggregations. React frontend with optimized visualizations',
-                architecture: 'Event Collector → Message Queue → Processing Service → TimescaleDB → API → Dashboard',
                 highlights: [
-                    'Processes 1M+ events per second',
-                    'Queries with <100ms response',
-                    'Interactive charts with drill-down',
-                    'Custom report export',
-                ],
-            },
-            'task-automation': {
-                title: 'Task Automation Platform',
-                description:
-                    'Task automation platform with visual drag-and-drop interface and external API integrations',
-                descriptionSimple: 'A tool that connects different apps and automates repetitive tasks without coding',
-                problem:
-                    'Non-technical users need to automate complex workflows between different services without coding knowledge',
-                solution:
-                    'Visual drag-and-drop editor with React Flow, execution engine in Go with parallel workers, and plugin system for integrations',
-                architecture:
-                    'Visual Editor → Workflow Parser → Job Queue → Worker Pool → Plugin System → External APIs',
-                highlights: [
-                    '50+ ready-to-use integrations',
-                    'Parallel executions with automatic retry',
-                    'Detailed logs and visual debugging',
-                    'Custom webhooks and triggers',
-                ],
-            },
-            'social-connect': {
-                title: 'Social Connect',
-                description: 'Social network clone with real-time feed, posts, likes and comments system',
-                descriptionSimple: 'A social network where you can post photos, like and comment on other users posts',
-                problem: 'Learn about feed optimization, infinite scroll and real-time interactions',
-                solution:
-                    'Implementation of virtual scrolling for performance, WebSocket for real-time updates, and caching system with Redis',
-                architecture: 'React SPA → REST API → WebSocket Server → PostgreSQL + Redis',
-                highlights: [
-                    'Optimized infinite scroll feed',
-                    'Real-time likes/comments updates',
-                    'Image upload with preview',
-                    'Follow/unfollow user system',
-                ],
-            },
-            'crypto-tracker': {
-                title: 'Crypto Tracker',
-                description: 'Cryptocurrency tracking app with real-time charts and price alerts',
-                descriptionSimple: 'An app that shows cryptocurrency prices and sends notifications when prices change',
-                problem: 'Practice external API integration and real-time data visualization',
-                solution:
-                    'Integration with CoinGecko API, interactive charts with Recharts, and push notification system',
-                architecture: 'React App → CoinGecko API → Recharts Visualization → LocalStorage',
-                highlights: [
-                    'Price charts with multiple timeframes',
-                    'Persistent favorites list',
-                    'Custom price alerts',
-                    'Automatic dark mode',
-                ],
-            },
-            'ecommerce-api': {
-                title: 'E-Commerce API',
-                description: 'Complete RESTful API for e-commerce with cart, checkout and order management',
-                descriptionSimple: 'Backend for an online store with shopping cart system and order processing',
-                problem: 'E-commerces need robust payment processing and inventory management systems',
-                solution:
-                    'RESTful API in Go with Stripe integration, Redis caching system, and ACID transactions in PostgreSQL',
-                architecture:
-                    'API Gateway → Auth Service → Product Service → Cart Service → Payment Service → PostgreSQL',
-                highlights: [
-                    'Payment processing with Stripe',
-                    'Inventory system with stock control',
-                    'Shopping cart with persistent session',
-                    'Complete order history',
+                    'Evolution from legacy monolithic module to standalone, scalable SaaS product',
+                    'Hundreds of companies served with high volume of monthly operations',
+                    'Sole developer for over 2 years on a mission-critical system',
+                    'Operational process automation that significantly reduced manual intervention',
+                    'AI-powered intelligent document extraction replacing manual data entry',
+                    'Facial validation with liveness proof and multiple security levels',
+                    'Multi-tenant architecture with custom RBAC and granular permissions',
+                    'Integration with dozens of external vendors via extensible architecture',
                 ],
             },
         },
@@ -269,16 +300,17 @@ const en = {
         viewDetails: 'View Details',
         items: {
             logae: {
-                position: 'Full Stack Developer',
+                position: 'Backend Go / Full Stack Developer',
                 period: '2021 - Present',
-                location: 'Hybrid',
+                location: 'Concórdia, SC — Hybrid',
                 description:
-                    'Development of scalable systems with Golang and React. Implementation of microservices, RESTful APIs and modern interfaces.',
+                    'Backend developer at Logae (Raster Group, 500+ employees), a software company focused on logistics and risk management. Technical reference for the team (~30 devs) for 3 years, responsible for architecture decisions, code reviews and mentoring.',
                 achievements: [
-                    'Reduced API latency by 40% through optimizations',
-                    'Implemented caching system with Redis',
-                    'Developed analytics dashboard with 100k+ events/day',
-                    'Migrated monolith to microservices architecture',
+                    'Led multiple projects from scratch to production, serving over a thousand companies with hundreds of thousands of monthly operations',
+                    'Multiple systems and nearly 20 Go libraries/SDKs in production with clean architecture',
+                    'OCR cache reduced AI API costs by 70-80%',
+                    'Multi-tenant white label system with custom granular RBAC',
+                    'Served 2+ years as sole developer of mission-critical production projects',
                 ],
             },
         },

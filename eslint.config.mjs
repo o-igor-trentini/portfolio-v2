@@ -28,6 +28,7 @@ export default [
             'dist',
             'node_modules',
             'scripts',
+            '.netlify',
             'eslint.config.mjs',
             '.prettierrc.cjs',
             'src/tests',

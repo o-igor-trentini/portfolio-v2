@@ -14,11 +14,14 @@ export const experiences: Experience[] = [
         current: true,
         tech: [
             TECHNOLOGIES.GOLANG,
+            TECHNOLOGIES.GIN,
             TECHNOLOGIES.REACT,
             TECHNOLOGIES.TYPESCRIPT,
             TECHNOLOGIES.POSTGRESQL,
             TECHNOLOGIES.RABBITMQ,
             TECHNOLOGIES.DOCKER,
+            TECHNOLOGIES.AWS,
+            TECHNOLOGIES.GCP,
         ],
     },
 ];
