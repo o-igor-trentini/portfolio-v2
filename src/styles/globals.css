@@ -215,6 +215,7 @@
 html {
     font-size: var(--font-size);
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 /* Hide default cursor on desktop (only devices with fine pointer AND hover capability) */

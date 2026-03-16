@@ -351,7 +351,7 @@ export const Hero = (): ReactElement => {
                             transition={{ delay: 0.2, type: 'spring' }}
                             className="relative order-2 lg:order-1"
                         >
-                            <div className="relative w-full max-w-md mx-auto aspect-square">
+                            <div className="relative w-full max-w-md mx-auto aspect-square overflow-hidden">
                                 {/* Animated blob shape background */}
                                 <motion.div
                                     animate={{
