@@ -40,9 +40,9 @@ export const App: FC = (): ReactElement => {
     // Prevent body scroll when modal is open
     useEffect(() => {
         if (selectedProject || isTerminalOpen) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflowY = 'hidden';
         } else {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflowY = '';
         }
     }, [selectedProject, isTerminalOpen]);
 

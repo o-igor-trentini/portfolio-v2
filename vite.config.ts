@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
@@ -7,6 +8,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
     base: '/', // Use '/' para domínio customizado, ou '/nome-do-repo/' para GitHub Pages padrão
     plugins: [
+        tailwindcss(),
         react(),
         tsconfigPaths(),
         ViteImageOptimizer({
